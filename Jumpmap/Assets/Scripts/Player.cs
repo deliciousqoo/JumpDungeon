@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
 
+    public bool jumpCheck;
+    public int jumpCount;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -20,11 +23,14 @@ public class Player : MonoBehaviour
     private void Update()
     {
         //Jump
-        if (Input.GetButtonDown("Jump")) { 
+        if (Input.GetButtonDown("Jump") && anim.GetInteger("jumpCount") < 2) {
+            rigid.velocity = Vector2.zero;
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anim.SetBool("isJumping", true);
-        }
 
+            jumpCount++;
+            anim.SetInteger("jumpCount", jumpCount);
+        }
 
         //Stop Speed
         if (Input.GetButtonUp("Horizontal") || (Input.GetButton("Right") && Input.GetButton("Left"))) { 
@@ -46,6 +52,15 @@ public class Player : MonoBehaviour
         else { 
             anim.SetBool("isRunning", true); 
         }
+
+        //Falling
+        if(rigid.velocity.y < 0) {
+            anim.SetBool("isFalling", true);
+            if (jumpCount == 2) anim.SetInteger("jumpCount", 0);
+        }
+        else {
+            anim.SetBool("isFalling", false);
+        }
     }
 
     private void FixedUpdate()
@@ -63,16 +78,14 @@ public class Player : MonoBehaviour
         }
 
         //Landing Platform
-        if(rigid.velocity.y < 0) {
-            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
-            if (rayHit.collider != null)
-            {
-                if (rayHit.distance < 0.11f)
-                {
-                    anim.SetBool("isJumping", false);
-                }
-            }
+        if(rigid.velocity.y == 0) {
+            anim.SetBool("isJumping", false);
+            jumpCount = 0;
+            anim.SetInteger("jumpCount", jumpCount);
+        }
+        else
+        {
+            anim.SetBool("isJumping", true);
         }
         
     }
