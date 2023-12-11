@@ -93,7 +93,10 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isJumping", false);
             RaycastHit2D rayHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, 0.2f, LayerMask.GetMask("Platform"));
-            if ((rayHit.collider != null && rayHit.distance < 0.015f) || jumpCount == 3) { jumpCount = 0; }
+            if ((rayHit.collider != null && rayHit.distance < 0.015f) || jumpCount == 3) { 
+                jumpCount = 0;
+                Debug.Log("check");
+            }
             anim.SetInteger("jumpCount", jumpCount);
         }
         else { anim.SetBool("isJumping", true); }
