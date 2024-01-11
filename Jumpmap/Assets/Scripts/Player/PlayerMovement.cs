@@ -13,8 +13,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Coroutine damageCoroutine;
 
-    private bool jumpCheck, checkControl = true, checkDamaging;
-    private int jumpCount, bounceCount, dirc, currentVelocityX;
+    private bool checkControl = true, checkDamaging;
+    private int jumpCount, bounceCount, dirc;
+
+    public Vector2 lastVelocity;
 
     private void Awake()
     {
@@ -33,11 +35,13 @@ public class PlayerMovement : MonoBehaviour
     //Function
     private void Update()
     {
+        lastVelocity = rigid.velocity;
         if (checkControl)
         {
             //Jump
             if (Input.GetButtonDown("Jump") && anim.GetInteger("jumpCount") < 2)
             {
+                Debug.Log("jump");
                 rigid.velocity = Vector2.zero;
                 rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 anim.SetBool("isJumping", true);
@@ -95,7 +99,6 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit2D rayHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, 0.2f, LayerMask.GetMask("Platform"));
             if ((rayHit.collider != null && rayHit.distance < 0.015f) || jumpCount == 3) { 
                 jumpCount = 0;
-                Debug.Log("check");
             }
             anim.SetInteger("jumpCount", jumpCount);
         }
@@ -106,22 +109,29 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            Debug.Log("Attacked");
             if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
             damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
         }
-        else if (collision.gameObject.tag == "Tile" && checkControl == false && bounceCount == 0)
+        else if (collision.gameObject.tag == "Tile" && checkControl == false)
         {
+            var speed = lastVelocity.magnitude;
+
             //튕기는거 값 유동적으로
-            if (rigid.velocity.y != 0)
+            if (bounceCount == 0)
             {
-                dirc = transform.position.x - collision.transform.position.x > 0 ? 1 : -1;
-                spriteRenderer.flipX = true;
-                rigid.AddForce(new Vector2(dirc, 2f) * 0.5f, ForceMode2D.Impulse);
-            }
-            else
-            {
-                rigid.AddForce(new Vector2(dirc, 2f) * 0.4f, ForceMode2D.Impulse);
+                var dir = Vector2.Reflect(lastVelocity, collision.contacts[0].normal);
+                //spriteRenderer.flipX = true;
+
+                rigid.velocity = dir * Mathf.Clamp(speed, 0f, 1f);
+
                 bounceCount++;
+            }
+            else if(bounceCount == 1)
+            {
+                dirc = lastVelocity.x < 0 ? -1 : 1; 
+
+                rigid.velocity = new Vector2(dirc * Mathf.Clamp(speed, 0f, 0.75f), 0f);
             }
         }
         else if(collision.gameObject.tag == "Coin")
@@ -148,18 +158,16 @@ public class PlayerMovement : MonoBehaviour
 
         //Player Pushing
         dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rigid.AddForce(new Vector2(dirc, 1) * 2f, ForceMode2D.Impulse);
+        rigid.AddForce(new Vector2(dirc, 0.25f) * 2f, ForceMode2D.Impulse);
 
         //Change Flip Direction
         if (dirc == 1) spriteRenderer.flipX = true;
         else spriteRenderer.flipX = false;
-        Debug.Log("check1");
 
-        yield return new WaitUntil(() => rigid.velocity.y == 0);
+        yield return new WaitUntil(() => bounceCount == 1);
+        yield return new WaitForSecondsRealtime(1f);
 
         //Return Origin State
-        rigid.velocity = new Vector2(dirc * 0.5f, rigid.velocity.y);
-        yield return new WaitForSeconds(0.4f);
         bounceCount = 0;
         anim.Play("Idle");
         spriteRenderer.color = new Color(1, 1, 1, 1);
