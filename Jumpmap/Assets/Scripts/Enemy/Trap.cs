@@ -35,11 +35,11 @@ public class Trap : MonoBehaviour
         spriteRenderer.sprite = anim[2];
         collider.size = new Vector2(0f, 0f);
         //collider.isTrigger = true;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         spriteRenderer.sprite = anim[1];
         collider.offset = new Vector2(0, -0.07f);
         collider.size = new Vector2(0.06f, 0.04f);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         spriteRenderer.sprite = anim[0];
         collider.offset = new Vector2(0, -0.06f);
         collider.size = new Vector2(0.06f, 0.06f);
@@ -47,7 +47,7 @@ public class Trap : MonoBehaviour
         spriteRenderer.sprite = anim[1];
         collider.offset = new Vector2(0, -0.07f);
         collider.size = new Vector2(0.06f, 0.04f);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         spriteRenderer.sprite = anim[2];
         collider.size = new Vector2(0f, 0f);
         //collider.isTrigger = true;

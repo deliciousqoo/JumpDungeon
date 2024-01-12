@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 lastVelocity;
 
+    public Sprite fall;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -113,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
             damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
         }
+        /*
         else if (collision.gameObject.tag == "Tile" && checkControl == false)
         {
             var speed = lastVelocity.magnitude;
@@ -123,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
                 var dir = Vector2.Reflect(lastVelocity, collision.contacts[0].normal);
                 //spriteRenderer.flipX = true;
 
-                rigid.velocity = dir * Mathf.Clamp(speed, 0f, 1f);
+                rigid.velocity = new Vector2(dir.x + 0.5f*dirc, dir.y) * Mathf.Clamp(speed, 0f, 1f);
 
                 bounceCount++;
             }
@@ -133,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
                 rigid.velocity = new Vector2(dirc * Mathf.Clamp(speed, 0f, 0.75f), 0f);
             }
-        }
+        }*/
         else if(collision.gameObject.tag == "Coin")
         {
             Debug.Log("coin");
@@ -158,13 +161,16 @@ public class PlayerMovement : MonoBehaviour
 
         //Player Pushing
         dirc = transform.position.x - targetPos.x > 0 ? 1 : -1;
-        rigid.AddForce(new Vector2(dirc, 0.25f) * 2f, ForceMode2D.Impulse);
+        rigid.AddForce(new Vector2(dirc, 0.5f) * 2f, ForceMode2D.Impulse);
 
         //Change Flip Direction
         if (dirc == 1) spriteRenderer.flipX = true;
         else spriteRenderer.flipX = false;
 
-        yield return new WaitUntil(() => bounceCount == 1);
+        
+
+        yield return new WaitUntil(() => rigid.velocity.y == 0);
+        anim.Play("Temp");
         yield return new WaitForSecondsRealtime(1f);
 
         //Return Origin State
