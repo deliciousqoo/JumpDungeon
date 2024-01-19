@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 lastVelocity;
 
     public Sprite fall;
+    public GameObject particlePrefab;
 
     private void Awake()
     {
@@ -114,34 +116,64 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Attacked");
             if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
             damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
+            StartCoroutine(CreateParticle(1, 5, collision.gameObject));
         }
-        /*
-        else if (collision.gameObject.tag == "Tile" && checkControl == false)
-        {
-            var speed = lastVelocity.magnitude;
-
-            //튕기는거 값 유동적으로
-            if (bounceCount == 0)
-            {
-                var dir = Vector2.Reflect(lastVelocity, collision.contacts[0].normal);
-                //spriteRenderer.flipX = true;
-
-                rigid.velocity = new Vector2(dir.x + 0.5f*dirc, dir.y) * Mathf.Clamp(speed, 0f, 1f);
-
-                bounceCount++;
-            }
-            else if(bounceCount == 1)
-            {
-                dirc = lastVelocity.x < 0 ? -1 : 1; 
-
-                rigid.velocity = new Vector2(dirc * Mathf.Clamp(speed, 0f, 0.75f), 0f);
-            }
-        }*/
         else if(collision.gameObject.tag == "Coin")
         {
             Debug.Log("coin");
             collision.collider.isTrigger = true;
             collision.gameObject.GetComponent<Animator>().SetTrigger("IsGetting");
+            //StartCoroutine(CreateParticle(3, 3, collision.gameObject));
+        }
+        else if (collision.gameObject.tag == "Star")
+        {
+            Debug.Log("star");
+            collision.collider.isTrigger = true;
+            collision.gameObject.GetComponent<Animator>().SetTrigger("IsGetting");
+            //StartCoroutine(CreateParticle(2, 5, collision.gameObject));
+        }
+    }
+
+    private IEnumerator CreateParticle(int mode, int count, GameObject target)
+    {
+        GameObject[] particleClone = new GameObject[count];
+        for(int i=0;i<count;i++)
+        {
+            particleClone[i] = Instantiate(particlePrefab);
+            
+            switch(mode)
+            {
+                case 1:
+                    particleClone[i].GetComponent<SpriteRenderer>().color = Color.red;
+                    particleClone[i].GetComponent<Transform>().position = gameObject.transform.position;
+                    break;
+                case 2:
+                    particleClone[i].GetComponent<SpriteRenderer>().color = Color.yellow;
+                    particleClone[i].GetComponent<Transform>().position = target.transform.position;
+                    break;
+                case 3:
+                    particleClone[i].GetComponent<SpriteRenderer>().color = Color.white;
+                    particleClone[i].GetComponent<Transform>().position = target.transform.position;
+                    break;
+            }
+            particleClone[i].GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle * 0.2f, ForceMode2D.Impulse);
+        }
+        
+        while(true)
+        {
+            Color temp = particleClone[0].GetComponent<SpriteRenderer>().color;
+            if (temp.a == 0) break;
+            temp.a -= 0.1f;
+            for(int i=0;i<count;i++)
+            {
+                particleClone[i].GetComponent<SpriteRenderer>().color = temp;
+            }
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        for (int i=0;i<count;i++)
+        {
+            Destroy(particleClone[i]);
         }
     }
 
