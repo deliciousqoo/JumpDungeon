@@ -15,12 +15,12 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine damageCoroutine;
 
     private bool checkControl = true, checkDamaging;
-    private int jumpCount, bounceCount, dirc;
+    private int jumpCount, dirc;
 
     public Vector2 lastVelocity;
 
     public Sprite fall;
-    public GameObject particlePrefab;
+    public GameObject damagedPrefab;
 
     private void Awake()
     {
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
             //Jump
             if (Input.GetButtonDown("Jump") && anim.GetInteger("jumpCount") < 2)
             {
-                Debug.Log("jump");
+                //Debug.Log("jump");
                 rigid.velocity = Vector2.zero;
                 rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 anim.SetBool("isJumping", true);
@@ -116,64 +116,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Attacked");
             if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
             damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
-            StartCoroutine(CreateParticle(1, 5, collision.gameObject));
-        }
-        else if(collision.gameObject.tag == "Coin")
-        {
-            Debug.Log("coin");
-            collision.collider.isTrigger = true;
-            collision.gameObject.GetComponent<Animator>().SetTrigger("IsGetting");
-            //StartCoroutine(CreateParticle(3, 3, collision.gameObject));
-        }
-        else if (collision.gameObject.tag == "Star")
-        {
-            Debug.Log("star");
-            collision.collider.isTrigger = true;
-            collision.gameObject.GetComponent<Animator>().SetTrigger("IsGetting");
-            //StartCoroutine(CreateParticle(2, 5, collision.gameObject));
-        }
-    }
-
-    private IEnumerator CreateParticle(int mode, int count, GameObject target)
-    {
-        GameObject[] particleClone = new GameObject[count];
-        for(int i=0;i<count;i++)
-        {
-            particleClone[i] = Instantiate(particlePrefab);
-            
-            switch(mode)
-            {
-                case 1:
-                    particleClone[i].GetComponent<SpriteRenderer>().color = Color.red;
-                    particleClone[i].GetComponent<Transform>().position = gameObject.transform.position;
-                    break;
-                case 2:
-                    particleClone[i].GetComponent<SpriteRenderer>().color = Color.yellow;
-                    particleClone[i].GetComponent<Transform>().position = target.transform.position;
-                    break;
-                case 3:
-                    particleClone[i].GetComponent<SpriteRenderer>().color = Color.white;
-                    particleClone[i].GetComponent<Transform>().position = target.transform.position;
-                    break;
-            }
-            particleClone[i].GetComponent<Rigidbody2D>().AddForce(Random.insideUnitCircle * 0.2f, ForceMode2D.Impulse);
-        }
-        
-        while(true)
-        {
-            Color temp = particleClone[0].GetComponent<SpriteRenderer>().color;
-            if (temp.a == 0) break;
-            temp.a -= 0.1f;
-            for(int i=0;i<count;i++)
-            {
-                particleClone[i].GetComponent<SpriteRenderer>().color = temp;
-            }
-            yield return new WaitForSeconds(0.05f);
-        }
-
-        for (int i=0;i<count;i++)
-        {
-            Destroy(particleClone[i]);
+            GameObject damagedEffect = Instantiate(damagedPrefab);
+            damagedEffect.GetComponent<Transform>().position = gameObject.transform.position;
         }
     }
 
@@ -198,8 +142,6 @@ public class PlayerMovement : MonoBehaviour
         //Change Flip Direction
         if (dirc == 1) spriteRenderer.flipX = true;
         else spriteRenderer.flipX = false;
-
-        
 
         yield return new WaitUntil(() => rigid.velocity.y == 0);
         anim.Play("Temp");
