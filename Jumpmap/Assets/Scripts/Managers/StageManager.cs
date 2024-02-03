@@ -20,4 +20,3 @@ public class StageManager : MonoBehaviour
         Stages[stageNum].SetActive(true);
     }
 }
-

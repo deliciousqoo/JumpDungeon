@@ -75,9 +75,10 @@ public class Reward : MonoBehaviour
         {
             tempPos.y -= 0.01f;
             gameObject.transform.position = tempPos;
-            tempColor.a -= 0.1f;
+            tempColor.a -= 0.06f;
             gameObject.GetComponent<SpriteRenderer>().color = tempColor;
             yield return new WaitForSecondsRealtime(0.03f);
         }
+        gameObject.SetActive(false);
     }
 }

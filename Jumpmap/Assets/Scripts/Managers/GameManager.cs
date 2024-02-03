@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     private CameraManager cameraManager;
     [SerializeField]
     private StageManager stageManager;
+    [SerializeField]
+    private UIManager uiManager;
 
     [SerializeField]
     private Player player;

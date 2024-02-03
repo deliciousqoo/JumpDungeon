@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6be29e29da677cf49903961f8f3d9b4f
+guid: edb5df3fc1a9818479a49e47d5ceef8a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: coin_0
+      name: ex_game_ui2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 80
-        width: 20
-        height: 20
+        x: 1
+        y: 81
+        width: 33
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 102dd2b91c7d24844bf0a2f9aa758519
-      internalID: 52838626
+      spriteID: 2e59edeed6d34e04a892104d1f205bfb
+      internalID: -303151652
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_1
+      name: ex_game_ui2_1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 80
-        width: 20
-        height: 20
+        x: 35
+        y: 81
+        width: 33
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9219658baa6168c4cbc3cc38666a88c0
-      internalID: 1807305765
+      spriteID: 56266a174698262478490f5405f04d63
+      internalID: 539465246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_2
+      name: ex_game_ui2_2
       rect:
         serializedVersion: 2
-        x: 40
-        y: 80
-        width: 20
-        height: 20
+        x: 71
+        y: 77
+        width: 12
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 83821d4de30230647addd52dc64f7126
-      internalID: -1115206503
+      spriteID: 70bc70d37c2f8ab4c835fcfdd3809ea9
+      internalID: -525281187
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_3
+      name: ex_game_ui2_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 60
-        width: 20
-        height: 20
+        x: 84
+        y: 77
+        width: 12
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7e6b57f7ed33da4984e7a6aee20e17f
-      internalID: 1223468634
+      spriteID: 2d46b6df38b9f594ba0f7cdbcaa9ab75
+      internalID: 278736778
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_4
+      name: ex_game_ui2_4
       rect:
         serializedVersion: 2
-        x: 20
-        y: 60
-        width: 20
-        height: 20
+        x: 1
+        y: 62
+        width: 33
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04be9f89a903c4a42b25497ec951e8e0
-      internalID: -1432360004
+      spriteID: 9ba315e45126bb149b455908623b92d7
+      internalID: -1603762861
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_5
+      name: ex_game_ui2_5
       rect:
         serializedVersion: 2
-        x: 40
-        y: 60
-        width: 20
-        height: 20
+        x: 35
+        y: 62
+        width: 33
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,20 +229,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e757fa3ef9762c40b5b45d4f3feb79a
-      internalID: 1612471980
+      spriteID: bc7aa532973976d4d90b253d564ec2cb
+      internalID: 1858875554
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_6
+      name: ex_game_ui2_6
       rect:
         serializedVersion: 2
-        x: 60
-        y: 60
-        width: 20
-        height: 20
+        x: 71
+        y: 59
+        width: 12
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1038d5650f60d94a944732ca7e2150a
-      internalID: 1895411555
+      spriteID: 4c69b15e863450d4ca277dfca408ccb1
+      internalID: 439202826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_7
+      name: ex_game_ui2_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 40
-        width: 20
-        height: 20
+        x: 84
+        y: 59
+        width: 12
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,20 +271,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee6a01d9d65fc9d4694363f99972aa40
-      internalID: 1031545868
+      spriteID: f1177909c7dc23545a22d6888748241f
+      internalID: -1242013258
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_8
+      name: ex_game_ui2_8
       rect:
         serializedVersion: 2
-        x: 20
-        y: 40
-        width: 20
-        height: 20
+        x: 1
+        y: 43
+        width: 33
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,20 +292,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca66860cf7f4d04439beef90a4b44893
-      internalID: 665186094
+      spriteID: 4482cf5177141014ba2f41f175603cd0
+      internalID: 1627121355
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_9
+      name: ex_game_ui2_9
       rect:
         serializedVersion: 2
-        x: 40
-        y: 40
-        width: 20
-        height: 20
+        x: 35
+        y: 43
+        width: 33
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +313,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6d1f774f7aaa644fbec5d12dd83f298
-      internalID: -885292481
+      spriteID: 636a098784f916d41b3f632ee970269c
+      internalID: 270612125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_10
+      name: ex_game_ui2_10
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1
         y: 20
-        width: 20
-        height: 20
+        width: 19
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,20 +334,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eac34eb7143cd5141b54c20820aa2134
-      internalID: 74873296
+      spriteID: e6101f6e9e2119f469502e72afc6d2fb
+      internalID: -70168485
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_11
+      name: ex_game_ui2_11
       rect:
         serializedVersion: 2
-        x: 20
+        x: 22
         y: 20
-        width: 20
-        height: 20
+        width: 19
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -355,20 +355,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26e747e7887612246ad7a3d20919864b
-      internalID: -946893844
+      spriteID: 7ebd795d61420b04db52fdcb1b7dfe2b
+      internalID: 1346128213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_12
+      name: ex_game_ui2_12
       rect:
         serializedVersion: 2
-        x: 40
-        y: 20
-        width: 20
-        height: 20
+        x: 49
+        y: 23
+        width: 49
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -376,20 +376,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3391e94c3d469fb43bd488ca457a336e
-      internalID: -2119729329
+      spriteID: 1cd505142299697489df7ec53fdf0bd1
+      internalID: 2099790860
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_13
+      name: ex_game_ui2_13
       rect:
         serializedVersion: 2
-        x: 60
-        y: 20
-        width: 20
-        height: 20
+        x: 1
+        y: 1
+        width: 19
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -397,20 +397,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad669b96c7409534183442981568cc54
-      internalID: 1873517306
+      spriteID: 54c5ea24d2ef78949966dd90ab50076e
+      internalID: 1153595227
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_14
+      name: ex_game_ui2_14
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 20
-        height: 20
+        x: 21
+        y: 7
+        width: 7
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -418,20 +418,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13b720091b92e1d4d814058e3a910e78
-      internalID: 1953877822
+      spriteID: b7aa6a419ed04e74098169f88f5c804f
+      internalID: 1981945998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_15
+      name: ex_game_ui2_15
       rect:
         serializedVersion: 2
-        x: 20
-        y: 0
-        width: 20
-        height: 20
+        x: 49
+        y: 7
+        width: 49
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -439,20 +439,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 939c77e8e04941041b402d8c239fd873
-      internalID: 1274961652
+      spriteID: d2ec847e8f6631e4b864c0f607d44375
+      internalID: -1543086706
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_16
+      name: ex_game_ui2_16
       rect:
         serializedVersion: 2
-        x: 40
-        y: 0
-        width: 20
-        height: 20
+        x: 21
+        y: 1
+        width: 3
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -460,20 +460,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5bccc2fb81ef30d459998f41db17639e
-      internalID: 1554567741
+      spriteID: ca98d073d20a1314ebd1ee97460ec2e8
+      internalID: 495554531
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: coin_17
+      name: ex_game_ui2_17
       rect:
         serializedVersion: 2
-        x: 60
-        y: 0
-        width: 20
-        height: 20
+        x: 25
+        y: 1
+        width: 3
+        height: 5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -481,8 +481,176 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8cfbcf93418189a469d3be8cb2bf2712
-      internalID: 1976046329
+      spriteID: a8d2e976679a57844967417d0404cf99
+      internalID: 514377968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_18
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a592780427800554d805e6e41669a543
+      internalID: -1502998296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_19
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69a75d1b70c364743a482335d6437a58
+      internalID: -1538686013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_20
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca72ecf57f393bf4ca415b374767bd01
+      internalID: 1009211507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_21
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5153c87a5d586e34caa3ca6cf1349a42
+      internalID: 2083830503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_22
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23733640645301448b59b5743e874f65
+      internalID: 1750092151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_23
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4ffd2ca962aeb84b97f178e6585abc7
+      internalID: 513823348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_24
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ada74354780f88d4db79abb4daa9dd4d
+      internalID: -1592382447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_game_ui2_25
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 1
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb5bbb3479968dc48890af28dc74ee0c
+      internalID: -657360627
       vertices: []
       indices: 
       edges: []
@@ -498,24 +666,32 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      coin_0: 52838626
-      coin_1: 1807305765
-      coin_10: 74873296
-      coin_11: -946893844
-      coin_12: -2119729329
-      coin_13: 1873517306
-      coin_14: 1953877822
-      coin_15: 1274961652
-      coin_16: 1554567741
-      coin_17: 1976046329
-      coin_2: -1115206503
-      coin_3: 1223468634
-      coin_4: -1432360004
-      coin_5: 1612471980
-      coin_6: 1895411555
-      coin_7: 1031545868
-      coin_8: 665186094
-      coin_9: -885292481
+      ex_game_ui2_0: -303151652
+      ex_game_ui2_1: 539465246
+      ex_game_ui2_10: -70168485
+      ex_game_ui2_11: 1346128213
+      ex_game_ui2_12: 2099790860
+      ex_game_ui2_13: 1153595227
+      ex_game_ui2_14: 1981945998
+      ex_game_ui2_15: -1543086706
+      ex_game_ui2_16: 495554531
+      ex_game_ui2_17: 514377968
+      ex_game_ui2_18: -1502998296
+      ex_game_ui2_19: -1538686013
+      ex_game_ui2_2: -525281187
+      ex_game_ui2_20: 1009211507
+      ex_game_ui2_21: 2083830503
+      ex_game_ui2_22: 1750092151
+      ex_game_ui2_23: 513823348
+      ex_game_ui2_24: -1592382447
+      ex_game_ui2_25: -657360627
+      ex_game_ui2_3: 278736778
+      ex_game_ui2_4: -1603762861
+      ex_game_ui2_5: 1858875554
+      ex_game_ui2_6: 439202826
+      ex_game_ui2_7: -1242013258
+      ex_game_ui2_8: 1627121355
+      ex_game_ui2_9: 270612125
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

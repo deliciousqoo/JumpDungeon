@@ -8,6 +8,8 @@ TagManager:
   - Tile
   - Coin
   - Star
+  - InGameSetting
+  - OutGameSetting
   layers:
   - Default
   - TransparentFX
