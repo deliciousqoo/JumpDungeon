@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private GameManager GM;
+
     public float maxSpeed;
     public float jumpPower;
     Rigidbody2D rigid;
@@ -14,13 +17,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Coroutine damageCoroutine;
 
-    private bool checkControl = true, checkDamaging;
+    private bool checkControl = true;
     private int jumpCount, dirc;
 
-    public Vector2 lastVelocity;
-
-    public Sprite fall;
-    public GameObject damagedPrefab;
+    [SerializeField]
+    private GameObject damagedPrefab;
 
     private void Awake()
     {
@@ -39,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     //Function
     private void Update()
     {
-        lastVelocity = rigid.velocity;
         if (checkControl)
         {
             //Jump
@@ -116,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Attacked");
             if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
             damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
+
             GameObject damagedEffect = Instantiate(damagedPrefab);
             damagedEffect.GetComponent<Transform>().position = gameObject.transform.position;
         }
@@ -123,9 +124,6 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator OnDamaged(Vector2 targetPos)
     {
-        bounceCount = 0;
-        checkDamaging = true;
-
         //Animation Control
         anim.Play("Attacked");
 
@@ -144,16 +142,14 @@ public class PlayerMovement : MonoBehaviour
         else spriteRenderer.flipX = false;
 
         yield return new WaitUntil(() => rigid.velocity.y == 0);
-        anim.Play("Temp");
+        anim.Play("Collapse");
         yield return new WaitForSecondsRealtime(1f);
 
         //Return Origin State
-        bounceCount = 0;
         anim.Play("Idle");
         spriteRenderer.color = new Color(1, 1, 1, 1);
 
         checkControl = true;
-        checkDamaging = false;
 
         damageCoroutine = null;
     }

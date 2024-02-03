@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TempCameraManager : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameManager GM;
+
     [SerializeField]
     private GameObject camera;
     [SerializeField]
@@ -20,7 +23,6 @@ public class TempCameraManager : MonoBehaviour
     private float cameraMoveSpeed;
     private float height;
     private float width;
-
 
     private void Start()
     {
