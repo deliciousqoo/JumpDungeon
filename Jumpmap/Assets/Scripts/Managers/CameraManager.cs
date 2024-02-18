@@ -5,9 +5,6 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField]
-    private GameManager GM;
-
-    [SerializeField]
     private GameObject camera;
     [SerializeField]
     private GameObject player;

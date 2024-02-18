@@ -5,8 +5,5 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private GameManager GM;
-
-    [SerializeField]
     private ButtonManager buttonManager;
 }

@@ -10,7 +10,7 @@ TagManager:
   - Star
   - InGameSetting
   - OutGameSetting
-  - UnEnemy
+  - Menu
   layers:
   - Default
   - TransparentFX

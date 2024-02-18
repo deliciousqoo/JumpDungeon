@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private GameManager GM;
-
     public float maxSpeed;
     public float jumpPower;
     Rigidbody2D rigid;

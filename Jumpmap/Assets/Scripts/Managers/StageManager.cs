@@ -5,18 +5,35 @@ using UnityEngine;
 public class StageManager : MonoBehaviour
 {
     [SerializeField]
-    private GameManager GM;
+    private GameObject[] stages;
 
     [SerializeField]
-    private GameObject[] Stages;
+    private int[] stageClearCheckList;
+
+    private int stageNum;
 
     private void Start()
     {
-        StageSetUp(0);
+        stageNum = GameManager.instance.stageNum;
+        StageSetUp(stageNum);
+    }
+
+    public int[] GetStageClearCheckList()
+    {
+        return stageClearCheckList;
+    }
+
+    public void SetStageClearCheckList(int[] arr)
+    {
+        stageClearCheckList = arr;
     }
 
     private void StageSetUp(int stageNum)
     {
-        Stages[stageNum].SetActive(true);
+        for(int i=0;i<stages.Length;i++)
+        {
+            if(stageNum == i) { stages[i].SetActive(true); }
+            else { stages[i].SetActive(false); }
+        }
     }
 }
