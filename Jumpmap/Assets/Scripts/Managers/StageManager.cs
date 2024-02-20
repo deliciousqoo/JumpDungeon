@@ -30,9 +30,9 @@ public class StageManager : MonoBehaviour
 
     private void StageSetUp(int stageNum)
     {
-        for(int i=0;i<stages.Length;i++)
+        for (int i = 0; i < stages.Length; i++)
         {
-            if(stageNum == i) { stages[i].SetActive(true); }
+            if (stageNum == i) { stages[i].SetActive(true); }
             else { stages[i].SetActive(false); }
         }
     }
