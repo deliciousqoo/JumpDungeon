@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class CameraManager : MonoBehaviour
     private float cameraMoveSpeed;
     private float height;
     private float width;
+
 
     private void Start()
     {
@@ -45,9 +47,4 @@ public class CameraManager : MonoBehaviour
         camera.transform.position = new Vector3(clampX, clampY, -10f);
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(center, mapSize * 2);
-    }
 }

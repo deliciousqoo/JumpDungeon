@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
 
     private CameraManager cameraManager;
     private StageManager stageManager;
-    private UIManager uiManager;
 
+    [SerializeField]
     private Player player;
 
     public int check = 5;
@@ -20,37 +20,51 @@ public class GameManager : MonoBehaviour
     {
         if(instance == null)
         {
-            Debug.Log("1");
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Debug.Log("2");
             if (instance != this) { Destroy(this.gameObject); }
         }
     }
 
     private void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        /*
         switch (SceneManager.GetActiveScene().name)
         {
             case "Menu":
-                uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-                stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
                 break;
             case "MainGame":
                 cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManager>();
-                stageManager = GameObject.Find("StageManager").GetComponent<StageManager>();
-                uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+                player = GameObject.Find("Player").GetComponent<Player>();
+                break;
+        }*/
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnScenenLoaded: " + scene.name);
+        switch (scene.name)
+        {
+            case "Menu":
+                break;
+            case "MainGame":
+                cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManager>();
                 player = GameObject.Find("Player").GetComponent<Player>();
                 break;
         }
     }
 
-    /******************** EffectManager ********************/
 
+    /*********************** Player ***********************/
 
+    public void OnCompletedCall(Vector2 targetPos)
+    {
+        player.OnCompletedCall(targetPos);
+    }
 
-    /*******************************************************/
+    /******************************************************/
 }

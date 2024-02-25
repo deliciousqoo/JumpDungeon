@@ -9,9 +9,9 @@ public class Reward : MonoBehaviour
     [SerializeField]
     private GameObject starEffectPrefab;
 
-    Animator anim;
-    BoxCollider2D collider;
-    GameObject tempEffect;
+    private Animator anim;
+    private BoxCollider2D collider;
+    private GameObject tempEffect;
 
     private bool getCheck;
 
@@ -23,7 +23,6 @@ public class Reward : MonoBehaviour
 
     private void Update()
     {
-
         Debug.DrawRay(collider.bounds.center, gameObject.transform.forward, Color.blue, 0.3f);
         RaycastHit2D rayHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, transform.forward, 0.2f, LayerMask.GetMask("Player"));
         if (rayHit.collider != null)
@@ -37,24 +36,31 @@ public class Reward : MonoBehaviour
 
     private IEnumerator PlayEffect(string objectName)   
     {
-        switch (gameObject.name.Substring(0, 4))
-        {
-            case "Coin":
-                tempEffect = Instantiate(coinEffectPrefab);
-                anim.SetTrigger("IsSpin");
-                StartCoroutine("CoinMove");
-                break;
-            case "Star":
-                gameObject.SetActive(false);
-                tempEffect = Instantiate(starEffectPrefab);
-                break;
+        if(objectName == "Gate") {
+            Debug.Log("check");
+            getCheck = true;
+            GameManager.instance.OnCompletedCall(gameObject.transform.position); 
         }
-        tempEffect.GetComponent<Transform>().position = gameObject.transform.position;
-        getCheck = true;
+        else
+        {
+            switch (objectName)
+            {
+                case "Coin":
+                    tempEffect = Instantiate(coinEffectPrefab);
+                    anim.SetTrigger("IsSpin");
+                    StartCoroutine("CoinMove");
+                    break;
+                case "Star":
+                    gameObject.SetActive(false);
+                    tempEffect = Instantiate(starEffectPrefab);
+                    break;
+            }
+            tempEffect.GetComponent<Transform>().position = gameObject.transform.position;
+            getCheck = true;
+            yield return new WaitForSecondsRealtime(0.5f);
 
-        yield return new WaitForSecondsRealtime(1.0f);
-
-        Destroy(tempEffect);
+            Destroy(tempEffect);
+        }
     }
 
     private IEnumerator CoinMove()

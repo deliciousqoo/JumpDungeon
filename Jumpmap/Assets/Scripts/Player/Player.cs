@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Animator anim;
 
     private Coroutine damageCoroutine;
+    private Coroutine completeCoroutine;
 
     private bool checkControl = true;
     private int jumpCount, dirc;
@@ -119,6 +120,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnCompletedCall(Vector2 targetPos)
+    {
+        if (completeCoroutine != null) { StopCoroutine(completeCoroutine); }
+        completeCoroutine = StartCoroutine(OnCompleted(targetPos));
+    }
+
     public IEnumerator OnDamaged(Vector2 targetPos)
     {
         //Animation Control
@@ -150,6 +157,33 @@ public class Player : MonoBehaviour
 
         damageCoroutine = null;
     }
+    
+    public IEnumerator OnCompleted(Vector2 targetPos)
+    {
+        checkControl = false;
+        yield return new WaitUntil(() => rigid.velocity.y == 0);
 
+        Vector2 tempPos = gameObject.transform.position;
+        Color tempColor = spriteRenderer.color;
+        
+        anim.Play("Complete");
+        rigid.constraints = RigidbodyConstraints2D.FreezePositionY;
+        //rigid.bodyType = RigidbodyType2D.Static;
 
+        if(targetPos.x - gameObject.transform.position.x > 0) { dirc = 1; }
+        else { dirc = -1; }
+        if (dirc == 1) spriteRenderer.flipX = false;
+        else spriteRenderer.flipX = true;
+
+        while (tempColor.a > 0)
+        {
+            tempPos.x += 0.001f * dirc;
+            gameObject.transform.position = tempPos;
+            tempColor.a -= 0.02f;
+            gameObject.GetComponent<SpriteRenderer>().color = tempColor;
+            yield return new WaitForSecondsRealtime(0.03f);
+        }
+
+        yield return 0;
+    }
 }

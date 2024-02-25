@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] stages;
+    public static StageManager instance = null;
+    
+    private StageAdapter stageAdapter;
 
     [SerializeField]
     private int[] stageClearCheckList;
 
     private int stageNum;
 
-    private void Start()
+    private void Awake()
     {
-        stageNum = GameManager.instance.stageNum;
-        StageSetUp(stageNum);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (instance != this) { Destroy(this.gameObject); }
+        }
     }
 
     public int[] GetStageClearCheckList()
@@ -28,12 +39,5 @@ public class StageManager : MonoBehaviour
         stageClearCheckList = arr;
     }
 
-    private void StageSetUp(int stageNum)
-    {
-        for (int i = 0; i < stages.Length; i++)
-        {
-            if (stageNum == i) { stages[i].SetActive(true); }
-            else { stages[i].SetActive(false); }
-        }
-    }
+    
 }

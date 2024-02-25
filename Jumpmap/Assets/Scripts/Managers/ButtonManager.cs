@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,29 +11,21 @@ using UnityEngine.UI;
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField]
-    private UIManager uiManager;
-
-    [SerializeField]
-    private GameObject pauseBoard;
-    [SerializeField]
-    private GameObject blackBoard;
-
-    [SerializeField]
     private GameObject[] pages;
 
-    private int pageCount = 0;
+    public int pageCount = 0;
     private int pageOrder = 0;
 
+    [SerializeField]
+    private GameObject settingBoard, blackBoard;
+    [SerializeField]
     private Button levelLeft, levelRight;
 
     public void Start()
     {
-        switch(SceneManager.GetActiveScene().name)
+        switch (SceneManager.GetActiveScene().name)
         {
             case "Menu":
-                levelLeft = GameObject.Find("LevelLeft").GetComponent<Button>();
-                levelRight = GameObject.Find("LevelRight").GetComponent<Button>();
-                SetLevelPage();
                 break;
             case "MainGame":
                 break;
@@ -49,7 +42,7 @@ public class ButtonManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "Pause":
-                        pauseBoard.SetActive(true);
+                        settingBoard.SetActive(true);
                         blackBoard.SetActive(true);
                         Time.timeScale = 0f;
                         break;
@@ -57,12 +50,17 @@ public class ButtonManager : MonoBehaviour
                         SceneManager.LoadScene(0);
                         Time.timeScale = 1f;
                         break;
+                    case "Cancel":
+                        settingBoard.SetActive(false);
+                        blackBoard.SetActive(false);
+                        Time.timeScale = 1f;
+                        break;
                     case "Restart":
                         SceneManager.LoadScene(1);
                         Time.timeScale = 1f;
                         break;
                     case "Continue":
-                        pauseBoard.SetActive(false);
+                        settingBoard.SetActive(false);
                         blackBoard.SetActive(false);
                         Time.timeScale = 1f;
                         break;
@@ -83,18 +81,30 @@ public class ButtonManager : MonoBehaviour
                         SceneManager.LoadScene(1);
                         break;
                 }
+                if (pageCount == pages.Length) pageCount %= pages.Length;
+                else if (pageCount < 0) pageCount = pages.Length-1;
 
                 SetLevelPage();
+            }
+            if(clickObject.tag == "OutGameSetting")
+            {
+                switch (clickObject.name)
+                {
+                    case "Setting":
+                        settingBoard.SetActive(true);
+                        blackBoard.SetActive(true);
+                        break;
+                    case "Cancel":
+                        settingBoard.SetActive(false);
+                        blackBoard.SetActive(false);
+                        break;
+                }
             }
         }
     }
 
     public void SetLevelPage()
     {
-        if (pageCount == 0) { levelLeft.interactable = false; }
-        else if (pageCount == pages.Length) { levelRight.interactable = false; }
-        else { levelLeft.interactable = true; levelRight.interactable = true; }
-
         for(int i=0;i<pages.Length;i++)
         {
             if (pageCount == i) { pages[i].SetActive(true); }
