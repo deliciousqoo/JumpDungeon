@@ -12,7 +12,7 @@ public class StageManager : MonoBehaviour
     private StageAdapter stageAdapter;
 
     [SerializeField]
-    private int[] stageClearCheckList;
+    private int[] stageClearCheckList; //0:lock, 1:unlock, 2~4:start_count
 
     private int stageNum;
 
@@ -28,6 +28,24 @@ public class StageManager : MonoBehaviour
             if (instance != this) { Destroy(this.gameObject); }
         }
     }
+    private void Start()
+    {
+        stageAdapter = GameObject.Find("StageAdapter").GetComponent<StageAdapter>();
+    }
+
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnScenenLoaded: " + scene.name);
+        switch (scene.name)
+        {
+            case "Menu":
+                stageAdapter = GameObject.Find("StageAdapter").GetComponent<StageAdapter>();
+                break;
+            case "MainGame":
+                stageAdapter = GameObject.Find("StageAdapter").GetComponent<StageAdapter>();
+                break;
+        }
+    }
 
     public int[] GetStageClearCheckList()
     {
@@ -39,5 +57,8 @@ public class StageManager : MonoBehaviour
         stageClearCheckList = arr;
     }
 
-    
+    public void MenuStageSetUp()
+    {
+        stageAdapter.MenuStageSetUp();
+    }
 }

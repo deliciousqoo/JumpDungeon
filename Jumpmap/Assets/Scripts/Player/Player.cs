@@ -44,7 +44,24 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Jump") && anim.GetInteger("jumpCount") < 2)
             {
                 //Debug.Log("jump");
-                rigid.velocity = Vector2.zero;
+                /*if(jumpCount == 0) 
+                {
+                    rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                    anim.SetBool("isJumping", true);
+
+                    jumpCount++;
+                    anim.SetInteger("jumpCount", jumpCount);
+                }
+                else if (jumpCount > 0)
+                {
+                    rigid.velocity = Vector2.zero;
+                    rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                    anim.SetBool("isJumping", true);
+
+                    jumpCount++;
+                    anim.SetInteger("jumpCount", jumpCount);
+                }*/
+                rigid.velocity = new Vector2(rigid.velocity.x, 0);
                 rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 anim.SetBool("isJumping", true);
 
@@ -53,7 +70,7 @@ public class Player : MonoBehaviour
             }
 
             //Stop Speed
-            if (Input.GetButtonUp("Horizontal")) { rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.2f, rigid.velocity.y); }
+            if (Input.GetButtonUp("Horizontal")) { rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.6f, rigid.velocity.y); }
             else if (Input.GetButton("Right") && Input.GetButton("Left")) { rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y); }
 
             //Direction Sprite
@@ -117,6 +134,13 @@ public class Player : MonoBehaviour
 
             GameObject damagedEffect = Instantiate(damagedPrefab);
             damagedEffect.GetComponent<Transform>().position = gameObject.transform.position;
+        }
+        else if(collision.gameObject.tag == "Tile")
+        {
+            if(collision.gameObject.name.Substring(0,4) == "Sand")
+            {
+                collision.gameObject.GetComponent<Tile>().EffectStart("Sand");
+            }
         }
     }
 

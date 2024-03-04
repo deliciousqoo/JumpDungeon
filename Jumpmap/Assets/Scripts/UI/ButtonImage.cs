@@ -20,9 +20,24 @@ public class ButtonImage : MonoBehaviour
         button = GetComponent<Button>();
     }
 
-    public void ButtonImageChange(bool check)
+    public void MenuStageButtonChange(bool check)
     {
-        if (!check) { button.image.sprite = offButton; }
-        else { button.image.sprite = onButton; }
+        //Debug.Log("check ice");
+        if (!check) { 
+            button.image.sprite = offButton;
+            button.interactable = false;
+            foreach(Transform child  in this.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+        else { 
+            button.image.sprite = onButton;
+            button.interactable = true;
+            foreach (Transform child in this.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
     }
 }

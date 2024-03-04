@@ -110,6 +110,8 @@ public class ButtonManager : MonoBehaviour
             if (pageCount == i) { pages[i].SetActive(true); }
             else { pages[i].SetActive(false); }
         }
+        GameManager.instance.menuCount = pageCount;
+        StageManager.instance.MenuStageSetUp();
     }
 
 
