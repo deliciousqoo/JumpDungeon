@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public float maxSpeed;
     public float jumpPower;
+    public float speed;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     BoxCollider2D collider;
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
 
     private bool checkControl = true;
     private int jumpCount, dirc;
+    private bool previous_status = false;
 
     [SerializeField]
     private GameObject damagedPrefab;
@@ -44,23 +46,6 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Jump") && anim.GetInteger("jumpCount") < 2)
             {
                 //Debug.Log("jump");
-                /*if(jumpCount == 0) 
-                {
-                    rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-                    anim.SetBool("isJumping", true);
-
-                    jumpCount++;
-                    anim.SetInteger("jumpCount", jumpCount);
-                }
-                else if (jumpCount > 0)
-                {
-                    rigid.velocity = Vector2.zero;
-                    rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-                    anim.SetBool("isJumping", true);
-
-                    jumpCount++;
-                    anim.SetInteger("jumpCount", jumpCount);
-                }*/
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
                 rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 anim.SetBool("isJumping", true);
@@ -74,8 +59,8 @@ public class Player : MonoBehaviour
             else if (Input.GetButton("Right") && Input.GetButton("Left")) { rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y); }
 
             //Direction Sprite
-            if (Input.GetButtonDown("Left")) { spriteRenderer.flipX = true; }
-            else if (Input.GetButtonDown("Right")) { spriteRenderer.flipX = false; }
+            if (Input.GetButtonDown("Left")) { spriteRenderer.flipX = true; collider.offset = new Vector2(0.005f, -0.0275f); }
+            else if (Input.GetButtonDown("Right")) { spriteRenderer.flipX = false; collider.offset = new Vector2(-0.005f, -0.0275f); }
         }
 
         //Animation
@@ -101,10 +86,12 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
+
+        RaycastHit2D checkHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.zero, 0.2f, LayerMask.GetMask("Platform"));
         if (checkControl)
         {
             //Move Speed
-            rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+            rigid.AddForce(Vector2.right * h * speed, ForceMode2D.Impulse);
 
             //Max Speed
             if (rigid.velocity.x > maxSpeed) { rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y); }
@@ -122,6 +109,46 @@ public class Player : MonoBehaviour
             anim.SetInteger("jumpCount", jumpCount);
         }
         else { anim.SetBool("isJumping", true); }
+
+        //Check Gimmick
+        if(checkHit.collider != null)
+        {
+            Debug.Log(checkHit.collider.gameObject.name);
+            if(checkHit.collider.gameObject.name.Substring(0,5) == "Water")
+            {
+                checkHit.collider.gameObject.GetComponent<Animator>().Play("Water_Move");
+                rigid.gravityScale = 0.3f;
+                rigid.drag = 10f;
+                jumpCount = 0;
+                anim.SetInteger("jumpCount", 0);
+            }
+            else if(checkHit.collider.gameObject.name.Substring(0, 4) == "Wave")
+            {
+                rigid.gravityScale = 3f;
+            }
+            else if(checkHit.collider.gameObject.name.Substring(0, 5) == "Swamp")
+            {
+                rigid.gravityScale = 0.1f;
+                rigid.drag = 50f;
+                jumpCount = 0;
+                jumpPower = 1.5f;
+                anim.SetInteger("jumpCount", 0);
+                speed = 0.1f;
+            }
+            previous_status = false;
+        }
+        else
+        {
+            if (!previous_status)
+            {
+                jumpCount = 1;
+                jumpPower = 3f;
+            }
+            rigid.gravityScale = 1.0f;
+            rigid.drag = 3f;
+            previous_status = true;
+            speed = 1f;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -134,13 +161,6 @@ public class Player : MonoBehaviour
 
             GameObject damagedEffect = Instantiate(damagedPrefab);
             damagedEffect.GetComponent<Transform>().position = gameObject.transform.position;
-        }
-        else if(collision.gameObject.tag == "Tile")
-        {
-            if(collision.gameObject.name.Substring(0,4) == "Sand")
-            {
-                collision.gameObject.GetComponent<Tile>().EffectStart("Sand");
-            }
         }
     }
 

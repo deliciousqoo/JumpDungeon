@@ -23,7 +23,7 @@ public class Bat : MonoBehaviour
 
     private void Start()
     {
-        Vector2 tempPos = new Vector2(startPos.x, startPos.y - 9.5f);
+        Vector2 tempPos = new Vector2(startPos.x, startPos.y);
         gameObject.GetComponent<Transform>().position = tempPos;
     }
 
