@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ButtonManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] pages;
@@ -17,9 +17,11 @@ public class ButtonManager : MonoBehaviour
     private int pageOrder = 0;
 
     [SerializeField]
-    private GameObject settingBoard, blackBoard;
+    private GameObject settingBoard, blackBoard, languageBoard, clearBoard, characterBoard;
     [SerializeField]
     private Button levelLeft, levelRight;
+    [SerializeField]
+    private GameObject[] clearStars;
 
     public void Start()
     {
@@ -66,7 +68,7 @@ public class ButtonManager : MonoBehaviour
                         break;
                 }
             }
-            if(clickObject.tag == "Menu")
+            else if(clickObject.tag == "Menu")
             {
                 switch(clickObject.name)
                 {
@@ -75,6 +77,15 @@ public class ButtonManager : MonoBehaviour
                         break;
                     case "LevelRight":
                         pageCount++;
+                        break;
+                    case "Store":
+                        break;
+                    case "Ranking":
+                        break;
+                    case "Infinity":
+                        break;
+                    case "Character":
+                        characterBoard.SetActive(true);
                         break;
                     default:
                         GameManager.instance.stageNum = int.Parse(clickObject.name)-1;
@@ -86,9 +97,9 @@ public class ButtonManager : MonoBehaviour
 
                 SetLevelPage();
             }
-            if(clickObject.tag == "OutGameSetting")
+            else if(clickObject.tag == "OutGameSetting")
             {
-                switch (clickObject.name)
+                switch(clickObject.name)
                 {
                     case "Setting":
                         settingBoard.SetActive(true);
@@ -97,6 +108,33 @@ public class ButtonManager : MonoBehaviour
                     case "Cancel":
                         settingBoard.SetActive(false);
                         blackBoard.SetActive(false);
+                        break;
+                    case "Language":
+                        languageBoard.SetActive(true);
+                        settingBoard.SetActive(false);
+                        break;
+                }
+            }
+            else if(clickObject.tag == "LanguageSetting")
+            {
+                switch(clickObject.name)
+                {
+                    case "Cancel":
+                        settingBoard.SetActive(true);
+                        languageBoard.SetActive(false);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if(clickObject.tag == "ClearSetting")
+            {
+                switch(clickObject.name)
+                {
+                    case "Button1":
+                        break;
+                    case "Button2":
+                        SceneManager.LoadScene(0);
                         break;
                 }
             }
@@ -114,5 +152,21 @@ public class ButtonManager : MonoBehaviour
         StageManager.instance.MenuStageSetUp();
     }
 
+    public void OnCompletedPanelCall()
+    {
+        clearBoard.SetActive(true);
+        blackBoard.SetActive(true);
+        StartCoroutine("OnCompletedPanel", 2);
+    }
 
+    private IEnumerator OnCompletedPanel(int step)
+    {
+        clearStars[step - 2].GetComponent<Animator>().SetTrigger("Clear");
+        yield return new WaitForSecondsRealtime(1.0f);
+
+        if(step < StageManager.instance.GetStageClearCheckValue(GameManager.instance.stageNum))
+        {
+            StartCoroutine("OnCompletedPanel", step + 1);
+        }
+    }
 }

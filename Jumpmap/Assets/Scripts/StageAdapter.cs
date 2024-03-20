@@ -43,6 +43,7 @@ public class StageAdapter : MonoBehaviour
             else { gameStages[i].SetActive(false); }
         }
     }
+    
 
     public void MenuStageSetUp()
     {
@@ -58,10 +59,9 @@ public class StageAdapter : MonoBehaviour
                 case 0:
                     menuStages[clearIndex].GetComponent<ButtonImage>().MenuStageButtonChange(false);
                     break;
-                case 1:
-                    menuStages[clearIndex].GetComponent<ButtonImage>().MenuStageButtonChange(true);
-                    break;
                 default:
+                    menuStages[clearIndex].GetComponent<ButtonImage>().MenuStageButtonChange(true);
+                    menuStages[clearIndex].GetComponent<ButtonImage>().MenuStageStarChange(tempCheckList[clearIndex]);
                     break;
             }
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -113,7 +114,7 @@ public class Player : MonoBehaviour
         //Check Gimmick
         if(checkHit.collider != null)
         {
-            Debug.Log(checkHit.collider.gameObject.name);
+            //Debug.Log(checkHit.collider.gameObject.name);
             if(checkHit.collider.gameObject.name.Substring(0,5) == "Water")
             {
                 checkHit.collider.gameObject.GetComponent<Animator>().Play("Water_Move");
@@ -219,14 +220,25 @@ public class Player : MonoBehaviour
         if (dirc == 1) spriteRenderer.flipX = false;
         else spriteRenderer.flipX = true;
 
+        while(Mathf.Abs(targetPos.x - gameObject.transform.position.x) >= 0.01f)
+        {
+            Debug.Log(Mathf.Abs(targetPos.x - gameObject.transform.position.x));
+            tempPos.x += 0.002f * dirc;
+            gameObject.transform.position = tempPos;
+            yield return new WaitForSecondsRealtime(0.03f);
+        }
+        anim.Play("Idle");
+
         while (tempColor.a > 0)
         {
-            tempPos.x += 0.001f * dirc;
-            gameObject.transform.position = tempPos;
-            tempColor.a -= 0.02f;
+            tempColor.a -= 0.03f;
             gameObject.GetComponent<SpriteRenderer>().color = tempColor;
             yield return new WaitForSecondsRealtime(0.03f);
         }
+
+        //SceneManager.LoadScene(0);
+        yield return new WaitForSecondsRealtime(0.5f);
+        GameManager.instance.OnCompletedPanelCall();
 
         yield return 0;
     }

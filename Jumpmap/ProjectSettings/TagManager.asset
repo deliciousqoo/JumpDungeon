@@ -11,6 +11,8 @@ TagManager:
   - InGameSetting
   - OutGameSetting
   - Menu
+  - LanguageSetting
+  - ClearSetting
   layers:
   - Default
   - TransparentFX

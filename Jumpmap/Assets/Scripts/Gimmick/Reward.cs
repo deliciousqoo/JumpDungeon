@@ -12,11 +12,14 @@ public class Reward : MonoBehaviour
     private Animator anim;
     private BoxCollider2D collider;
     private GameObject tempEffect;
+    private SpriteRenderer spriteRenderer;
 
+    private Color tempColor;
     private bool getCheck;
 
     private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
     }
@@ -36,10 +39,13 @@ public class Reward : MonoBehaviour
 
     private IEnumerator PlayEffect(string objectName)   
     {
+        Debug.Log(objectName);
         if(objectName == "Gate") {
             Debug.Log("check");
             getCheck = true;
-            GameManager.instance.OnCompletedCall(gameObject.transform.position); 
+            StageManager.instance.StageProgressSetUp();
+            GameManager.instance.OnCompletedCall(gameObject.transform.position);
+            
         }
         else
         {
@@ -51,7 +57,10 @@ public class Reward : MonoBehaviour
                     StartCoroutine("CoinMove");
                     break;
                 case "Star":
-                    gameObject.SetActive(false);
+                    //StageManager.instance.StageProgressSetUp();
+                    StageManager.instance.stageProgressStep++;
+                    tempColor.a = 0f;
+                    spriteRenderer.color = tempColor;
                     tempEffect = Instantiate(starEffectPrefab);
                     break;
             }

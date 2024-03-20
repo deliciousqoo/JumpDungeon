@@ -6,6 +6,8 @@ public class Tile : MonoBehaviour
 {
     [SerializeField]
     private GameObject sandEffectPrefab;
+    [SerializeField]
+    private GameObject fireEffectPrefab;
 
     private Animator anim;
     private BoxCollider2D collider;
@@ -23,41 +25,35 @@ public class Tile : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void EffectStart(string objectName)
-    {
-        StartCoroutine(PlayEffect(objectName));
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(!getCheck)
         {
-            if(gameObject.name.Substring(0,4) == "Sand")
+            if (collision.gameObject.tag == "Player")
             {
-                StartCoroutine(PlayEffect(gameObject.name.Substring(0, 4)));
-            }
-            else if(gameObject.name.Substring(0,5) == "Water")
-            {
-                Debug.Log("check");
+                if (gameObject.name.Substring(0, 4) == "Sand")
+                {
+                    StartCoroutine("PlaySandEffect");
+                }
+                else if (gameObject.name.Substring(0, 4) == "Fire")
+                {
+                    StartCoroutine("PlayFireEffect");
+                }
             }
         }
     }
 
-    private IEnumerator PlayEffect(string objectName)
+    private IEnumerator PlaySandEffect()
     {
+        getCheck = true;
         yield return new WaitForSecondsRealtime(0.5f);
         Color tempColor = spriteRenderer.color;
         tempColor.a = 0f;
         spriteRenderer.color = tempColor;
-        //collider.isTrigger = true;
         composite.isTrigger = true;
 
-        switch (objectName)
-        {
-            case "Sand":
-                tempEffect = Instantiate(sandEffectPrefab);
-                break;
-        }
+        tempEffect = Instantiate(sandEffectPrefab);
         tempEffect.GetComponent<Transform>().position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
         yield return new WaitForSecondsRealtime(0.5f);
 
@@ -72,7 +68,25 @@ public class Tile : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.03f);
         }
 
-        //collider.isTrigger = false;
         composite.isTrigger = false;
+        getCheck = false;
+    }
+
+    private IEnumerator PlayFireEffect()
+    {
+        getCheck = true;
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        tempEffect = Instantiate(fireEffectPrefab);
+        tempEffect.GetComponent<Transform>().position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 0);
+
+        yield return new WaitForSecondsRealtime(0.1f);
+        tempEffect.GetComponent<BoxCollider2D>().isTrigger = false;
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        Destroy(tempEffect);
+        getCheck = false;
+        tempEffect.GetComponent<BoxCollider2D>().isTrigger = true;
     }
 }

@@ -13,6 +13,9 @@ public class ButtonImage : MonoBehaviour
     [SerializeField]
     private Sprite offButton;
 
+    [SerializeField]
+    private Image[] clearProgress;
+
     private Button button;
 
     private void Awake()
@@ -38,6 +41,27 @@ public class ButtonImage : MonoBehaviour
             {
                 child.gameObject.SetActive(true);
             }
+        }
+    }
+    
+    public void MenuStageStarChange(int progress)
+    {
+        for(int i=2;i<5;i++)
+        {
+            if (i <= progress) clearProgress[i - 2].gameObject.SetActive(true);
+            else clearProgress[i - 2].gameObject.SetActive(false);
+        }
+    }
+
+    public void ButtonImageChange(bool check)
+    {
+        if (!check)
+        {
+            button.image.sprite = offButton;
+        }
+        else
+        {
+            button.image.sprite = onButton;
         }
     }
 }

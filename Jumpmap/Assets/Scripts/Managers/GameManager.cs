@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     private CameraManager cameraManager;
     private StageManager stageManager;
+    private UIManager uiManager;
 
     [SerializeField]
     private Player player;
@@ -41,10 +42,13 @@ public class GameManager : MonoBehaviour
         switch (scene.name)
         {
             case "Menu":
+                uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
                 break;
             case "MainGame":
                 cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManager>();
                 player = GameObject.Find("Player").GetComponent<Player>();
+                uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+                StageManager.instance.stageNum = stageNum;
                 break;
         }
     }
@@ -55,6 +59,15 @@ public class GameManager : MonoBehaviour
     public void OnCompletedCall(Vector2 targetPos)
     {
         player.OnCompletedCall(targetPos);
+    }
+
+    /******************************************************/
+
+    /*********************** ButtonManager ***********************/
+
+    public void OnCompletedPanelCall()
+    {
+        uiManager.OnCompletedPanelCall();
     }
 
     /******************************************************/
