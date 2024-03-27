@@ -2992,8 +2992,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 930, y: 990}
+  m_AnchoredPosition: {x: 0, y: -272}
+  m_SizeDelta: {x: 860, y: 1090}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &407905888
 MonoBehaviour:
@@ -3015,7 +3015,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1874203918, guid: 3a96444f2b56b9342b9dd4ac3dce3738, type: 3}
+  m_Sprite: {fileID: 1646805359, guid: fb6a5a585ecf819498aba3199ee83c4f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6860,7 +6860,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1020257973
 MonoBehaviour:
@@ -7079,7 +7079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb88f403ce72b542895a6b7fca7fe30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageClearCheckList: 010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  stageClearCheckList: 010000000100000001000000010000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   stageNum: 0
   stageProgressStep: 0
 --- !u!4 &1053045332
@@ -10300,7 +10300,7 @@ GameObject:
   - component: {fileID: 1605298443}
   - component: {fileID: 1605298442}
   m_Layer: 0
-  m_Name: ButtonManager
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
