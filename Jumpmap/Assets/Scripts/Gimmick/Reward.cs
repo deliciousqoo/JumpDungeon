@@ -8,6 +8,10 @@ public class Reward : MonoBehaviour
     private GameObject coinEffectPrefab;
     [SerializeField]
     private GameObject starEffectPrefab;
+    [SerializeField]
+    private GameObject clearGateEffectPrefab;
+    [SerializeField]
+    private GameObject[] candles;
 
     private Animator anim;
     private BoxCollider2D collider;
@@ -45,7 +49,22 @@ public class Reward : MonoBehaviour
             getCheck = true;
             StageManager.instance.StageProgressSetUp();
             GameManager.instance.OnCompletedCall(gameObject.transform.position);
-            
+            yield return new WaitUntil(() => Mathf.Abs(gameObject.transform.position.x - GameManager.instance.playerPos.x) < 0.01f);
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            tempEffect = Instantiate(clearGateEffectPrefab);
+            GameManager.instance.PlayerHide();
+            tempEffect.GetComponent<Transform>().position = new Vector3(gameObject.transform.position.x + 0.02f, gameObject.transform.position.y - 0.015f, 0f);
+
+            //yield return new WaitForSecondsRealtime(0.8f);
+            for(int i=0;i<candles.Length;i++)
+            {
+                candles[i].GetComponent<Animator>().SetTrigger("IsClear");
+            }
+
+            yield return new WaitForSecondsRealtime(2.0f);
+
+            GameManager.instance.OnCompletedPanelCall();
         }
         else
         {
@@ -66,10 +85,11 @@ public class Reward : MonoBehaviour
             }
             tempEffect.GetComponent<Transform>().position = gameObject.transform.position;
             getCheck = true;
-            yield return new WaitForSecondsRealtime(0.5f);
-
-            Destroy(tempEffect);
+            
         }
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        Destroy(tempEffect);
     }
 
     private IEnumerator CoinMove()

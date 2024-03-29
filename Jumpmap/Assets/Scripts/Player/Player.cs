@@ -229,17 +229,24 @@ public class Player : MonoBehaviour
         }
         anim.Play("Idle");
 
-        while (tempColor.a > 0)
+        /*while (tempColor.a > 0)
         {
             tempColor.a -= 0.03f;
             gameObject.GetComponent<SpriteRenderer>().color = tempColor;
             yield return new WaitForSecondsRealtime(0.03f);
-        }
+        }*/
 
         //SceneManager.LoadScene(0);
-        yield return new WaitForSecondsRealtime(0.5f);
-        GameManager.instance.OnCompletedPanelCall();
+        //yield return new WaitForSecondsRealtime(0.5f);
+        
 
         yield return 0;
+    }
+
+    public void PlayerHide()
+    {
+        Color tempColor = spriteRenderer.color;
+        tempColor.a = 0f;
+        spriteRenderer.color = tempColor;
     }
 }

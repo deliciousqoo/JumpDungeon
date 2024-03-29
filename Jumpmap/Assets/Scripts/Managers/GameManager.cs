@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    
+    public Vector3 playerPos;
+
     public int check = 5;
     public int stageNum;
     public int menuCount;
@@ -28,6 +31,16 @@ public class GameManager : MonoBehaviour
         else
         {
             if (instance != this) { Destroy(this.gameObject); }
+        }
+    }
+
+    private void Update()
+    {
+        switch(SceneManager.GetActiveScene().name)
+        {
+            case "MainGame":
+                playerPos = player.gameObject.transform.position;
+                break;
         }
     }
 
@@ -59,6 +72,10 @@ public class GameManager : MonoBehaviour
     public void OnCompletedCall(Vector2 targetPos)
     {
         player.OnCompletedCall(targetPos);
+    }
+    public void PlayerHide()
+    {
+        player.PlayerHide();
     }
 
     /******************************************************/

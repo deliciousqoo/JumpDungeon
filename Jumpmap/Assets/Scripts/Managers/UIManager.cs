@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     private int pageOrder = 0;
 
     [SerializeField]
-    private GameObject settingBoard, blackBoard, languageBoard, clearBoard, characterBoard;
+    private GameObject settingBoard, blackBoard, languageBoard, clearBoard, characterBoard, gameBoard;
     [SerializeField]
     private Button levelLeft, levelRight;
     [SerializeField]
@@ -89,7 +89,16 @@ public class UIManager : MonoBehaviour
                         break;
                     default:
                         GameManager.instance.stageNum = int.Parse(clickObject.name)-1;
-                        SceneManager.LoadScene(1);
+                        gameBoard.SetActive(true);
+                        blackBoard.SetActive(true);
+                        for(int i=0;i<clearStars.Length;i++)
+                        {
+                            if (i < StageManager.instance.GetStageClearCheckValue(GameManager.instance.stageNum) - 1)
+                            {
+                                clearStars[i].SetActive(true);
+                            }
+                            else clearStars[i].SetActive(false);
+                        }
                         break;
                 }
                 if (pageCount == pages.Length) pageCount %= pages.Length;
@@ -105,13 +114,22 @@ public class UIManager : MonoBehaviour
                         settingBoard.SetActive(true);
                         blackBoard.SetActive(true);
                         break;
-                    case "Cancel":
+                    case "Cancel1": // Setting Board
                         settingBoard.SetActive(false);
+                        blackBoard.SetActive(false);
+                        break;
+                    case "Cancel2": // Game Board
+                        gameBoard.SetActive(false);
                         blackBoard.SetActive(false);
                         break;
                     case "Language":
                         languageBoard.SetActive(true);
                         settingBoard.SetActive(false);
+                        break;
+                    case "Ad":
+                        break;
+                    case "Start":
+                        SceneManager.LoadScene(1);
                         break;
                 }
             }
