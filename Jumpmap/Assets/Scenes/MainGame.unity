@@ -274,6 +274,8 @@ GameObject:
   - component: {fileID: 27269755}
   - component: {fileID: 27269756}
   - component: {fileID: 27269757}
+  - component: {fileID: 27269759}
+  - component: {fileID: 27269758}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -318,6 +320,9 @@ MonoBehaviour:
   jumpPower: 3
   speed: 1
   damagedPrefab: {fileID: 5271258029844981573, guid: 4912e74e5b57eaa47bf1c081a3b1a92f, type: 3}
+  skinList:
+  - {fileID: 7108339969198208228, guid: b3e3135857120cb43b47d4a7873b7280, type: 3}
+  - {fileID: 7108339969198208228, guid: fb0bb035314f92246a6b5bd36e397d9c, type: 3}
 --- !u!212 &27269753
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -359,7 +364,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 261949064, guid: 922978fcfe7e8ff4c9274ea36736dd24, type: 3}
+  m_Sprite: {fileID: -1069554383, guid: 4cfc0fccb9dbf5a48904204d38eaf5d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -476,6 +481,36 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &27269758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27269747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 1.9509184e-34
+  m_labelHash: 5.787443e-24
+  m_SpriteKey: 0
+  m_SpriteHash: 855414218
+--- !u!114 &27269759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27269747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: fb0bb035314f92246a6b5bd36e397d9c, type: 3}
 --- !u!1001 &34262607
 PrefabInstance:
   m_ObjectHideFlags: 0

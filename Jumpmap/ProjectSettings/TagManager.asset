@@ -13,6 +13,7 @@ TagManager:
   - Menu
   - LanguageSetting
   - ClearSetting
+  - CharacterSetting
   layers:
   - Default
   - TransparentFX

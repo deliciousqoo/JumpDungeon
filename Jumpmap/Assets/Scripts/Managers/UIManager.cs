@@ -86,6 +86,7 @@ public class UIManager : MonoBehaviour
                         break;
                     case "Character":
                         characterBoard.SetActive(true);
+                        blackBoard.SetActive(true);
                         break;
                     default:
                         GameManager.instance.stageNum = int.Parse(clickObject.name)-1;
@@ -153,6 +154,18 @@ public class UIManager : MonoBehaviour
                         break;
                     case "Button2":
                         SceneManager.LoadScene(0);
+                        break;
+                }
+            }
+            else if(clickObject.tag == "CharacterSetting")
+            {
+                switch (clickObject.name)
+                {
+                    case "Cancel":
+                        characterBoard.SetActive(false);
+                        blackBoard.SetActive(false);
+                        break;
+                    default:
                         break;
                 }
             }

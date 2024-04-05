@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int check = 5;
     public int stageNum;
     public int menuCount;
+    public int skinNum;
 
     private void Awake() 
     {

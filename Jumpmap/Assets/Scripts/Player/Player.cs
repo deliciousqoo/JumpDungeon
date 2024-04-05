@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Experimental;
+using UnityEngine.U2D.Animation;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     BoxCollider2D collider;
     Animator anim;
+    SpriteLibrary spriteLibrary;
 
     private Coroutine damageCoroutine;
     private Coroutine completeCoroutine;
@@ -24,12 +27,21 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject damagedPrefab;
 
+    [SerializeField]
+    private SpriteLibraryAsset[] skinList;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
+        spriteLibrary = GetComponent<SpriteLibrary>();
+    }
+
+    private void Start()
+    {
+        spriteLibrary.spriteLibraryAsset = skinList[GameManager.instance.skinNum];
     }
 
     //Setter
