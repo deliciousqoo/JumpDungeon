@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     private int pageOrder = 0;
 
     [SerializeField]
-    private GameObject settingBoard, blackBoard, languageBoard, clearBoard, characterBoard, gameBoard;
+    private GameObject settingBoard, blackBoard, languageBoard, clearBoard, characterBoard, gameBoard, choiceOutline;
     [SerializeField]
     private Button levelLeft, levelRight;
     [SerializeField]
@@ -128,6 +128,8 @@ public class UIManager : MonoBehaviour
                         settingBoard.SetActive(false);
                         break;
                     case "Ad":
+                        GameManager.instance.shieldCheck = true;
+                        SceneManager.LoadScene(1);
                         break;
                     case "Start":
                         SceneManager.LoadScene(1);
@@ -166,6 +168,8 @@ public class UIManager : MonoBehaviour
                         blackBoard.SetActive(false);
                         break;
                     default:
+                        Debug.Log(clickObject.transform.position);
+                        choiceOutline.transform.position = clickObject.transform.position;
                         break;
                 }
             }

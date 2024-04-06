@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public int menuCount;
     public int skinNum;
 
+    public bool shieldCheck = false;
+
     private void Awake() 
     {
         if(instance == null)

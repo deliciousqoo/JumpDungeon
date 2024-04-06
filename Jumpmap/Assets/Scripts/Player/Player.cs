@@ -19,13 +19,14 @@ public class Player : MonoBehaviour
 
     private Coroutine damageCoroutine;
     private Coroutine completeCoroutine;
+    private Coroutine shieldCoroutine;
 
     private bool checkControl = true;
     private int jumpCount, dirc;
     private bool previous_status = false;
 
     [SerializeField]
-    private GameObject damagedPrefab;
+    private GameObject damagedPrefab, shieldBreakPrefab, shield;
 
     [SerializeField]
     private SpriteLibraryAsset[] skinList;
@@ -41,7 +42,18 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         spriteLibrary.spriteLibraryAsset = skinList[GameManager.instance.skinNum];
+        if (GameManager.instance.shieldCheck)
+        {
+            shield.SetActive(true);
+            gameObject.layer = 14;
+        }
+        else
+        {
+            shield.SetActive(false);
+            gameObject.layer = 10;
+        }
     }
 
     //Setter
@@ -168,12 +180,21 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Attacked");
-            if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
-            damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
+            if(GameManager.instance.shieldCheck)
+            {
+                Debug.Log("Block");
+                if (shieldCoroutine == null) { shieldCoroutine = StartCoroutine("OnShield"); }
+                
+            }
+            else
+            {
+                Debug.Log("Attacked");
+                if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
+                damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
 
-            GameObject damagedEffect = Instantiate(damagedPrefab);
-            damagedEffect.GetComponent<Transform>().position = gameObject.transform.position;
+                GameObject damagedEffect = Instantiate(damagedPrefab);
+                damagedEffect.GetComponent<Transform>().position = gameObject.transform.position;
+            }
         }
     }
 
@@ -211,7 +232,6 @@ public class Player : MonoBehaviour
         spriteRenderer.color = new Color(1, 1, 1, 1);
 
         checkControl = true;
-
         damageCoroutine = null;
     }
     
@@ -241,19 +261,37 @@ public class Player : MonoBehaviour
         }
         anim.Play("Idle");
 
-        /*while (tempColor.a > 0)
-        {
-            tempColor.a -= 0.03f;
-            gameObject.GetComponent<SpriteRenderer>().color = tempColor;
-            yield return new WaitForSecondsRealtime(0.03f);
-        }*/
-
-        //SceneManager.LoadScene(0);
-        //yield return new WaitForSecondsRealtime(0.5f);
-        
-
         yield return 0;
     }
+
+    public IEnumerator OnShield()
+    {
+        GameObject shieldBreakEffect = Instantiate(shieldBreakPrefab);
+        shieldBreakEffect.GetComponent<Transform>().position = new Vector3(gameObject.transform.position.x, 0, 0);
+        shield.SetActive(false);
+
+        Color tempColor = spriteRenderer.color;
+        for(int i=0;i<2;i++)
+        {
+            while (tempColor.a > 0.1)
+            {
+                tempColor.a -= 0.02f;
+                spriteRenderer.color = tempColor;
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+            while (tempColor.a < 0.8)
+            {
+                tempColor.a += 0.02f;
+                spriteRenderer.color = tempColor;
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+        }
+        tempColor.a = 1;
+        spriteRenderer.color = tempColor;
+
+        GameManager.instance.shieldCheck = false;
+        gameObject.layer = 14;
+   }
 
     public void PlayerHide()
     {
