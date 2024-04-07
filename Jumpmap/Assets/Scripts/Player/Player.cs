@@ -184,7 +184,6 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Block");
                 if (shieldCoroutine == null) { shieldCoroutine = StartCoroutine("OnShield"); }
-                
             }
             else
             {

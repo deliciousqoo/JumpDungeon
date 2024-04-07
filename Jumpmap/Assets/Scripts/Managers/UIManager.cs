@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
+        Debug.Log(characterBoard.gameObject.transform.position);
         switch (SceneManager.GetActiveScene().name)
         {
             case "Menu":
@@ -85,7 +86,8 @@ public class UIManager : MonoBehaviour
                     case "Infinity":
                         break;
                     case "Character":
-                        characterBoard.SetActive(true);
+                        //characterBoard.SetActive(true);
+                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(360f, 368f, 0), characterBoard.transform.position));
                         blackBoard.SetActive(true);
                         break;
                     default:
@@ -164,7 +166,8 @@ public class UIManager : MonoBehaviour
                 switch (clickObject.name)
                 {
                     case "Cancel":
-                        characterBoard.SetActive(false);
+                        //characterBoard.SetActive(false);
+                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(360f, -440f, 0), characterBoard.transform.position));
                         blackBoard.SetActive(false);
                         break;
                     default:
@@ -203,5 +206,28 @@ public class UIManager : MonoBehaviour
         {
             StartCoroutine("OnCompletedPanel", step + 1);
         }
+    }
+
+    private IEnumerator UIMovement_Y(GameObject target, Vector3 targetPos, Vector3 orgPos)
+    {
+        float dir = 0;
+        target.transform.position = orgPos;
+        Vector3 temp_pos = target.transform.position;
+        float startDistance = Mathf.Abs(target.transform.position.y - targetPos.y);
+        if (targetPos.y < orgPos.y) dir = -1;
+        else dir = 1;
+
+        float x = 1, slope = 0.04f, temp_value = 0;
+        while ((targetPos.y - target.transform.position.y) * dir > 0)
+        {
+            //Debug.Log(Mathf.Abs(target.transform.position.y - targetPos.y));
+            temp_value = slope * Mathf.Pow(x, 2) + 5f;
+            temp_pos.y += 1f * temp_value * dir;
+            target.transform.position = temp_pos;
+            x += 1f;
+            yield return new WaitForSecondsRealtime(0.01f);
+        }
+
+        yield return 0;
     }
 }
