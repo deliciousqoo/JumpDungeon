@@ -31,7 +31,7 @@ public class Reward : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(collider.bounds.center, gameObject.transform.forward, Color.blue, 0.3f);
-        RaycastHit2D rayHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, transform.forward, 0.2f, LayerMask.GetMask("Player"));
+        RaycastHit2D rayHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, transform.forward, 0.2f, LayerMask.GetMask("Player", "PlayerShield"));
         if (rayHit.collider != null)
         {
             if (!getCheck)

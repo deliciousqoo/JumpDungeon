@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
 
-        RaycastHit2D checkHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.zero, 0.2f, LayerMask.GetMask("Platform"));
+        RaycastHit2D checkHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, 0.015f, LayerMask.GetMask("Platform"));
         if (checkControl)
         {
             //Move Speed
@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
         if (rigid.velocity.y == 0)
         {
             anim.SetBool("isJumping", false);
-            RaycastHit2D rayHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, 0.2f, LayerMask.GetMask("Platform"));
+            RaycastHit2D rayHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, 0.02f, LayerMask.GetMask("Platform"));
             if ((rayHit.collider != null && rayHit.distance < 0.015f) || jumpCount == 3) { 
                 jumpCount = 0;
             }
@@ -138,7 +138,7 @@ public class Player : MonoBehaviour
         //Check Gimmick
         if(checkHit.collider != null)
         {
-            //Debug.Log(checkHit.collider.gameObject.name);
+            //Debug.Log(checkHit.collider.gameObject.name.Substring(0, 5));
             if(checkHit.collider.gameObject.name.Substring(0,5) == "Water")
             {
                 checkHit.collider.gameObject.GetComponent<Animator>().Play("Water_Move");
@@ -159,6 +159,13 @@ public class Player : MonoBehaviour
                 jumpPower = 1.5f;
                 anim.SetInteger("jumpCount", 0);
                 speed = 0.1f;
+            }
+            else if(checkHit.collider.gameObject.name.Substring(0, 5) == "Cloud")
+            {
+                rigid.velocity = new Vector2(rigid.velocity.x, 0);
+                rigid.AddForce(Vector2.up * 4f, ForceMode2D.Impulse);
+                jumpCount = 0;
+                anim.SetInteger("jumpCount", 0);
             }
             previous_status = false;
         }

@@ -28,6 +28,7 @@ public class Tile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(gameObject.name);
         if(!getCheck)
         {
             if (collision.gameObject.tag == "Player")
@@ -39,6 +40,10 @@ public class Tile : MonoBehaviour
                 else if (gameObject.name.Substring(0, 4) == "Fire")
                 {
                     StartCoroutine("PlayFireEffect");
+                }
+                else if (gameObject.name.Substring(0, 5) == "Cloud")
+                {
+                    anim.SetTrigger("IsBounce");
                 }
             }
         }
@@ -89,4 +94,14 @@ public class Tile : MonoBehaviour
         getCheck = false;
         tempEffect.GetComponent<BoxCollider2D>().isTrigger = true;
     }
+
+    /*private IEnumerator PlayCloudEffect(GameObject player)
+    {
+        getCheck = true;
+        anim.SetTrigger("IsBounce");
+
+        player.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 3f, ForceMode2D.Impulse);
+        yield return new WaitForSecondsRealtime(0.1f);
+        getCheck = false;
+    }*/
 }
