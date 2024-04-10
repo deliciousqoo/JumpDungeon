@@ -9,25 +9,20 @@ public class ButtonImage : MonoBehaviour
     [SerializeField]
     private Sprite startImage;
     [SerializeField]
-    private Sprite onButton;
+    private Sprite onSprite;
     [SerializeField]
-    private Sprite offButton;
+    private Sprite offSprite;
 
     [SerializeField]
     private Image[] clearProgress;
 
     private Button button;
 
-    private void Awake()
-    {
-        button = GetComponent<Button>();
-    }
-
     public void MenuStageButtonChange(bool check)
     {
-        //Debug.Log("check ice");
+        button = GetComponent<Button>();
         if (!check) { 
-            button.image.sprite = offButton;
+            button.image.sprite = offSprite;
             button.interactable = false;
             foreach(Transform child  in this.transform)
             {
@@ -35,7 +30,7 @@ public class ButtonImage : MonoBehaviour
             }
         }
         else { 
-            button.image.sprite = onButton;
+            button.image.sprite = onSprite;
             button.interactable = true;
             foreach (Transform child in this.transform)
             {
@@ -53,15 +48,15 @@ public class ButtonImage : MonoBehaviour
         }
     }
 
-    public void ButtonImageChange(bool check)
+    public void SpriteChange(bool check)
     {
         if (!check)
         {
-            button.image.sprite = offButton;
+            gameObject.GetComponent<Image>().sprite = offSprite;
         }
         else
         {
-            button.image.sprite = onButton;
+            gameObject.GetComponent<Image>().sprite = onSprite;
         }
     }
 }

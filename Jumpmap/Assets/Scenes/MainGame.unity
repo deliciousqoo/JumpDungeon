@@ -18806,7 +18806,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1122954266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20784,7 +20784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1341780984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23718,6 +23718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pages: []
   pageCount: 0
+  canvas: {fileID: 0}
   settingBoard: {fileID: 614881128}
   blackBoard: {fileID: 1169396806}
   languageBoard: {fileID: 0}
@@ -27047,7 +27048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2089910165
 RectTransform:
   m_ObjectHideFlags: 0

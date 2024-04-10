@@ -118,7 +118,7 @@ TextureImporter:
         width: 24
         height: 11
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -137,9 +137,9 @@ TextureImporter:
         x: 26
         y: 88
         width: 24
-        height: 11
+        height: 10
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,7 +157,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1
         y: 70
-        width: 40
+        width: 38
         height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -168,6 +168,48 @@ TextureImporter:
       bones: []
       spriteID: 5358e69f337134f4d9c38d502d7735ea
       internalID: -432531575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_ui_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 55
+        width: 25
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1dd33cd0cb0d304daf5b385a6b5db50
+      internalID: -2129632308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ex_ui_4
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 55
+        width: 25
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee8e295996ec4d549ab25059d2abaf3a
+      internalID: -1555061313
       vertices: []
       indices: 
       edges: []
@@ -186,6 +228,8 @@ TextureImporter:
       ex_ui_0: -916489154
       ex_ui_1: 1337246851
       ex_ui_2: -432531575
+      ex_ui_3: -2129632308
+      ex_ui_4: -1555061313
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

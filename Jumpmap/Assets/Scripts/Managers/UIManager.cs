@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,6 @@ public class UIManager : MonoBehaviour
     private GameObject[] pages;
 
     public int pageCount = 0;
-    private int pageOrder = 0;
 
     [SerializeField]
     private GameObject canvas, settingBoard, blackBoard, languageBoard, clearBoard, characterBoard, gameBoard, choiceOutline, storeBoard;
@@ -19,12 +19,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject[] clearStars;
 
+    public bool uiMovementCheck = false;
+
     public void Start()
     {
         switch (SceneManager.GetActiveScene().name)
         {
             case "Menu":
                 settingBoard.transform.position = new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f);
+                languageBoard.transform.position = new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f);
                 characterBoard.transform.position = new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0);
                 break;
             case "MainGame":
@@ -71,19 +74,27 @@ public class UIManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "LevelLeft":
-                        pageCount--;
-                        if (pageCount == pages.Length) pageCount %= pages.Length;
-                        else if (pageCount < 0) pageCount = pages.Length - 1;
-                        SetLevelPage();
+                        if (uiMovementCheck) break;
+                        uiMovementCheck = true;
+                        StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(canvas.transform.position.x * 2 + 206.5f * canvas.transform.localScale.x, pages[0].transform.position.y, 0f), pages[pageCount].transform.position, 2, 0));
+
+                        SetLevelPage(--pageCount);
+
+                        pages[pageCount].transform.position = new Vector3(-206.5f * canvas.transform.localScale.x, canvas.transform.position.y + 296f * canvas.transform.localScale.x, 0f);
+                        StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(canvas.transform.position.x + 20f, pages[pageCount].transform.position.y, 0f), pages[pageCount].transform.position, 0, 0));
                         break;
                     case "LevelRight":
-                        pageCount++;
-                        if (pageCount == pages.Length) pageCount %= pages.Length;
-                        else if (pageCount < 0) pageCount = pages.Length - 1;
-                        SetLevelPage();
+                        if (uiMovementCheck) break;
+                        uiMovementCheck = true;
+                        StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(-206.5f * canvas.transform.localScale.x, pages[pageCount].transform.position.y, 0f), pages[pageCount].transform.position, 2, 0));
+
+                        SetLevelPage(++pageCount);
+
+                        pages[pageCount].transform.position = new Vector3(canvas.transform.position.x * 2 + 206.5f * canvas.transform.localScale.x, canvas.transform.position.y + 296f * canvas.transform.localScale.x, 0f);
+                        StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(canvas.transform.position.x - 20f, pages[pageCount].transform.position.y, 0f), pages[pageCount].transform.position, 0, 1));
                         break;
                     case "Setting":
-                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), settingBoard.transform.position, 0));
+                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), settingBoard.transform.position, 0, 0));
                         blackBoard.SetActive(true);
                         break;
                     case "Store":
@@ -117,7 +128,7 @@ public class UIManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "Cancel1": // Setting Board
-                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), settingBoard.transform.position, 2));
+                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), settingBoard.transform.position, 2, 0));
                         blackBoard.SetActive(false);
                         break;
                     case "Cancel2": // Game Board
@@ -125,8 +136,7 @@ public class UIManager : MonoBehaviour
                         blackBoard.SetActive(false);
                         break;
                     case "Language":
-                        languageBoard.SetActive(true);
-                        settingBoard.SetActive(false);
+                        StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), languageBoard.transform.position, 0, 0));
                         break;
                     case "Ad":
                         GameManager.instance.shieldCheck = true;
@@ -142,8 +152,7 @@ public class UIManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "Cancel":
-                        settingBoard.SetActive(true);
-                        languageBoard.SetActive(false);
+                        StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), languageBoard.transform.position, 2, 0));
                         break;
                     default:
                         break;
@@ -177,14 +186,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetLevelPage()
+    public void SetLevelPage(int temp)
     {
-        for(int i=0;i<pages.Length;i++)
-        {
-            if (pageCount == i) { pages[i].SetActive(true); }
-            else { pages[i].SetActive(false); }
-        }
+        if (temp == pages.Length) pageCount %= pages.Length;
+        else if (temp < 0) pageCount = pages.Length - 1;
+        
         GameManager.instance.menuCount = pageCount;
+        if (StageManager.instance.GetStageClearCheckValue(pageCount * 12) == 0) pages[pageCount].GetComponent<ButtonImage>().SpriteChange(false);
+        else pages[pageCount].GetComponent<ButtonImage>().SpriteChange(true);
         StageManager.instance.MenuStageSetUp();
     }
 
@@ -208,6 +217,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator UIMovement_Y(GameObject target, Vector3 targetPos, Vector3 orgPos, int count)
     {
+        //Set Origin Position
         target.transform.position = orgPos;
         Vector3 temp_pos = target.transform.position;
 
@@ -216,6 +226,7 @@ public class UIManager : MonoBehaviour
         if (targetPos.y < orgPos.y) dir = -1;
         else dir = 1;
 
+        //Move to Target Position
         float x = 1, slope = 0.08f;
         yield return new WaitForSecondsRealtime(0.03f);
         while ((targetPos.y - target.transform.position.y) * dir > 0)
@@ -227,16 +238,15 @@ public class UIManager : MonoBehaviour
         }
 
         target.transform.position = targetPos;
-        Debug.Log(target.transform.position);
 
+        //Repeat for Vibrate
         if (count == 0) StartCoroutine(UIMovement_Y(target, new Vector3(target.transform.position.x, target.transform.position.y + 30f * -dir, 0f), target.transform.position, count + 1));
         else if(count == 1) StartCoroutine(UIMovement_Y(target, new Vector3(target.transform.position.x, target.transform.position.y + 10f * -dir, 0f), target.transform.position, count + 1));
     }
 
-    private IEnumerator UIMovement_X(GameObject target, Vector3 targetPos, Vector3 orgPos, int count)
+    private IEnumerator UIMovement_X(GameObject target, Vector3 targetPos, Vector3 orgPos, int count, int mode)
     {
-        //if (count == 3) yield break;
-
+        //Set Origin Position
         target.transform.position = orgPos;
         Vector3 temp_pos = target.transform.position;
 
@@ -245,6 +255,7 @@ public class UIManager : MonoBehaviour
         if (targetPos.x < orgPos.x) dir = -1;
         else dir = 1;
 
+        //Move to Target Position
         float x = 1, slope = 0.1f;
         yield return new WaitForSecondsRealtime(0.03f);
         while ((targetPos.x - target.transform.position.x) * dir > 0)
@@ -257,7 +268,9 @@ public class UIManager : MonoBehaviour
 
         target.transform.position = targetPos;
 
-        if (count == 0) StartCoroutine(UIMovement_X(target, new Vector3(targetPos.x + 30f * -dir, target.transform.position.y, 0f), target.transform.position, count + 1));
-        else if (count == 1) StartCoroutine(UIMovement_X(target, new Vector3(targetPos.x + 10f * -dir, target.transform.position.y, 0f), target.transform.position, count + 1));
+        //Repeat for Vibrate
+        if (count == 0) StartCoroutine(UIMovement_X(target, new Vector3(targetPos.x + 30f * -dir, target.transform.position.y, 0f), target.transform.position, count + 1, mode));
+        else if (count == 1) StartCoroutine(UIMovement_X(target, new Vector3(targetPos.x + 10f * -dir, target.transform.position.y, 0f), target.transform.position, count + 1, mode));
+        else if (count == 2 && mode == 1) { uiMovementCheck = false; }
     }
 }
