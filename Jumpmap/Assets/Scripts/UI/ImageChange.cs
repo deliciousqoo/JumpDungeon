@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ButtonImage : MonoBehaviour
+public class ImageChange : MonoBehaviour
 {
     [SerializeField]
     private Sprite startImage;

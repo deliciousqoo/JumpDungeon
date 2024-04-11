@@ -57,11 +57,12 @@ public class StageAdapter : MonoBehaviour
             switch (tempCheckList[clearIndex])
             {
                 case 0:
-                    menuStages[clearIndex].GetComponent<ButtonImage>().MenuStageButtonChange(false);
+                    menuStages[clearIndex].GetComponent<ImageChange>().MenuStageButtonChange(false);
+
                     break;
                 default:
-                    menuStages[clearIndex].GetComponent<ButtonImage>().MenuStageButtonChange(true);
-                    menuStages[clearIndex].GetComponent<ButtonImage>().MenuStageStarChange(tempCheckList[clearIndex]);
+                    menuStages[clearIndex].GetComponent<ImageChange>().MenuStageButtonChange(true);
+                    menuStages[clearIndex].GetComponent<ImageChange>().MenuStageStarChange(tempCheckList[clearIndex]);
                     break;
             }
         }

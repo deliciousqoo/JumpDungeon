@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     public int pageCount = 0;
 
     [SerializeField]
-    private GameObject canvas, settingBoard, blackBoard, languageBoard, clearBoard, characterBoard, gameBoard, choiceOutline, storeBoard;
+    private GameObject canvas, settingBoard, blackBoard1, blackBoard2, languageBoard, clearBoard, characterBoard, gameBoard, choiceOutline, storeBoard;
     [SerializeField]
     private Button levelLeft, levelRight;
     [SerializeField]
@@ -28,7 +28,8 @@ public class UIManager : MonoBehaviour
             case "Menu":
                 settingBoard.transform.position = new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f);
                 languageBoard.transform.position = new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f);
-                characterBoard.transform.position = new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0);
+                characterBoard.transform.position = new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0f);
+                storeBoard.transform.position = new Vector3(canvas.transform.position.x, -455f * canvas.transform.localScale.x, 0f);
                 break;
             case "MainGame":
                 break;
@@ -46,7 +47,7 @@ public class UIManager : MonoBehaviour
                 {
                     case "Pause":
                         settingBoard.SetActive(true);
-                        blackBoard.SetActive(true);
+                        blackBoard1.SetActive(true);
                         Time.timeScale = 0f;
                         break;
                     case "Exit":
@@ -55,7 +56,7 @@ public class UIManager : MonoBehaviour
                         break;
                     case "Cancel":
                         settingBoard.SetActive(false);
-                        blackBoard.SetActive(false);
+                        blackBoard1.SetActive(false);
                         Time.timeScale = 1f;
                         break;
                     case "Restart":
@@ -64,7 +65,7 @@ public class UIManager : MonoBehaviour
                         break;
                     case "Continue":
                         settingBoard.SetActive(false);
-                        blackBoard.SetActive(false);
+                        blackBoard1.SetActive(false);
                         Time.timeScale = 1f;
                         break;
                 }
@@ -95,23 +96,24 @@ public class UIManager : MonoBehaviour
                         break;
                     case "Setting":
                         StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), settingBoard.transform.position, 0, 0));
-                        blackBoard.SetActive(true);
+                        blackBoard1.SetActive(true);
                         break;
                     case "Store":
-
+                        StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, 126f * canvas.transform.localScale.x + 20f, 0f), storeBoard.transform.position, 0));
+                        blackBoard2.SetActive(true);
                         break;
                     case "Ranking":
                         break;
                     case "Infinity":
                         break;
                     case "Character":
-                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -40f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 0));
-                        blackBoard.SetActive(true);
+                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -40f * canvas.transform.localScale.x, 0f), characterBoard.transform.position, 0));
+                        blackBoard1.SetActive(true);
                         break;
                     default:
                         GameManager.instance.stageNum = int.Parse(clickObject.name)-1;
                         gameBoard.SetActive(true);
-                        blackBoard.SetActive(true);
+                        blackBoard1.SetActive(true);
                         for(int i=0;i<clearStars.Length;i++)
                         {
                             if (i < StageManager.instance.GetStageClearCheckValue(GameManager.instance.stageNum) - 1)
@@ -129,11 +131,11 @@ public class UIManager : MonoBehaviour
                 {
                     case "Cancel1": // Setting Board
                         StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), settingBoard.transform.position, 2, 0));
-                        blackBoard.SetActive(false);
+                        blackBoard1.SetActive(false);
                         break;
                     case "Cancel2": // Game Board
                         gameBoard.SetActive(false);
-                        blackBoard.SetActive(false);
+                        blackBoard1.SetActive(false);
                         break;
                     case "Language":
                         StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), languageBoard.transform.position, 0, 0));
@@ -175,11 +177,23 @@ public class UIManager : MonoBehaviour
                 {
                     case "Cancel":
                         StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2));
-                        blackBoard.SetActive(false);
+                        blackBoard1.SetActive(false);
                         break;
                     default:
                         Debug.Log(clickObject.transform.position);
                         choiceOutline.transform.position = clickObject.transform.position;
+                        break;
+                }
+            }
+            else if (clickObject.tag == "Store")
+            {
+                switch (clickObject.name)
+                {
+                    case "Cancel":
+                        StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, -455f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2));
+                        blackBoard2.SetActive(false);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -192,15 +206,15 @@ public class UIManager : MonoBehaviour
         else if (temp < 0) pageCount = pages.Length - 1;
         
         GameManager.instance.menuCount = pageCount;
-        if (StageManager.instance.GetStageClearCheckValue(pageCount * 12) == 0) pages[pageCount].GetComponent<ButtonImage>().SpriteChange(false);
-        else pages[pageCount].GetComponent<ButtonImage>().SpriteChange(true);
+        if (StageManager.instance.GetStageClearCheckValue(pageCount * 12) == 0) pages[pageCount].GetComponent<ImageChange>().SpriteChange(false);
+        else pages[pageCount].GetComponent<ImageChange>().SpriteChange(true);
         StageManager.instance.MenuStageSetUp();
     }
 
     public void OnCompletedPanelCall()
     {
         clearBoard.SetActive(true);
-        blackBoard.SetActive(true);
+        blackBoard1.SetActive(true);
         StartCoroutine("OnCompletedPanel", 2);
     }
 

@@ -135,10 +135,10 @@ public class Player : MonoBehaviour
         }
         else { anim.SetBool("isJumping", true); }
 
-        //Check Gimmick
-        if(checkHit.collider != null)
+        //Check Gimmick Tile
+        if(checkHit.collider != null && checkHit.collider.tag == "Tile")
         {
-            //Debug.Log(checkHit.collider.gameObject.name.Substring(0, 5));
+            Debug.Log(checkHit.collider.gameObject.name.Substring(0, 5));
             if(checkHit.collider.gameObject.name.Substring(0,5) == "Water")
             {
                 checkHit.collider.gameObject.GetComponent<Animator>().Play("Water_Move");

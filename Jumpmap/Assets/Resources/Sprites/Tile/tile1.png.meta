@@ -718,6 +718,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: tile1_0
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 18
+        width: 8
+        height: 8
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab7fa61821b4b24d8f8f844622f1b75
+      internalID: -1370442242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -758,6 +779,7 @@ TextureImporter:
       ex_tile3_7: -789961845
       ex_tile3_8: -1765794187
       ex_tile3_9: -1888167525
+      tile1_0: -1370442242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
