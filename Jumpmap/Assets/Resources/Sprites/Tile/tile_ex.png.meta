@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d91b4490197eeb4eaa1d878e9e3d808
+guid: 5cec1f52f0c02e047a4cd7922caf3687
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wave_tile03_0
+      name: tile_ex_0
       rect:
         serializedVersion: 2
-        x: 46
-        y: 46
+        x: 8
+        y: 80
         width: 8
         height: 8
       alignment: 0
@@ -124,8 +124,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 323ada80a83f74341aa2da7725f47dc2
-      internalID: 505330682
+      spriteID: 8b54a81d9d3a4aa4abbbd451b84a007d
+      internalID: 346949952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile_ex_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 80
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2c275374afa6d34fbf5d454865d4e61
+      internalID: -183590247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile_ex_2
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 80
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b08e8e1294a43e4db92b62e52a830be
+      internalID: -544179805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tile_ex_3
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 80
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 007f563e75e48d94f9f88e575b708379
+      internalID: 1128537169
       vertices: []
       indices: 
       edges: []
@@ -141,7 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wave_tile03_0: 505330682
+      tile_ex_0: 346949952
+      tile_ex_1: -183590247
+      tile_ex_2: -544179805
+      tile_ex_3: 1128537169
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

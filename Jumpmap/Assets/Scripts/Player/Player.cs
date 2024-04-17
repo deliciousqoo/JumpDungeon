@@ -138,7 +138,6 @@ public class Player : MonoBehaviour
         //Check Gimmick Tile
         if(checkHit.collider != null && checkHit.collider.tag == "Tile")
         {
-            Debug.Log(checkHit.collider.gameObject.name.Substring(0, 5));
             if(checkHit.collider.gameObject.name.Substring(0,5) == "Water")
             {
                 checkHit.collider.gameObject.GetComponent<Animator>().Play("Water_Move");
@@ -149,7 +148,26 @@ public class Player : MonoBehaviour
             }
             else if(checkHit.collider.gameObject.name.Substring(0, 4) == "Wave")
             {
-                rigid.gravityScale = 3f;
+                jumpCount = 0;
+                anim.Play("Falling");
+                anim.SetInteger("jumpCount", 0);
+                rigid.gravityScale = 0f;
+                rigid.drag = 10f;
+                switch (checkHit.collider.gameObject.name[4])
+                {
+                    case 'R':
+                        rigid.AddForce(Vector2.right * 30f);
+                        break;
+                    case 'L':
+                        rigid.AddForce(Vector2.left * 30f);
+                        break;
+                    case 'U':
+                        rigid.AddForce(Vector2.up * 20f);
+                        break;
+                    case 'D':
+                        rigid.AddForce(Vector2.down * 20f);
+                        break;
+                }
             }
             else if(checkHit.collider.gameObject.name.Substring(0, 5) == "Swamp")
             {
@@ -162,10 +180,12 @@ public class Player : MonoBehaviour
             }
             else if(checkHit.collider.gameObject.name.Substring(0, 5) == "Cloud")
             {
+                StartCoroutine("OnCloudTile");
+                /*
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
                 rigid.AddForce(Vector2.up * 4f, ForceMode2D.Impulse);
                 jumpCount = 0;
-                anim.SetInteger("jumpCount", 0);
+                anim.SetInteger("jumpCount", 0);*/
             }
             previous_status = false;
         }
@@ -298,6 +318,19 @@ public class Player : MonoBehaviour
         GameManager.instance.shieldCheck = false;
         gameObject.layer = 14;
    }
+
+    public IEnumerator OnCloudTile()
+    {
+        yield return new WaitForSecondsRealtime(1/7f);
+
+        rigid.velocity = new Vector2(rigid.velocity.x, 0);
+        rigid.AddForce(Vector2.up * 2f, ForceMode2D.Impulse);
+        jumpCount = 0;
+        anim.SetInteger("jumpCount", 0);
+
+        yield return 0;
+    }
+
 
     public void PlayerHide()
     {

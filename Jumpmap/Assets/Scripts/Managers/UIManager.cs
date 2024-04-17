@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,6 +21,7 @@ public class UIManager : MonoBehaviour
     private GameObject[] clearStars;
 
     public bool uiMovementCheck = false;
+    public Stack<GameObject> activeBoardStack = new Stack<GameObject>();
 
     public void Start()
     {
@@ -27,6 +29,7 @@ public class UIManager : MonoBehaviour
         {
             case "Menu":
                 settingBoard.transform.position = new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f);
+                gameBoard.transform.position = new Vector3(canvas.transform.position.x * 2 + 252f * canvas.transform.localScale.x, canvas.transform.position.y, 0f);
                 languageBoard.transform.position = new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f);
                 characterBoard.transform.position = new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0f);
                 storeBoard.transform.position = new Vector3(canvas.transform.position.x, -455f * canvas.transform.localScale.x, 0f);
@@ -41,7 +44,9 @@ public class UIManager : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject != null)
         {
             GameObject clickObject = EventSystem.current.currentSelectedGameObject;
-            if(clickObject.tag == "InGameSetting")
+            if (uiMovementCheck) return;
+            uiMovementCheck = true;
+            if (clickObject.tag == "InGameSetting")
             {
                 switch(clickObject.name)
                 {
@@ -75,18 +80,14 @@ public class UIManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "LevelLeft":
-                        if (uiMovementCheck) break;
-                        uiMovementCheck = true;
                         StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(canvas.transform.position.x * 2 + 206.5f * canvas.transform.localScale.x, pages[0].transform.position.y, 0f), pages[pageCount].transform.position, 2, 0));
 
                         SetLevelPage(--pageCount);
 
                         pages[pageCount].transform.position = new Vector3(-206.5f * canvas.transform.localScale.x, canvas.transform.position.y + 296f * canvas.transform.localScale.x, 0f);
-                        StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(canvas.transform.position.x + 20f, pages[pageCount].transform.position.y, 0f), pages[pageCount].transform.position, 0, 0));
+                        StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(canvas.transform.position.x + 20f, pages[pageCount].transform.position.y, 0f), pages[pageCount].transform.position, 0, 1));
                         break;
                     case "LevelRight":
-                        if (uiMovementCheck) break;
-                        uiMovementCheck = true;
                         StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(-206.5f * canvas.transform.localScale.x, pages[pageCount].transform.position.y, 0f), pages[pageCount].transform.position, 2, 0));
 
                         SetLevelPage(++pageCount);
@@ -95,11 +96,13 @@ public class UIManager : MonoBehaviour
                         StartCoroutine(UIMovement_X(pages[pageCount], new Vector3(canvas.transform.position.x - 20f, pages[pageCount].transform.position.y, 0f), pages[pageCount].transform.position, 0, 1));
                         break;
                     case "Setting":
-                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), settingBoard.transform.position, 0, 0));
+                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), settingBoard.transform.position, 0, 1));
+                        activeBoardStack.Push(settingBoard);
                         blackBoard1.SetActive(true);
                         break;
                     case "Store":
-                        StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, 126f * canvas.transform.localScale.x + 20f, 0f), storeBoard.transform.position, 0));
+                        StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, 126f * canvas.transform.localScale.x + 20f, 0f), storeBoard.transform.position, 0, 1));
+                        activeBoardStack.Push(storeBoard);
                         blackBoard2.SetActive(true);
                         break;
                     case "Ranking":
@@ -107,12 +110,40 @@ public class UIManager : MonoBehaviour
                     case "Infinity":
                         break;
                     case "Character":
-                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -40f * canvas.transform.localScale.x, 0f), characterBoard.transform.position, 0));
+                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -40f * canvas.transform.localScale.x, 0f), characterBoard.transform.position, 0, 1));
+                        activeBoardStack.Push(characterBoard);
                         blackBoard1.SetActive(true);
+                        break;
+                    case "BlackBoard1":
+                    case "BlackBoard2":
+                        switch(activeBoardStack.Pop().gameObject.name)
+                        {
+                            case "CharacterBoard":
+                                StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2, 1));
+                                break;
+                            case "StoreBoard":
+                                StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, -455f * canvas.transform.localScale.x, 0), storeBoard.transform.position, 2, 1));
+                                break;
+                            case "OutGameSetting":
+                                StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), settingBoard.transform.position, 2, 1));
+                                break;
+                            case "LanguageSetting":
+                                StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), languageBoard.transform.position, 2, 1));
+                                break;
+                            case "GameBoard":
+                                StartCoroutine(UIMovement_X(gameBoard, new Vector3(canvas.transform.position.x * 2 + 252f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), gameBoard.transform.position, 2, 1));
+                                break;
+                        }
+                        if(activeBoardStack.Count == 0)
+                        {
+                            blackBoard1.SetActive(false);
+                            blackBoard2.SetActive(false);
+                        }
                         break;
                     default:
                         GameManager.instance.stageNum = int.Parse(clickObject.name)-1;
-                        gameBoard.SetActive(true);
+                        StartCoroutine(UIMovement_X(gameBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), settingBoard.transform.position, 0, 1));
+                        activeBoardStack.Push(gameBoard);
                         blackBoard1.SetActive(true);
                         for(int i=0;i<clearStars.Length;i++)
                         {
@@ -129,16 +160,13 @@ public class UIManager : MonoBehaviour
             {
                 switch(clickObject.name)
                 {
-                    case "Cancel1": // Setting Board
-                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), settingBoard.transform.position, 2, 0));
-                        blackBoard1.SetActive(false);
-                        break;
-                    case "Cancel2": // Game Board
-                        gameBoard.SetActive(false);
+                    case "Cancel": // Setting Board
+                        StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), settingBoard.transform.position, 2, 1));
                         blackBoard1.SetActive(false);
                         break;
                     case "Language":
-                        StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), languageBoard.transform.position, 0, 0));
+                        StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), languageBoard.transform.position, 0, 1));
+                        activeBoardStack.Push(languageBoard);
                         break;
                     case "Ad":
                         GameManager.instance.shieldCheck = true;
@@ -154,7 +182,7 @@ public class UIManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "Cancel":
-                        StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), languageBoard.transform.position, 2, 0));
+                        StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), languageBoard.transform.position, 2, 1));
                         break;
                     default:
                         break;
@@ -176,7 +204,7 @@ public class UIManager : MonoBehaviour
                 switch (clickObject.name)
                 {
                     case "Cancel":
-                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2));
+                        StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2, 1));
                         blackBoard1.SetActive(false);
                         break;
                     default:
@@ -190,7 +218,7 @@ public class UIManager : MonoBehaviour
                 switch (clickObject.name)
                 {
                     case "Cancel":
-                        StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, -455f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2));
+                        StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, -455f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2, 1));
                         blackBoard2.SetActive(false);
                         break;
                     default:
@@ -229,7 +257,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private IEnumerator UIMovement_Y(GameObject target, Vector3 targetPos, Vector3 orgPos, int count)
+    private IEnumerator UIMovement_Y(GameObject target, Vector3 targetPos, Vector3 orgPos, int count, int mode)
     {
         //Set Origin Position
         target.transform.position = orgPos;
@@ -254,8 +282,9 @@ public class UIManager : MonoBehaviour
         target.transform.position = targetPos;
 
         //Repeat for Vibrate
-        if (count == 0) StartCoroutine(UIMovement_Y(target, new Vector3(target.transform.position.x, target.transform.position.y + 30f * -dir, 0f), target.transform.position, count + 1));
-        else if(count == 1) StartCoroutine(UIMovement_Y(target, new Vector3(target.transform.position.x, target.transform.position.y + 10f * -dir, 0f), target.transform.position, count + 1));
+        if (count == 0) StartCoroutine(UIMovement_Y(target, new Vector3(target.transform.position.x, target.transform.position.y + 30f * -dir, 0f), target.transform.position, count + 1, mode));
+        else if(count == 1) StartCoroutine(UIMovement_Y(target, new Vector3(target.transform.position.x, target.transform.position.y + 10f * -dir, 0f), target.transform.position, count + 1, mode));
+        else if (count == 2 && mode == 1) { uiMovementCheck = false; }
     }
 
     private IEnumerator UIMovement_X(GameObject target, Vector3 targetPos, Vector3 orgPos, int count, int mode)
