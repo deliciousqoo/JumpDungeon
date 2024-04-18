@@ -161,8 +161,12 @@ public class UIManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "Cancel": // Setting Board
+                        activeBoardStack.Pop();
                         StartCoroutine(UIMovement_X(settingBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), settingBoard.transform.position, 2, 1));
-                        blackBoard1.SetActive(false);
+                        if (activeBoardStack.Count == 0)
+                        {
+                            blackBoard1.SetActive(false);
+                        }
                         break;
                     case "Language":
                         StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x - 20f, canvas.transform.position.y, 0f), languageBoard.transform.position, 0, 1));
@@ -182,7 +186,12 @@ public class UIManager : MonoBehaviour
                 switch(clickObject.name)
                 {
                     case "Cancel":
+                        activeBoardStack.Pop();
                         StartCoroutine(UIMovement_X(languageBoard, new Vector3(canvas.transform.position.x * 2 + 224f * canvas.transform.localScale.x, canvas.transform.position.y, 0f), languageBoard.transform.position, 2, 1));
+                        if (activeBoardStack.Count == 0)
+                        {
+                            blackBoard1.SetActive(false);
+                        }
                         break;
                     default:
                         break;
@@ -204,8 +213,12 @@ public class UIManager : MonoBehaviour
                 switch (clickObject.name)
                 {
                     case "Cancel":
+                        activeBoardStack.Pop();
                         StartCoroutine(UIMovement_Y(characterBoard, new Vector3(canvas.transform.position.x, -763f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2, 1));
-                        blackBoard1.SetActive(false);
+                        if (activeBoardStack.Count == 0)
+                        {
+                            blackBoard1.SetActive(false);
+                        }
                         break;
                     default:
                         Debug.Log(clickObject.transform.position);
@@ -217,10 +230,6 @@ public class UIManager : MonoBehaviour
             {
                 switch (clickObject.name)
                 {
-                    case "Cancel":
-                        StartCoroutine(UIMovement_Y(storeBoard, new Vector3(canvas.transform.position.x, -455f * canvas.transform.localScale.x, 0), characterBoard.transform.position, 2, 1));
-                        blackBoard2.SetActive(false);
-                        break;
                     default:
                         break;
                 }

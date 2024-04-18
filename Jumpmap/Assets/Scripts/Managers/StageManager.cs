@@ -68,9 +68,11 @@ public class StageManager : MonoBehaviour
     }
     public void StageProgressSetUp()
     {
+        //현재 진척도보다 높으면 갱신
         stageClearCheckList[stageNum] = Mathf.Max(stageClearCheckList[stageNum], stageProgressStep);
         if(stageNum < stageClearCheckList.Length - 1)
         {
+            //현재 스테이지 클리어시 다음 스테이지 Unlock
             if (stageClearCheckList[stageNum] >= 1 && stageClearCheckList[stageNum+1] == 0)
             {
                 stageClearCheckList[stageNum + 1] = 1;

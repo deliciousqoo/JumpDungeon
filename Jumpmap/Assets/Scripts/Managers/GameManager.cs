@@ -6,27 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-
-    private CameraManager cameraManager;
-    private StageManager stageManager;
-    private UIManager uiManager;
-
-    [SerializeField]
-    private Player player;
-
-    
-    public Vector3 playerPos;
-
-    public int check = 5;
-    public int stageNum;
-    public int menuCount;
-    public int skinNum;
-
-    public bool shieldCheck = false;
-
-    private void Awake() 
+    private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -36,6 +18,17 @@ public class GameManager : MonoBehaviour
             if (instance != this) { Destroy(this.gameObject); }
         }
     }
+
+    private CameraManager cameraManager;
+    private StageManager stageManager;
+    private UIManager uiManager;
+
+    [SerializeField]
+    private Player player;
+    
+    public Vector3 playerPos;
+    public int check = 5, stageNum, menuCount, skinNum;
+    public bool shieldCheck = false;
 
     private void Update()
     {
