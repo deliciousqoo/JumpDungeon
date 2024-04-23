@@ -40,4 +40,9 @@ public class LogInSystem : MonoBehaviour
     {
         FirebaseManager.instance.LogOut();
     }
+
+    public void SignInWithGoogle()
+    {
+
+    }
 }

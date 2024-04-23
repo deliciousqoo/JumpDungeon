@@ -6,11 +6,16 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Experimental;
 using UnityEngine.U2D.Animation;
 
-public class Player : MonoBehaviour
+public struct Data
 {
     public float maxSpeed;
     public float jumpPower;
     public float speed;
+}
+
+public class Player : MonoBehaviour
+{
+    public Data playerData;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     BoxCollider2D collider;
@@ -72,7 +77,7 @@ public class Player : MonoBehaviour
             {
                 //Debug.Log("jump");
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
-                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                rigid.AddForce(Vector2.up * playerData.jumpPower, ForceMode2D.Impulse);
                 anim.SetBool("isJumping", true);
 
                 jumpCount++;
@@ -116,11 +121,11 @@ public class Player : MonoBehaviour
         if (checkControl)
         {
             //Move Speed
-            rigid.AddForce(Vector2.right * h * speed, ForceMode2D.Impulse);
+            rigid.AddForce(Vector2.right * h * playerData.speed, ForceMode2D.Impulse);
 
             //Max Speed
-            if (rigid.velocity.x > maxSpeed) { rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y); }
-            else if (rigid.velocity.x < maxSpeed * (-1)) { rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y); }
+            if (rigid.velocity.x > playerData.maxSpeed) { rigid.velocity = new Vector2(playerData.maxSpeed, rigid.velocity.y); }
+            else if (rigid.velocity.x < playerData.maxSpeed * (-1)) { rigid.velocity = new Vector2(playerData.maxSpeed * (-1), rigid.velocity.y); }
         }
 
         //Landing Platform
@@ -174,18 +179,13 @@ public class Player : MonoBehaviour
                 rigid.gravityScale = 0.1f;
                 rigid.drag = 50f;
                 jumpCount = 0;
-                jumpPower = 1.5f;
+                playerData.jumpPower = 1.5f;
                 anim.SetInteger("jumpCount", 0);
-                speed = 0.1f;
+                playerData.speed = 0.1f;
             }
             else if(checkHit.collider.gameObject.name.Substring(0, 5) == "Cloud")
             {
                 StartCoroutine("OnCloudTile");
-                /*
-                rigid.velocity = new Vector2(rigid.velocity.x, 0);
-                rigid.AddForce(Vector2.up * 4f, ForceMode2D.Impulse);
-                jumpCount = 0;
-                anim.SetInteger("jumpCount", 0);*/
             }
             previous_status = false;
         }
@@ -194,12 +194,12 @@ public class Player : MonoBehaviour
             if (!previous_status)
             {
                 jumpCount = 1;
-                jumpPower = 3f;
+                playerData.jumpPower = 3f;
             }
             rigid.gravityScale = 1.0f;
             rigid.drag = 3f;
             previous_status = true;
-            speed = 1f;
+            playerData.speed = 1f;
         }
     }
 

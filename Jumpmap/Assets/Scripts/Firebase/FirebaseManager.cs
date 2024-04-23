@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Google;
 using Firebase.Auth;
 using TMPro;
 using System;
+
 
 public class FirebaseManager
 {
@@ -24,6 +26,8 @@ public class FirebaseManager
 
     private FirebaseAuth auth; // 로그인, 회원가입 등에 사용
     private FirebaseUser user; // 인증이 완료된 유저 정보
+
+    //private GoogleSignInConfiguration configuration;
 
     public string UserId => user.UserId;
 
@@ -105,5 +109,10 @@ public class FirebaseManager
     {
         auth.SignOut();
         Debug.Log("로그아웃");
+    }
+
+    public void SignInWithGoogle()
+    {
+
     }
 }
