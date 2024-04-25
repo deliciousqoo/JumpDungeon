@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6728257196354839256}
   - component: {fileID: 1428738727437217102}
   - component: {fileID: 2616954250379827382}
+  - component: {fileID: 6656231914885093779}
   m_Layer: 8
   m_Name: Frozen_Tile
   m_TagString: Tile
@@ -216,3 +217,17 @@ CompositeCollider2D:
   m_OffsetDistance: 0
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 158123738573573382}
+--- !u!114 &6656231914885093779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158123738573573382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed42d0812beae646bc78919f81f0309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  composite: {fileID: 0}

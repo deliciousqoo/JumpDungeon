@@ -24,11 +24,13 @@ public class GameManager : MonoBehaviour
     private UIManager uiManager;
 
     [SerializeField]
-    private Player player;
+    private PlayerInfo player;
     
     public Vector3 playerPos;
     public int check = 5, stageNum, menuCount, skinNum;
     public bool shieldCheck = false;
+
+    public SkinSO SkinSO;
 
     private void Update()
     {
@@ -55,7 +57,7 @@ public class GameManager : MonoBehaviour
                 break;
             case "MainGame":
                 cameraManager = GameObject.Find("CameraManager").GetComponent<CameraManager>();
-                player = GameObject.Find("Player").GetComponent<Player>();
+                player = GameObject.Find("Player").GetComponent<PlayerInfo>();
                 uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
                 StageManager.instance.stageNum = stageNum;
                 break;
@@ -64,11 +66,11 @@ public class GameManager : MonoBehaviour
 
 
     /*********************** Player ***********************/
-
+    /*
     public void OnCompletedCall(Vector2 targetPos)
     {
         player.OnCompletedCall(targetPos);
-    }
+    }*/
     public void PlayerHide()
     {
         player.PlayerHide();

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2724042857521647764}
   - component: {fileID: 1019966850271694822}
-  - component: {fileID: 679929920214837537}
   - component: {fileID: 5023648524552999832}
   - component: {fileID: 4556365174646607477}
   - component: {fileID: -559176542033583352}
+  - component: {fileID: 7088932313676273059}
   m_Layer: 8
   m_Name: Sand_Tile
   m_TagString: Tile
@@ -88,19 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &679929920214837537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506511032124763854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca677929ff40004ebdf1961b56432c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sandEffectPrefab: {fileID: 370261968558819247, guid: f4b407ade60485e47a5162319e14478e, type: 3}
 --- !u!61 &5023648524552999832
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -230,3 +217,18 @@ CompositeCollider2D:
   m_OffsetDistance: 0
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 1506511032124763854}
+--- !u!114 &7088932313676273059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506511032124763854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7271a8db8a84a74a8c6516b4aa4569b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  composite: {fileID: 0}
+  EffectPrefab: {fileID: 370261968558819247, guid: f4b407ade60485e47a5162319e14478e, type: 3}

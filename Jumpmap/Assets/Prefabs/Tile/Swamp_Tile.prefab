@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7058452392454217746}
   - component: {fileID: 919850745772033716}
   - component: {fileID: 8099369868409466389}
+  - component: {fileID: 225966907570596910}
   m_Layer: 8
   m_Name: Swamp_Tile
   m_TagString: Tile
@@ -153,6 +154,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.08, y: 0.095}
   m_EdgeRadius: 0
+--- !u!114 &225966907570596910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5897479663677821424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7174b60562ff1ef4996704882a810fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  composite: {fileID: 0}
 --- !u!1 &6455365396569878224
 GameObject:
   m_ObjectHideFlags: 0

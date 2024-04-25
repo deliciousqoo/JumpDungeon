@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class PlayerMovement : MonoBehaviour
 {
+    public float jumpPower, speed, maxSpeed;
+    public int jumpCount;
+
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D collider;
     private Animator anim;
+
+    private bool checkControl = true;
 
     public void Awake()
     {
@@ -22,11 +29,10 @@ public class PlayerMovement : MonoBehaviour
         if (checkControl)
         {
             //Jump
-            if (Input.GetButtonDown("Jump") && anim.GetInteger("jumpCount") < 2)
+            if (Input.GetButtonDown("Jump") && jumpCount < 2)
             {
-                //Debug.Log("jump");
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
-                rigid.AddForce(Vector2.up * playerData.jumpPower, ForceMode2D.Impulse);
+                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
                 anim.SetBool("isJumping", true);
 
                 jumpCount++;
@@ -65,16 +71,13 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
-
-        RaycastHit2D checkHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, 0.015f, LayerMask.GetMask("Platform"));
         if (checkControl)
         {
             //Move Speed
-            rigid.AddForce(Vector2.right * h * playerData.speed, ForceMode2D.Impulse);
-
+            rigid.AddForce(Vector2.right * h * speed, ForceMode2D.Impulse);
             //Max Speed
-            if (rigid.velocity.x > playerData.maxSpeed) { rigid.velocity = new Vector2(playerData.maxSpeed, rigid.velocity.y); }
-            else if (rigid.velocity.x < playerData.maxSpeed * (-1)) { rigid.velocity = new Vector2(playerData.maxSpeed * (-1), rigid.velocity.y); }
+            if (rigid.velocity.x > maxSpeed) { rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y); }
+            else if (rigid.velocity.x < maxSpeed * (-1)) { rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y); }
         }
 
         //Landing Platform
@@ -89,67 +92,16 @@ public class PlayerMovement : MonoBehaviour
             anim.SetInteger("jumpCount", jumpCount);
         }
         else { anim.SetBool("isJumping", true); }
+    }
 
-        //Check Gimmick Tile
-        if (checkHit.collider != null && checkHit.collider.tag == "Tile")
-        {
-            if (checkHit.collider.gameObject.name.Substring(0, 5) == "Water")
-            {
-                checkHit.collider.gameObject.GetComponent<Animator>().Play("Water_Move");
-                rigid.gravityScale = 0.3f;
-                rigid.drag = 10f;
-                jumpCount = 0;
-                anim.SetInteger("jumpCount", 0);
-            }
-            else if (checkHit.collider.gameObject.name.Substring(0, 4) == "Wave")
-            {
-                jumpCount = 0;
-                anim.Play("Falling");
-                anim.SetInteger("jumpCount", 0);
-                rigid.gravityScale = 0f;
-                rigid.drag = 10f;
-                switch (checkHit.collider.gameObject.name[4])
-                {
-                    case 'R':
-                        rigid.AddForce(Vector2.right * 30f);
-                        break;
-                    case 'L':
-                        rigid.AddForce(Vector2.left * 30f);
-                        break;
-                    case 'U':
-                        rigid.AddForce(Vector2.up * 20f);
-                        break;
-                    case 'D':
-                        rigid.AddForce(Vector2.down * 20f);
-                        break;
-                }
-            }
-            else if (checkHit.collider.gameObject.name.Substring(0, 5) == "Swamp")
-            {
-                rigid.gravityScale = 0.1f;
-                rigid.drag = 50f;
-                jumpCount = 0;
-                playerData.jumpPower = 1.5f;
-                anim.SetInteger("jumpCount", 0);
-                playerData.speed = 0.1f;
-            }
-            else if (checkHit.collider.gameObject.name.Substring(0, 5) == "Cloud")
-            {
-                StartCoroutine("OnCloudTile");
-            }
-            previous_status = false;
-        }
-        else
-        {
-            if (!previous_status)
-            {
-                jumpCount = 1;
-                playerData.jumpPower = 3f;
-            }
-            rigid.gravityScale = 1.0f;
-            rigid.drag = 3f;
-            previous_status = true;
-            playerData.speed = 1f;
-        }
+    public void SetPlayerData(PlayerAffectedValue setValue)
+    {
+        maxSpeed = setValue.maxSpeed;
+        jumpPower = setValue.jumpPower;
+        speed = setValue.speed;
+        rigid.drag = setValue.drag;
+        rigid.gravityScale = setValue.gravityScale;
+        jumpCount = setValue.jumpCount;
+        anim.SetInteger("jumpCount", setValue.jumpCount);
     }
 }

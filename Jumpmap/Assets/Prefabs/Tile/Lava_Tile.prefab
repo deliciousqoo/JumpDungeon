@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 979579376128116011}
   - component: {fileID: 438998041200551500}
-  - component: {fileID: 8995605571647094219}
   - component: {fileID: 528827048311808477}
   - component: {fileID: 4674416551570723363}
   - component: {fileID: 6438132758657201629}
-  m_Layer: 0
-  m_Name: Fire_Tile
-  m_TagString: Untagged
+  - component: {fileID: 7089625529710707536}
+  m_Layer: 8
+  m_Name: Lava_Tile
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,20 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8995605571647094219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2585144858253865496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca677929ff40004ebdf1961b56432c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sandEffectPrefab: {fileID: 0}
-  fireEffectPrefab: {fileID: 4121338238973793064, guid: f059ab7aef9cc484e8944ff2106e18fc, type: 3}
 --- !u!61 &528827048311808477
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -231,3 +217,18 @@ CompositeCollider2D:
   m_OffsetDistance: 0
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 2585144858253865496}
+--- !u!114 &7089625529710707536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585144858253865496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f71c20650632ad846a0baf9b6075420e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  composite: {fileID: 0}
+  EffectPrefab: {fileID: 0}
