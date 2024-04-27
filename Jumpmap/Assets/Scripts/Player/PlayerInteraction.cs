@@ -109,12 +109,10 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (GameManager.instance.shieldCheck)
             {
-                Debug.Log("Block");
                 if (shieldCoroutine == null) { shieldCoroutine = StartCoroutine("OnShield"); }
             }
             else
             {
-                Debug.Log("Attacked");
                 if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
                 damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
 

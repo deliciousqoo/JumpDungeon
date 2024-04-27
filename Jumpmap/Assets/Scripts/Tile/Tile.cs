@@ -10,7 +10,6 @@ public abstract class Tile : MonoBehaviour
     public CompositeCollider2D composite;
 
 }
-
 public interface IApplyForce
 {
     void AddForceCall(GameObject player);
@@ -21,7 +20,6 @@ public interface IAffectPlayer
     PlayerAffectedValue playerData { get; set; }
     void InitAffectValue();
 }
-
 public interface IPlayEffect
 {
     IEnumerator PlayerEffect();
