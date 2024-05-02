@@ -12,7 +12,6 @@ public class Waves : Tile, IAffectPlayer, IApplyForce
             _playerData = value;
         } 
     }
-
    
     public IEnumerator AddForce(GameObject player)
     {

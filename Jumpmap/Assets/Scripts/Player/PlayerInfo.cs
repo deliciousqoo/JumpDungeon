@@ -24,7 +24,12 @@ public class PlayerInfo : MonoBehaviour
 
     private void Start()
     {
-        spriteLibrary.spriteLibraryAsset = skinList[GameManager.instance.skinNum];
+        //spriteLibrary.spriteLibraryAsset = skinList[GameManager.instance.skinNum];
+    }
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void PlayerHide()

@@ -48,7 +48,7 @@ public class Reward : MonoBehaviour
             Debug.Log("check");
             getCheck = true;
             StageManager.instance.StageProgressSetUp();
-            //GameManager.instance.OnCompletedCall(gameObject.transform.position);
+            GameManager.instance.OnCompletedCall(gameObject.transform.position);
             yield return new WaitUntil(() => Mathf.Abs(gameObject.transform.position.x - GameManager.instance.playerPos.x) < 0.01f);
             yield return new WaitForSecondsRealtime(0.5f);
 

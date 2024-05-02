@@ -11,13 +11,11 @@ public class PlayerInteraction : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D collider;
     private Animator anim;
-
-    private Coroutine damageCoroutine;
-    private Coroutine completeCoroutine;
-    private Coroutine shieldCoroutine;
-
+    
     [SerializeField]
     private GameObject damagedPrefab, shieldBreakPrefab, shield;
+    
+    private Coroutine damageCoroutine, completeCoroutine, shieldCoroutine;
 
     private bool checkControl = true;
     private int jumpCount, dirc;
@@ -33,7 +31,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start()
     {
-        /*Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         if (GameManager.instance.shieldCheck)
         {
             shield.SetActive(true);
@@ -43,10 +41,9 @@ public class PlayerInteraction : MonoBehaviour
         {
             shield.SetActive(false);
             gameObject.layer = 10;
-        }*/
+        }
         InitPlayerValue();
     }
-
     private void FixedUpdate()
     {
         Collider2D checkHit = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.down, 0.015f, LayerMask.GetMask("Platform")).collider;
@@ -92,7 +89,6 @@ public class PlayerInteraction : MonoBehaviour
             previous_status = true;
         }
     }
-
     private void InitPlayerValue()
     {
         playerData.jumpCount = 1;
@@ -102,7 +98,6 @@ public class PlayerInteraction : MonoBehaviour
         playerData.speed = 1f;
         playerData.maxSpeed = 0.7f;
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -121,13 +116,11 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
-
     public void OnCompletedCall(Vector2 targetPos)
     {
         if (completeCoroutine != null) { StopCoroutine(completeCoroutine); }
         completeCoroutine = StartCoroutine(OnCompleted(targetPos));
     }
-
     public IEnumerator OnDamaged(Vector2 targetPos)
     {
         //Animation Control
@@ -158,7 +151,6 @@ public class PlayerInteraction : MonoBehaviour
         checkControl = true;
         damageCoroutine = null;
     }
-
     public IEnumerator OnCompleted(Vector2 targetPos)
     {
         checkControl = false;
@@ -169,7 +161,6 @@ public class PlayerInteraction : MonoBehaviour
 
         anim.Play("Complete");
         rigid.constraints = RigidbodyConstraints2D.FreezePositionY;
-        //rigid.bodyType = RigidbodyType2D.Static;
 
         if (targetPos.x - gameObject.transform.position.x > 0) { dirc = 1; }
         else { dirc = -1; }
@@ -187,7 +178,6 @@ public class PlayerInteraction : MonoBehaviour
 
         yield return 0;
     }
-
     public IEnumerator OnShield()
     {
         GameObject shieldBreakEffect = Instantiate(shieldBreakPrefab);
@@ -216,6 +206,4 @@ public class PlayerInteraction : MonoBehaviour
         GameManager.instance.shieldCheck = false;
         gameObject.layer = 14;
     }
-
-
 }

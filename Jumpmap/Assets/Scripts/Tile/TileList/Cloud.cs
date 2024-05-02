@@ -21,18 +21,4 @@ public class Cloud : Tile, IApplyForce
         rigid.velocity = new Vector2(rigid.velocity.x, 0);
         rigid.AddForce(Vector2.up * 2f, ForceMode2D.Impulse);
     }
-
-    /*
-    public IEnumerator OnCloudTile()
-    {
-        yield return new WaitForSecondsRealtime(1 / 7f);
-
-        rigid.velocity = new Vector2(rigid.velocity.x, 0);
-        rigid.AddForce(Vector2.up * 2f, ForceMode2D.Impulse);
-        jumpCount = 0;
-        anim.SetInteger("jumpCount", 0);
-
-        yield return 0;
-    }
-    */
 }
