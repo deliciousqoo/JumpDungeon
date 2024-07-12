@@ -22,23 +22,23 @@ public class Trap : Enemy
 
     private IEnumerator TrapAttack()
     {
-        spriteRenderer.sprite = anim[2];
-        collider.size = new Vector2(0f, 0f);
+        sr.sprite = anim[2];
+        col.size = new Vector2(0f, 0f);
         yield return new WaitForSeconds(0.05f);
-        spriteRenderer.sprite = anim[1];
-        collider.offset = new Vector2(0, -0.07f);
-        collider.size = new Vector2(0.06f, 0.04f);
+        sr.sprite = anim[1];
+        col.offset = new Vector2(0, -0.07f);
+        col.size = new Vector2(0.06f, 0.04f);
         yield return new WaitForSeconds(0.05f);
-        spriteRenderer.sprite = anim[0];
-        collider.offset = new Vector2(0, -0.06f);
-        collider.size = new Vector2(0.06f, 0.06f);
+        sr.sprite = anim[0];
+        col.offset = new Vector2(0, -0.06f);
+        col.size = new Vector2(0.06f, 0.06f);
         yield return new WaitForSeconds(0.7f);
-        spriteRenderer.sprite = anim[1];
-        collider.offset = new Vector2(0, -0.07f);
-        collider.size = new Vector2(0.06f, 0.04f);
+        sr.sprite = anim[1];
+        col.offset = new Vector2(0, -0.07f);
+        col.size = new Vector2(0.06f, 0.04f);
         yield return new WaitForSeconds(0.05f);
-        spriteRenderer.sprite = anim[2];
-        collider.size = new Vector2(0f, 0f);
+        sr.sprite = anim[2];
+        col.size = new Vector2(0f, 0f);
 
         yield return new WaitForSeconds(Speed);
 

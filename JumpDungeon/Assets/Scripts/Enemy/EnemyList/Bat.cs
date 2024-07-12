@@ -31,13 +31,13 @@ public class Bat : Enemy, IMovableEnemy
     {
         if (startPos.x < endPos.x)
         {
-            if (transform.position.x <= startPos.x) { Direction = 1f; spriteRenderer.flipX = true; }
-            else if (transform.position.x >= endPos.x) { Direction = -1f; spriteRenderer.flipX = false; }
+            if (transform.position.x <= startPos.x) { Direction = 1f; sr.flipX = true; }
+            else if (transform.position.x >= endPos.x) { Direction = -1f; sr.flipX = false; }
         }
         else
         {
-            if (transform.position.x >= startPos.x) { Direction = -1f; spriteRenderer.flipX = false; }
-            else if (transform.position.x <= endPos.x) { Direction = 1f; spriteRenderer.flipX = true; }
+            if (transform.position.x >= startPos.x) { Direction = -1f; sr.flipX = false; }
+            else if (transform.position.x <= endPos.x) { Direction = 1f; sr.flipX = true; }
         }
     }
 }

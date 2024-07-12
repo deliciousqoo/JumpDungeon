@@ -6,10 +6,10 @@ public abstract class Projectile : MonoBehaviour
 {
     public SpriteRenderer sr;
 
-    private Vector3 spawnPos;
-    private float range;
-    private float speed;
-    private float dir;
+    [SerializeField] private Vector3 spawnPos;
+    [SerializeField] private float range;
+    [SerializeField] private float speed;
+    [SerializeField] private float dir;
 
     public Vector3 SpawnPos
     {
@@ -28,7 +28,7 @@ public abstract class Projectile : MonoBehaviour
     }
     public float Dir
     {
-        set => dir = Mathf.Max(0, value);
+        set => dir = value;
         get => dir;
     }
 

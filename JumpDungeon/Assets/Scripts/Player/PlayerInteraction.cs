@@ -31,7 +31,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Start()
     {
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerShield"), LayerMask.NameToLayer("Enemy"));
         if (GameManager.instance.shieldCheck)
         {
             shield.SetActive(true);
@@ -106,11 +106,11 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            if (GameManager.instance.shieldCheck)
+            if(gameObject.layer == 14)
             {
                 if (shieldCoroutine == null) { shieldCoroutine = StartCoroutine("OnShield"); }
             }
-            else
+            else if(gameObject.layer == 10)
             {
                 if (damageCoroutine != null) { StopCoroutine(damageCoroutine); }
                 damageCoroutine = StartCoroutine(OnDamaged(collision.transform.position));
@@ -127,6 +127,7 @@ public class PlayerInteraction : MonoBehaviour
     }
     public IEnumerator OnDamaged(Vector2 targetPos)
     {
+        gameObject.layer = 11;
         //Animation Control
         anim.Play("Attacked");
 
@@ -154,6 +155,7 @@ public class PlayerInteraction : MonoBehaviour
 
         gameObject.GetComponent<PlayerMovement>().CheckControl = true;
         damageCoroutine = null;
+        gameObject.layer = 10;
     }
     public IEnumerator OnCompleted(Vector2 targetPos)
     {
@@ -185,7 +187,7 @@ public class PlayerInteraction : MonoBehaviour
     public IEnumerator OnShield()
     {
         GameObject shieldBreakEffect = Instantiate(shieldBreakPrefab);
-        shieldBreakEffect.GetComponent<Transform>().position = new Vector3(gameObject.transform.position.x, 0, 0);
+        shieldBreakEffect.GetComponent<Transform>().position = gameObject.transform.position;
         shield.SetActive(false);
 
         Color tempColor = spriteRenderer.color;
@@ -208,6 +210,6 @@ public class PlayerInteraction : MonoBehaviour
         spriteRenderer.color = tempColor;
 
         GameManager.instance.shieldCheck = false;
-        gameObject.layer = 14;
+        gameObject.layer = 10;
     }
 }

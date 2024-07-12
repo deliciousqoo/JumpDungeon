@@ -12,14 +12,14 @@ public class DinoProjectile : Projectile
     }
     public override void SetProjectile(Vector2 spawnPos, float dir, float speed, float range)
     {
-        if (dir == 1) sr.flipX = false;
-        else if (dir == -1) sr.flipX = true;
+        sr.flipX = dir == 1 ? true : false;
 
         this.Dir = dir;
         this.Speed = speed;
         this.Range = range;
         this.SpawnPos = spawnPos;
 
-        gameObject.transform.position = spawnPos;
+        //gameObject.transform.position = spawnPos;
+        gameObject.transform.position = new Vector3(spawnPos.x, spawnPos.y - 0.05f, 0f);
     }
 }

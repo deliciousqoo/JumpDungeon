@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Dino : Enemy, IMovableEnemy, IShootableEnemy
 {
     [SerializeField] private Vector2 startPos;
     [SerializeField] private Vector2 endPos;
     [SerializeField] private Transform targetPos;
+    
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float range;
 
-    [SerializeField] private Sprite[] anim;
-    [SerializeField] private GameObject projectilePrefab;
-
     private bool moveCheck = true;
+    private float detect_distance;
 
-    private Coroutine playAttackCoroutine;
+    public Coroutine playAttackCoroutine;
 
     private void Start()
     {
@@ -25,13 +26,12 @@ public class Dino : Enemy, IMovableEnemy, IShootableEnemy
 
     private void FixedUpdate()
     {
-        range = Vector2.Distance(gameObject.transform.position, targetPos.position);
-        SetDirection();
+        detect_distance = Vector2.Distance(gameObject.transform.position, targetPos.position);
         
-        if (range > 0.3f && moveCheck)
+        if (detect_distance > 0.3f && moveCheck)
         {
+            SetDirection();
             MovePos();
-            collider.offset = new Vector2(0.005f * Direction, -0.02f);
         }
         else
         {
@@ -49,21 +49,34 @@ public class Dino : Enemy, IMovableEnemy, IShootableEnemy
     {
         if (startPos.x < endPos.x)
         {
-            if (transform.position.x <= startPos.x) { Direction = 1f; spriteRenderer.flipX = true; }
-            else if (transform.position.x >= endPos.x) { Direction = -1f; spriteRenderer.flipX = false; }
+            if (transform.position.x <= startPos.x) { Direction = 1f; sr.flipX = true; }
+            else if (transform.position.x >= endPos.x) { Direction = -1f; sr.flipX = false; }
         }
         else
         {
-            if (transform.position.x >= startPos.x) { Direction = -1f; spriteRenderer.flipX = false; }
-            else if (transform.position.x <= endPos.x) { Direction = 1f; spriteRenderer.flipX = true; }
+            if (transform.position.x >= startPos.x) { Direction = -1f; sr.flipX = false; }
+            else if (transform.position.x <= endPos.x) { Direction = 1f; sr.flipX = true; }
         }
     }
 
     public IEnumerator ShootAttack()
     {
-        GameObject clone = Instantiate(projectilePrefab);
-        clone.GetComponent<CanonProjectile>().SetProjectile(gameObject.transform.position, Direction, projectileSpeed, range);
+        moveCheck = false;
+        float temp_dir = targetPos.position.x < gameObject.transform.position.x ? -1 : 1;
+        bool org_flipX = sr.flipX;
+        sr.flipX = temp_dir == 1 ? true : false;
+        
+        anim.SetTrigger("IsAttack");
 
-        yield return 0;
+        yield return new WaitForSecondsRealtime(0.5f);
+        GameObject clone = Instantiate(projectilePrefab);
+        clone.GetComponent<DinoProjectile>().SetProjectile(gameObject.transform.position, temp_dir, projectileSpeed, range);
+
+        yield return new WaitForSeconds(0.9f);
+
+        anim.Play("Dino_Idle");
+        sr.flipX = org_flipX;
+        playAttackCoroutine = null;
+        moveCheck = true;
     }
 }

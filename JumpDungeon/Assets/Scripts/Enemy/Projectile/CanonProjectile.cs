@@ -12,9 +12,8 @@ public class CanonProjectile : Projectile
     }
     public override void SetProjectile(Vector2 spawnPos, float dir, float speed, float range)
     {
-        if (dir == 1) sr.flipX = false;
-        else if (dir == -1) sr.flipX = true;
-        
+        sr.flipX = dir == -1 ? true : false;
+
         this.Dir = dir;
         this.Speed = speed;
         this.Range = range;

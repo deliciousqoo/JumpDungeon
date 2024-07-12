@@ -5,8 +5,9 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
-    public BoxCollider2D collider;
+    public SpriteRenderer sr;
+    public BoxCollider2D col;
+    protected Animator anim;
 
     [SerializeField] private float speed;
     [SerializeField] private float direction;
@@ -24,8 +25,9 @@ public abstract class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
+        sr = GetComponent<SpriteRenderer>();
+        col = GetComponent<BoxCollider2D>();
+        anim = GetComponent<Animator>();
     }
 }
 

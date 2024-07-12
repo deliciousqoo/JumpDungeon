@@ -32,7 +32,7 @@ public class Canon : Enemy, IShootableEnemy
                 GameObject clone = Instantiate(projectilePrefab);
                 clone.GetComponent<CanonProjectile>().SetProjectile(gameObject.transform.position, Direction, projectileSpeed, range);
             }
-            spriteRenderer.sprite = anim[i];
+            sr.sprite = anim[i];
             yield return new WaitForSeconds(0.1f);
         }
 
