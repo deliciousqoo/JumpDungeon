@@ -1,52 +1,26 @@
 {
   "project_info": {
-    "project_number": "600326861078",
-    "project_id": "jump-dungeon",
-    "storage_bucket": "jump-dungeon.appspot.com"
+    "project_number": "392454842123",
+    "project_id": "jumpdungeon-d06f3",
+    "storage_bucket": "jumpdungeon-d06f3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:600326861078:android:c73a8fd78fbcd9a9162037",
+        "mobilesdk_app_id": "1:392454842123:android:31b46811d4c6b00a1c240e",
         "android_client_info": {
           "package_name": "com.MSGames.JumpDungeon"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "600326861078-moapnjaq04pn7tag77scmhie5f2m8n59.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.MSGames.JumpDungeon",
-            "certificate_hash": "5be38871640c4c73e2f48bbc67964d1a9d3b4df3"
-          }
-        },
-        {
-          "client_id": "600326861078-spf8hh8hm2fa010tpnqeijv0k6hsemoq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.MSGames.JumpDungeon",
-            "certificate_hash": "6a89620ede9b90c88e0291f5a6ba7925f3457f60"
-          }
-        },
-        {
-          "client_id": "600326861078-rsvdtfncgd435a8vpaqt9nbgf8vba09k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCELfeLWnW2aLuJI56AKV3b4MN55sFGsJE"
+          "current_key": "AIzaSyBP_Bv5JGUo4OR35rYRsu-nvxP7cP-Kg-o"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "600326861078-rsvdtfncgd435a8vpaqt9nbgf8vba09k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
