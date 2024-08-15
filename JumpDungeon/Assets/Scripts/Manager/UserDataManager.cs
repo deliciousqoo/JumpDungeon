@@ -9,6 +9,8 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
     public bool ExistsSavedData { get; private set; }
     public List<IUserData> UserDataList { get; private set; } = new List<IUserData>();
 
+    public string m_fileName { get; private set; } = "SaveData.txt";
+
     protected override void Init()
     {
         base.Init();
@@ -21,6 +23,8 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
 
     public void SetDefaultUserData()
     {
+        ES3.Save("UserID", LoginManager.Instance.UserId);
+
         for (int i = 0; i < UserDataList.Count; i++)
         {
             UserDataList[i].SetDefaultData();
@@ -29,10 +33,11 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
 
     public void LoadUserData()
     {
-        ExistsSavedData = PlayerPrefs.GetInt("ExistSavedData") == 1 ? true : false;
-    
-        if(ExistsSavedData)
+        if (ES3.FileExists(m_fileName))
         {
+            string userId = ES3.Load<string>("UserID");
+            LoginManager.Instance.SetUserId(userId);
+
             for (int i = 0; i < UserDataList.Count; i++)
             {
                 UserDataList[i].LoadData();
@@ -42,22 +47,9 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
 
     public void SaveUserData()
     {
-        bool errorCheck = false;
-
         for (int i = 0; i < UserDataList.Count; i++)
         {
             bool isSaveSuccess = UserDataList[i].SaveData();
-            if (!isSaveSuccess)
-            {
-                errorCheck = true;
-            }
-        }
-
-        if(!errorCheck)
-        {
-            ExistsSavedData = true;
-            PlayerPrefs.SetInt("ExistSavedData", 1);
-            PlayerPrefs.Save();
         }
     }
 

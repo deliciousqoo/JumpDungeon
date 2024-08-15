@@ -85,6 +85,16 @@ public class AudioManager : SingletonBehaviour<AudioManager>
         }
     }
 
+    public void OnLoadUserData()
+    {
+        var userSettingsData = UserDataManager.Instance.GetUserData<UserSettingsData>();
+        if(userSettingsData != null)
+        {
+            SetBGMValue(userSettingsData.BGMValue);
+            SetSFXValue(userSettingsData.SFXValue);
+        }
+    }
+
     public void PlayBGM(BGM bgm)
     {
         Logger.Log($"{GetType()}::PlayBGM");
@@ -125,5 +135,21 @@ public class AudioManager : SingletonBehaviour<AudioManager>
     public void UnMute()
     {
         m_CurrBGMSource.volume = m_TempBGMValue;
+    }
+
+    public void SetBGMValue(float value)
+    {
+        foreach (var item in m_BGMPlayer)
+        {
+            item.Value.volume = value;
+        }
+    }
+
+    public void SetSFXValue(float value)
+    {
+        foreach (var item in m_SFXPlayer)
+        {
+            item.Value.volume = value;
+        }
     }
 }

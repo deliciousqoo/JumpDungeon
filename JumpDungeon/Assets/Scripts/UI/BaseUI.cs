@@ -26,7 +26,7 @@ public class BaseUI : MonoBehaviour
 
         var rectTransform = GetComponent<RectTransform>();
         rectTransform.localPosition = Vector3.zero;
-        rectTransform.localScale = Vector3.one;
+        rectTransform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
         rectTransform.offsetMin = Vector2.zero;
         rectTransform.offsetMax = Vector2.zero;
     }

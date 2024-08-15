@@ -7,6 +7,7 @@ public class UserSettingsData : IUserData
 {
     public float BGMValue { get; set; }
     public float SFXValue { get; set; }
+    public int Language { get; set; }
 
     public void SetDefaultData()
     {
@@ -14,6 +15,7 @@ public class UserSettingsData : IUserData
 
         BGMValue = 1f;
         SFXValue = 1f;
+        Language = 0;
     }
     public bool LoadData()
     {
@@ -23,12 +25,14 @@ public class UserSettingsData : IUserData
 
         try
         {
-            BGMValue = PlayerPrefs.GetFloat("MusicValue");
-            SFXValue = PlayerPrefs.GetFloat("SoundValue");
+            BGMValue = ES3.Load<float>("BGMValue");
+            SFXValue = ES3.Load<float>("SFXValue");
+            Language = ES3.Load<int>("Language");
 
             result = true;
 
-            Logger.Log($"Music:{BGMValue} / Sound:{SFXValue}");
+            Logger.Log($"BGM:{BGMValue} / SFX:{SFXValue}");
+            Logger.Log($"Language:{((LanguageType)Language).ToString()}");
         }
         catch (System.Exception e)
         {
@@ -46,13 +50,14 @@ public class UserSettingsData : IUserData
 
         try
         {
-            PlayerPrefs.SetFloat("MusicValue", BGMValue);
-            PlayerPrefs.SetFloat("SoundValue", SFXValue);
-            PlayerPrefs.Save();
+            ES3.Save("BGMValue", BGMValue);
+            ES3.Save("SFXValue", SFXValue);
+            ES3.Save("Language", Language);
 
             result = true;
 
-            Logger.Log($"Music:{BGMValue} / Sound:{SFXValue}");
+            Logger.Log($"BGM:{BGMValue} / SFX:{SFXValue}");
+            Logger.Log($"Language:{((LanguageType)Language).ToString()}");
         }
         catch (System.Exception e)
         {

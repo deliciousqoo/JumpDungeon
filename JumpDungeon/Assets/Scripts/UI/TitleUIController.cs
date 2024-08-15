@@ -15,9 +15,10 @@ public class TitleUIController : MonoBehaviour
 
     public void Init()
     {
-        UserDataManager.Instance.LoadUserData();
-        m_IsAlreadyLogin = UserDataManager.Instance.ExistsSavedData;
-        
+        //UserDataManager.Instance.LoadUserData();
+        m_IsAlreadyLogin = ES3.FileExists(UserDataManager.Instance.m_fileName);
+        Logger.Log($"Is login : {m_IsAlreadyLogin}");
+
         ClickToStartTxt.gameObject.SetActive(m_IsAlreadyLogin);
         GuestLoginBtn.gameObject.SetActive(!m_IsAlreadyLogin);
         LoadingSlider.gameObject.SetActive(false);
@@ -33,9 +34,9 @@ public class TitleUIController : MonoBehaviour
         uiData.ConfirmTxt = "게스트 계정으로 로그인 시\n유저 데이터가 손실될 수 있습니다\n계정을 생성하시겠습니까?";
         uiData.OKBtnTxt = "예";
         uiData.CancelBtnTxt = "아니오";
-        uiData.OnClickOKBtn = () =>
+        uiData.OnClickOKBtn = async () =>
         {
-            LoginManager.Instance.OnClickGuestLogin();
+            await LoginManager.Instance.OnClickGuestLogin();
 
             UserDataManager.Instance.SetDefaultUserData();
             UserDataManager.Instance.SaveUserData();
@@ -43,8 +44,21 @@ public class TitleUIController : MonoBehaviour
             //TitleManager.Instance.LoadGame();
             UIManager.Instance.Fade(false, true, () => {
                 TitleManager.Instance.LoadGame();
+                AudioManager.Instance.OnLoadUserData();
             });
         };
         UIManager.Instance.OpenUI<ConfirmUI>(uiData);
+    }
+
+    public void OnClickStartBtn()
+    {
+        Logger.Log($"{GetType()}::OnClickStartBtn");
+
+        UserDataManager.Instance.LoadUserData();
+
+        UIManager.Instance.Fade(false, true, () => {
+            TitleManager.Instance.LoadGame();
+            AudioManager.Instance.OnLoadUserData();
+        });
     }
 }

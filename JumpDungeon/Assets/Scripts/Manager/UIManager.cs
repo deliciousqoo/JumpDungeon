@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class UIManager : SingletonBehaviour<UIManager>
 {
+    #region BASE_UI
     public Transform UICanvasTrs;
     public Transform ClosedTrs;
 
@@ -16,7 +17,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     private BaseUI m_FrontUI;
     private Dictionary<System.Type, GameObject> m_OpenUIPool = new Dictionary<System.Type, GameObject>();
     private Dictionary<System.Type, GameObject> m_ClosedUIPool = new Dictionary<System.Type, GameObject>();
-
+    
     private BaseUI GetUI<T>(out bool isAlreadyOpen)
     {
         var uiType = typeof(T);
@@ -66,17 +67,20 @@ public class UIManager : SingletonBehaviour<UIManager>
             return;
         }
 
-        var siblingIndex = UICanvasTrs.childCount;
+        var siblingIndex = UICanvasTrs.childCount - 1;
         ui.Init(UICanvasTrs);
         ui.transform.SetSiblingIndex(siblingIndex);
         ui.gameObject.SetActive(true);
         ui.SetInfo(uiData);
         ui.ShowUI();
 
+        BackgroundButton.gameObject.SetActive(true);
+        BackgroundButton.transform.SetSiblingIndex(siblingIndex - 1);
+
         m_FrontUI = ui;
         m_OpenUIPool[uiType] = ui.gameObject;
     }
-
+     
     public void CloseUI(BaseUI ui)
     {
         var uiType = ui.GetType();
@@ -89,10 +93,12 @@ public class UIManager : SingletonBehaviour<UIManager>
         ui.transform.SetParent(ClosedTrs);
 
         m_FrontUI = null;
-        var lastChild = UICanvasTrs.GetChild(UICanvasTrs.childCount - 1);
+        var lastChild = UICanvasTrs.GetChild(UICanvasTrs.childCount - 3);
         if(lastChild)
         {
             m_FrontUI = lastChild.gameObject.GetComponent<BaseUI>();
+            if (m_FrontUI != null) BackgroundButton.transform.SetSiblingIndex(UICanvasTrs.childCount - 3);
+            else BackgroundButton.gameObject.SetActive(false);
         }
     }
 
@@ -100,6 +106,7 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         m_FrontUI.CloseUI();
     }
+    #endregion
 
     #region FADE
     public void Fade(bool mode, bool isDeactive, Action onFinish = null) // mode true: Fade-In, false: Fade-Out

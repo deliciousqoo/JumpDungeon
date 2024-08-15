@@ -12,9 +12,9 @@ public class UserPlayData : IUserData
     {
         Logger.Log($"{GetType()}::SetDefaultData");
 
-        MaxClearedChapter = 1;
-        MaxClearedStage = 1;
-        SelectedChapter = 1;
+        MaxClearedChapter = -1;
+        MaxClearedStage = 0;
+        SelectedChapter = 0;
     }
     public bool LoadData()
     {
@@ -24,8 +24,9 @@ public class UserPlayData : IUserData
 
         try
         {
-            MaxClearedChapter = PlayerPrefs.GetInt("MaxClearedChapter");
-            MaxClearedStage = PlayerPrefs.GetInt("MaxClearedStage");
+            MaxClearedChapter = ES3.Load<int>("MaxClearedChapter");
+            MaxClearedStage = ES3.Load<int>("MaxClearedStage");
+
             SelectedChapter = MaxClearedChapter + 1;
 
             Logger.Log($"MaxClearedChapter:{MaxClearedChapter} / MaxClearedStage:{MaxClearedStage}");
@@ -46,9 +47,13 @@ public class UserPlayData : IUserData
 
         try
         {
-            PlayerPrefs.SetInt("MaxClearedChapter", MaxClearedChapter);
-            PlayerPrefs.SetInt("MaxClearedStage", MaxClearedStage);
-            PlayerPrefs.Save();
+            //PlayerPrefs.SetInt("MaxClearedChapter", MaxClearedChapter);
+            //PlayerPrefs.SetInt("MaxClearedStage", MaxClearedStage);
+            //PlayerPrefs.Save();
+            ES3.Save("MaxClearedChapter", MaxClearedChapter);
+            ES3.Save("MaxClearedStage", MaxClearedStage);
+
+            result = true;
 
             Logger.Log($"MaxClearedChapter:{MaxClearedChapter} / MaxClearedStage:{MaxClearedStage}");
         }

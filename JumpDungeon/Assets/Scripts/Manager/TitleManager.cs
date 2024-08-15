@@ -52,6 +52,7 @@ public class TitleManager : SingletonBehaviour<TitleManager>
         loadingSlider.gameObject.SetActive(true);
         loadingProgressTxt.gameObject.SetActive(true);
         TitleUIController.GuestLoginBtn.gameObject.SetActive(false);
+        TitleUIController.ClickToStartTxt.gameObject.SetActive(false);
 
         m_AsyncOperation = SceneLoader.Instance.LoadSceneAsync(SceneType.Lobby);
         if (m_AsyncOperation == null)
