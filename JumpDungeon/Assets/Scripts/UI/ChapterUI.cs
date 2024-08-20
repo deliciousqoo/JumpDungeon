@@ -1,6 +1,3 @@
-using MoreMountains.Tools;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,8 +35,6 @@ public class ChapterUI : BaseUI
 
     public override void Init(Transform parent)
     {
-        //parent = GameObject.Find("ChapterTrs").GetComponent<Transform>();
-
         base.Init(parent);
     }
 
@@ -79,8 +74,6 @@ public class ChapterUI : BaseUI
         {
             Logger.LogError("UserPlayData does not exist.");
         }
-
-        
 
         foreach (var item in Stages)
         {

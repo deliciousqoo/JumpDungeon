@@ -302,10 +302,10 @@ TextureImporter:
       name: CommonUI_10
       rect:
         serializedVersion: 2
-        x: 74
-        y: 104
-        width: 8
-        height: 11
+        x: 78
+        y: 99
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -471,9 +471,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 79
-        width: 19
-        height: 19
+        y: 78
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -492,9 +492,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 23
-        y: 79
-        width: 19
-        height: 19
+        y: 78
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

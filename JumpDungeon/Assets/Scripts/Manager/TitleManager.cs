@@ -53,6 +53,7 @@ public class TitleManager : SingletonBehaviour<TitleManager>
         loadingProgressTxt.gameObject.SetActive(true);
         TitleUIController.GuestLoginBtn.gameObject.SetActive(false);
         TitleUIController.ClickToStartTxt.gameObject.SetActive(false);
+        UIManager.Instance.CheckCanUIMove = true;
 
         m_AsyncOperation = SceneLoader.Instance.LoadSceneAsync(SceneType.Lobby);
         if (m_AsyncOperation == null)
@@ -80,7 +81,6 @@ public class TitleManager : SingletonBehaviour<TitleManager>
 
             yield return null;
         }
-
 
         yield return 0;
     }

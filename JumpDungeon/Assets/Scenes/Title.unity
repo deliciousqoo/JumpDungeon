@@ -462,7 +462,7 @@ Transform:
   m_GameObject: {fileID: 1977426529}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.220545, y: -0.31180978, z: 56.729706}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -677,6 +677,16 @@ PrefabInstance:
       propertyPath: m_UiScaleMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4495396291382762696, guid: 9bce52956fe0a6a4cb855e5d5b90b1fc,
+        type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4495396291382762696, guid: 9bce52956fe0a6a4cb855e5d5b90b1fc,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -835,6 +845,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4621807278534572331, guid: 48d162a8da38bcc4c97ef040da030612,
+        type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6593540468032287942, guid: 48d162a8da38bcc4c97ef040da030612,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -883,6 +898,11 @@ PrefabInstance:
     - target: {fileID: 6593540468032287942, guid: 48d162a8da38bcc4c97ef040da030612,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7656335173575056071, guid: 48d162a8da38bcc4c97ef040da030612,
+        type: 3}
+      propertyPath: m_MatchWidthOrHeight
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

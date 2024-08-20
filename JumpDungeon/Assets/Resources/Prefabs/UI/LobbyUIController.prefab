@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 44541761125026195}
   - component: {fileID: 3732274851740488269}
   - component: {fileID: 8611218105514554828}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SkinBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 4288579467138064883}
   - component: {fileID: 3215798351861397926}
   - component: {fileID: 333561474640262906}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RightChapterBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 2131042237504200517}
   - component: {fileID: 5524788925739668616}
   - component: {fileID: 3169915263757213614}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StoreBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,8 +604,8 @@ GameObject:
   - component: {fileID: 327191547620294186}
   - component: {fileID: 5183096181318333296}
   - component: {fileID: 6026894602987825989}
-  m_Layer: 0
-  m_Name: BoxBtn
+  m_Layer: 5
+  m_Name: RandomBoxBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 8394473597943670627}
   - component: {fileID: 3628759670396175102}
   - component: {fileID: 3747656395911354558}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LobbyCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,8 +1186,8 @@ Canvas:
   m_GameObject: {fileID: 1912968916991721943}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 3340761269366683690}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1249,7 +1249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 744152701274374500}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ChapterTrs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1273,7 +1273,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2934865468865431884
 GameObject:
@@ -1434,7 +1434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8831832548920856237}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TopUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1461,11 +1461,11 @@ RectTransform:
   - {fileID: 8221448786092825122}
   m_Father: {fileID: 8328874982386992987}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 360, y: 1280}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &4181022168570118450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,7 +1628,7 @@ GameObject:
   - component: {fileID: 3588776005622800351}
   - component: {fileID: 8262893993422349844}
   - component: {fileID: 3463528694978769989}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SettingBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1880,7 +1880,7 @@ GameObject:
   - component: {fileID: 5914200771878520224}
   - component: {fileID: 1909733663094940228}
   - component: {fileID: 3821808796841266654}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ModeBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2201,7 +2201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8976778981855953553}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MidUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2220,9 +2220,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 744152701274374500}
   - {fileID: 4401381475528136911}
   - {fileID: 8646156555182046382}
-  - {fileID: 744152701274374500}
   m_Father: {fileID: 8328874982386992987}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2363,7 +2363,7 @@ GameObject:
   - component: {fileID: 7895302028317674186}
   - component: {fileID: 256077578220238125}
   - component: {fileID: 4344076707877278310}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LeftChapterBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2494,7 +2494,7 @@ GameObject:
   - component: {fileID: 8221448786092825122}
   - component: {fileID: 366999959775867687}
   - component: {fileID: 7677727859184903094}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ExpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2757,7 +2757,7 @@ GameObject:
   - component: {fileID: 2060718501525531508}
   - component: {fileID: 2900658186212119525}
   - component: {fileID: 5866047049574791524}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MissionBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2964,7 +2964,7 @@ GameObject:
   - component: {fileID: 7861953534422110743}
   - component: {fileID: 2770353845088425349}
   - component: {fileID: 5847598288118512752}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RankBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3168,7 +3168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 247803270398609289}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}

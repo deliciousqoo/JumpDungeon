@@ -49,10 +49,6 @@ public class UserGoodsData : IUserData
 
         try
         {
-            //PlayerPrefs.SetInt("Heart", Heart);
-            //PlayerPrefs.SetInt("Gold", Gold);
-            //PlayerPrefs.SetInt("Score", Gold);
-            //PlayerPrefs.Save();
             ES3.Save("Heart", Heart);
             ES3.Save("Gold", Gold);
             ES3.Save("Score", Score);

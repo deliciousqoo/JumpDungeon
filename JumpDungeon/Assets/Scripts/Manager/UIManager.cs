@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : SingletonBehaviour<UIManager>
 {
@@ -17,7 +18,9 @@ public class UIManager : SingletonBehaviour<UIManager>
     private BaseUI m_FrontUI;
     private Dictionary<System.Type, GameObject> m_OpenUIPool = new Dictionary<System.Type, GameObject>();
     private Dictionary<System.Type, GameObject> m_ClosedUIPool = new Dictionary<System.Type, GameObject>();
-    
+
+    public bool CheckCanUIMove { get; set; } = true;
+
     private BaseUI GetUI<T>(out bool isAlreadyOpen)
     {
         var uiType = typeof(T);

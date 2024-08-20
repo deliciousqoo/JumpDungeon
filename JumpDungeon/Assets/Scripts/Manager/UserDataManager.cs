@@ -19,6 +19,7 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
         UserDataList.Add(new UserPlayData());
         UserDataList.Add(new UserSettingsData());
         UserDataList.Add(new UserStagesData());
+        UserDataList.Add(new UserCharacterSkinData());
     }
 
     public void SetDefaultUserData()

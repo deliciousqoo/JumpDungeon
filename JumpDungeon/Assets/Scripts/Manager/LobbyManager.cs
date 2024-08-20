@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -71,13 +72,26 @@ public class LobbyManager : SingletonBehaviour<LobbyManager>
         m_ChapterUIPool[(int)chapterUIData.ChapterType] = ui.gameObject;
     }
 
-    public void CloseChapterUI(int chapterNum)
+    public void CloseChapterUI(int chapterNum, int dir)
     {
-        m_ChapterUIPool[chapterNum].SetActive(false);
+        UIManager.Instance.CheckCanUIMove = false;
+
+        Sequence sequence = DOTween.Sequence();
+        Tween tr1 = m_ChapterUIPool[chapterNum].transform.DOLocalMove(new Vector3(720f * dir, 0f, 0f), 0.3f).SetEase(Ease.InCubic);
+        sequence.Append(tr1).OnComplete(() =>
+        {
+            UIManager.Instance.CheckCanUIMove = true;
+            m_ChapterUIPool[chapterNum].SetActive(false);
+        });
     }
 
     public void CloseCurrChapterUI()
     {
         m_CurrChapterUI.gameObject.SetActive(false);
+    }
+
+    public GameObject GetActiveChapterUI(int chapterNum)
+    {
+        return m_ChapterUIPool[chapterNum];
     }
 }

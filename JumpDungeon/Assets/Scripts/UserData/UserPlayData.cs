@@ -12,8 +12,10 @@ public class UserPlayData : IUserData
     {
         Logger.Log($"{GetType()}::SetDefaultData");
 
-        MaxClearedChapter = -1;
-        MaxClearedStage = 0;
+        //MaxClearedChapter = -1;
+        //MaxClearedStage = 0;
+        MaxClearedChapter = 0;
+        MaxClearedStage = 2;
         SelectedChapter = 0;
     }
     public bool LoadData()

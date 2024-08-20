@@ -52,13 +52,17 @@ public class TitleUIController : MonoBehaviour
 
     public void OnClickStartBtn()
     {
-        Logger.Log($"{GetType()}::OnClickStartBtn");
+        if(UIManager.Instance.CheckCanUIMove)
+        {
+            Logger.Log($"{GetType()}::OnClickStartBtn");
 
-        UserDataManager.Instance.LoadUserData();
+            UIManager.Instance.CheckCanUIMove = false;
+            UserDataManager.Instance.LoadUserData();
 
-        UIManager.Instance.Fade(false, true, () => {
-            TitleManager.Instance.LoadGame();
-            AudioManager.Instance.OnLoadUserData();
-        });
+            UIManager.Instance.Fade(false, true, () => {
+                TitleManager.Instance.LoadGame();
+                AudioManager.Instance.OnLoadUserData();
+            });
+        }
     }
 }
