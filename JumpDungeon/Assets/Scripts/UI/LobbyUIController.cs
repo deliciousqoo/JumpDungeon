@@ -60,6 +60,7 @@ public class LobbyUIController : MonoBehaviour
             uiData.ChapterNameTxt = ((ChapterType)m_SelectedChapter).ToString();
             uiData.ShowMotionCheck = true;
             uiData.StartPos = new Vector3(-720f * dir, 0f, 0f);
+            uiData.IsHorizontal = true;
 
             LobbyManager.Instance.OpenChapterUI(uiData);
         }
@@ -77,6 +78,7 @@ public class LobbyUIController : MonoBehaviour
             uiData.EndPos = new Vector3(720f, 0f, 0f);
             uiData.ShowMotionCheck = true;
             uiData.CloseMotionCheck = true;
+            uiData.IsHorizontal = true;
 
             UIManager.Instance.OpenUI<SettingUI>(uiData);
         }
@@ -88,7 +90,13 @@ public class LobbyUIController : MonoBehaviour
         {
             Logger.Log($"{GetType()}::OnClickMissionBtn");
 
-            var uiData = new BaseUIData();
+            var uiData = new MissionUIData();
+            uiData.StartPos = new Vector3(720f, 0f, 0f);
+            uiData.EndPos = new Vector3(720f, 0f, 0f);
+            uiData.ShowMotionCheck = true;
+            uiData.CloseMotionCheck = true;
+            uiData.IsHorizontal = true;
+
             UIManager.Instance.OpenUI<MissionUI>(uiData);
         }
     }
@@ -144,6 +152,12 @@ public class LobbyUIController : MonoBehaviour
             Logger.Log($"{GetType()}::OnClickSkinBtn");
 
             var uiData = new CharacterSkinUIData();
+            uiData.StartPos = new Vector3(0f, -1280f, 0f);
+            uiData.EndPos = new Vector3(0f, -1280f, 0f);
+            uiData.ShowMotionCheck = true;
+            uiData.CloseMotionCheck = true;
+            uiData.IsHorizontal = false;
+
             UIManager.Instance.OpenUI<CharacterSkinUI>(uiData);
         }
     }
@@ -154,7 +168,13 @@ public class LobbyUIController : MonoBehaviour
         {
             Logger.Log($"{GetType()}::OnClickBoxBtn");
 
-            var uiData = new BaseUIData();
+            var uiData = new LuckyBoxUIData();
+            uiData.StartPos = new Vector3(0f, -1280f, 0f);
+            uiData.EndPos = new Vector3(0f, -1280f, 0f);
+            uiData.ShowMotionCheck = true;
+            uiData.CloseMotionCheck = true;
+            uiData.IsHorizontal = false;
+
             UIManager.Instance.OpenUI<LuckyBoxUI>(uiData);
         }
     }

@@ -2301,10 +2301,10 @@ RectTransform:
   - {fileID: 7317569008981067502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8452505200984740463
 MonoBehaviour:
@@ -2318,7 +2318,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56758b4136a10bf4fa7836c21499cb4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UIOpenAnim: {fileID: 0}
   LanguageBtns:
   - {fileID: 7628103983121514762}
   - {fileID: 6385846639326201647}

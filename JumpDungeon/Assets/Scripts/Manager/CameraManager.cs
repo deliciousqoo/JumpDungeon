@@ -8,7 +8,8 @@ public class CameraManager : SingletonBehaviour<CameraManager>
     public GameObject Player;
     public Vector3 CameraPosition;
     public float CameraMoveSpeed;
-    public Vector3 MapSize { get; set; }
+    //public Vector3 MapSize { get; set; }
+    public Vector2 MapSize;
     
     private Vector3 m_Center;
     private float m_Height;

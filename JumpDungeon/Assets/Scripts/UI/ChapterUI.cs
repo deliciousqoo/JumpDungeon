@@ -126,7 +126,7 @@ public class ChapterUI : BaseUI
 
     public void OnClickStageBtn()
     {
-        if (EventSystem.current.currentSelectedGameObject != null)
+        if (EventSystem.current.currentSelectedGameObject != null && UIManager.Instance.CheckCanUIMove)
         {
             GameObject clickObject = EventSystem.current.currentSelectedGameObject;
 

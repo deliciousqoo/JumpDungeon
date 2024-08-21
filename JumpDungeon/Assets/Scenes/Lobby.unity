@@ -291,11 +291,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 983088133694902672, guid: 7e6d6b5a76ba5bb45806327e7ce292e3,
-        type: 3}
-      propertyPath: m_Name
-      value: LuckyBoxBtn
-      objectReference: {fileID: 0}
     - target: {fileID: 5524739875721426412, guid: 7e6d6b5a76ba5bb45806327e7ce292e3,
         type: 3}
       propertyPath: m_LocalPosition.x

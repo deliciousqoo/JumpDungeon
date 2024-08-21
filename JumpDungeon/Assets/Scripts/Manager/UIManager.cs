@@ -107,7 +107,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 
     public void CloseCurrentFrontUI()
     {
-        m_FrontUI.CloseUI();
+        if (UIManager.Instance.CheckCanUIMove) m_FrontUI.CloseUI();
     }
     #endregion
 
