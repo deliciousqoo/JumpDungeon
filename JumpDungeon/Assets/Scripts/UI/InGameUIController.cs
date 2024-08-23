@@ -32,6 +32,6 @@ public class InGameUIController : MonoBehaviour
     {
         Logger.Log("Jump");
 
-        InGameManager.Instance.Player.GetComponent<PlayerJump>().DoPlayerJump();
+        //InGameManager.Instance.Player.GetComponent<PlayerJump>().DoPlayerJump();
     }
 }

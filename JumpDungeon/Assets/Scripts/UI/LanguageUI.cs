@@ -46,6 +46,7 @@ public class LanguageUI : BaseUI
             if (userSettingsData == null)
             {
                 Logger.LogError("UserSettingsData does not exist.");
+                return;
             }
 
             userSettingsData.Language = int.Parse(clickObject.name) - 1;

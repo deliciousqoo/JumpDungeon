@@ -72,7 +72,7 @@ public class UserCharacterSkinData : IUserData
 
     public bool SaveData()
     {
-        Logger.Log($"{GetType()}::SaveData");
+        //Logger.Log($"{GetType()}::SaveData");
 
         bool result = false;
 
@@ -86,12 +86,12 @@ public class UserCharacterSkinData : IUserData
 
             foreach (var item in CharacterSkinProgressDataList)
             {
-                Logger.Log($"CharacterSkinName:{item.SkinName}");
+                //Logger.Log($"CharacterSkinName:{item.SkinName}");
             }
 
             result = true;
 
-            Logger.Log($"EquippedSkin:{EquippedCharacterSkin}");
+            //Logger.Log($"EquippedSkin:{EquippedCharacterSkin}");
         }
         catch (System.Exception e)
         {
@@ -106,4 +106,15 @@ public class UserCharacterSkinData : IUserData
         return CharacterSkinProgressDataList.Where(item => item.SkinId == skinId).FirstOrDefault();
     }
 
+    public void AddUserCharacterSkinProgressData(int skinId)
+    {
+        var characterSkinData = DataTableManager.Instance.GetCharacterSkinData(skinId);
+        if(characterSkinData == null)
+        {
+            Logger.LogError("CharacterSkinData does not exist");
+        }
+
+        CharacterSkinProgressDataList.Add(new UserCharacterSkinProgressData(characterSkinData.SkinId, characterSkinData.SkinName));
+        this.SaveData();
+    }
 }

@@ -15,7 +15,6 @@ public class TitleUIController : MonoBehaviour
 
     public void Init()
     {
-        //UserDataManager.Instance.LoadUserData();
         m_IsAlreadyLogin = ES3.FileExists(UserDataManager.Instance.m_fileName);
         Logger.Log($"Is login : {m_IsAlreadyLogin}");
 
@@ -52,17 +51,16 @@ public class TitleUIController : MonoBehaviour
 
     public void OnClickStartBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickStartBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
+        
+        Logger.Log($"{GetType()}::OnClickStartBtn");
 
-            UIManager.Instance.CheckCanUIMove = false;
-            UserDataManager.Instance.LoadUserData();
+        UIManager.Instance.CheckCanUIMove = false;
+        UserDataManager.Instance.LoadUserData();
 
-            UIManager.Instance.Fade(false, true, () => {
-                TitleManager.Instance.LoadGame();
-                AudioManager.Instance.OnLoadUserData();
-            });
-        }
+        UIManager.Instance.Fade(false, true, () => {
+            TitleManager.Instance.LoadGame();
+            AudioManager.Instance.OnLoadUserData();
+        });
     }
 }

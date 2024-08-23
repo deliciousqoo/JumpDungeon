@@ -29,6 +29,5 @@ public class LoginManager : SingletonBehaviour<LoginManager>
         {
             Logger.LogError("SignInAnonymouslyAsync encountered an error: " + e);
         }
-
     }
 }

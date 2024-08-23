@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CharacterSkinGrade
+{
+    RARE = 1,
+    UNIQUE,
+}
+
 public class CharacterSkinUIData : BaseUIData
 {
 
@@ -36,12 +42,14 @@ public class CharacterSkinUI : BaseUI
         if(characterSkinDataList == null)
         {
             Logger.LogError("CharacterSkinDataList does not exist.");
+            return;
         }
 
         var userCharacterSkinData = UserDataManager.Instance.GetUserData<UserCharacterSkinData>();
         if(userCharacterSkinData == null)
         {
             Logger.LogError("UserCharacterSkinData does not exist.");
+            return;
         }
 
         foreach (var item in characterSkinDataList)

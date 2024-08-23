@@ -68,114 +68,106 @@ public class LobbyUIController : MonoBehaviour
 
     public void OnClickSettingBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickSettingBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new SettingUIData();
-            uiData.SettingType = SettingType.OUT_GAME;
-            uiData.StartPos = new Vector3(720f, 0f, 0f);
-            uiData.EndPos = new Vector3(720f, 0f, 0f);
-            uiData.ShowMotionCheck = true;
-            uiData.CloseMotionCheck = true;
-            uiData.IsHorizontal = true;
+        Logger.Log($"{GetType()}::OnClickSettingBtn");
 
-            UIManager.Instance.OpenUI<SettingUI>(uiData);
-        }
+        var uiData = new SettingUIData();
+        uiData.SettingType = SettingType.OUT_GAME;
+        uiData.StartPos = new Vector3(720f, 0f, 0f);
+        uiData.EndPos = new Vector3(720f, 0f, 0f);
+        uiData.ShowMotionCheck = true;
+        uiData.CloseMotionCheck = true;
+        uiData.IsHorizontal = true;
+
+        UIManager.Instance.OpenUI<SettingUI>(uiData);
     }
 
     public void OnClickMissionBtn()
     {
-        if (UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickMissionBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new MissionUIData();
-            uiData.StartPos = new Vector3(720f, 0f, 0f);
-            uiData.EndPos = new Vector3(720f, 0f, 0f);
-            uiData.ShowMotionCheck = true;
-            uiData.CloseMotionCheck = true;
-            uiData.IsHorizontal = true;
+        Logger.Log($"{GetType()}::OnClickMissionBtn");
 
-            UIManager.Instance.OpenUI<MissionUI>(uiData);
-        }
+        var uiData = new MissionUIData();
+        uiData.StartPos = new Vector3(720f, 0f, 0f);
+        uiData.EndPos = new Vector3(720f, 0f, 0f);
+        uiData.ShowMotionCheck = true;
+        uiData.CloseMotionCheck = true;
+        uiData.IsHorizontal = true;
+
+        UIManager.Instance.OpenUI<MissionUI>(uiData);
     }
 
     public void OnClickChargeBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickChargeBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new BaseUIData();
-            //UIManager.Instance.OpenUI<ChargeUI>(uiData);
-        }
+        Logger.Log($"{GetType()}::OnClickChargeBtn");
+
+        var uiData = new BaseUIData();
+        //UIManager.Instance.OpenUI<ChargeUI>(uiData);
     }
 
     public void OnClickStoreBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickStoreBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new BaseUIData();
-            //UIManager.Instance.OpenUI<ChargeUI>(uiData);
-        }
+        Logger.Log($"{GetType()}::OnClickStoreBtn");
+
+        var uiData = new BaseUIData();
+        //UIManager.Instance.OpenUI<ChargeUI>(uiData);
     }
 
     public void OnClickRankBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickRankBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new BaseUIData();
-            //UIManager.Instance.OpenUI<ChargeUI>(uiData);
-        }
+        Logger.Log($"{GetType()}::OnClickRankBtn");
+
+        var uiData = new BaseUIData();
+        //UIManager.Instance.OpenUI<ChargeUI>(uiData);
     }
 
     public void OnClickModeBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickModeBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new BaseUIData();
-            //UIManager.Instance.OpenUI<ChargeUI>(uiData);
-        }
+        Logger.Log($"{GetType()}::OnClickModeBtn");
+
+        var uiData = new BaseUIData();
+        //UIManager.Instance.OpenUI<ChargeUI>(uiData);
     }
 
     public void OnClickSkinBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickSkinBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new CharacterSkinUIData();
-            uiData.StartPos = new Vector3(0f, -1280f, 0f);
-            uiData.EndPos = new Vector3(0f, -1280f, 0f);
-            uiData.ShowMotionCheck = true;
-            uiData.CloseMotionCheck = true;
-            uiData.IsHorizontal = false;
+        Logger.Log($"{GetType()}::OnClickSkinBtn");
 
-            UIManager.Instance.OpenUI<CharacterSkinUI>(uiData);
-        }
+        var uiData = new CharacterSkinUIData();
+        uiData.StartPos = new Vector3(0f, -1280f, 0f);
+        uiData.EndPos = new Vector3(0f, -1280f, 0f);
+        uiData.ShowMotionCheck = true;
+        uiData.CloseMotionCheck = true;
+        uiData.IsHorizontal = false;
+
+        UIManager.Instance.OpenUI<CharacterSkinUI>(uiData);
     }
 
     public void OnClickLuckyBoxBtn()
     {
-        if(UIManager.Instance.CheckCanUIMove)
-        {
-            Logger.Log($"{GetType()}::OnClickBoxBtn");
+        if (!UIManager.Instance.CheckCanUIMove) return;
 
-            var uiData = new LuckyBoxUIData();
-            uiData.StartPos = new Vector3(0f, -1280f, 0f);
-            uiData.EndPos = new Vector3(0f, -1280f, 0f);
-            uiData.ShowMotionCheck = true;
-            uiData.CloseMotionCheck = true;
-            uiData.IsHorizontal = false;
+        Logger.Log($"{GetType()}::OnClickBoxBtn");
 
-            UIManager.Instance.OpenUI<LuckyBoxUI>(uiData);
-        }
+        var uiData = new LuckyBoxUIData();
+        uiData.StartPos = new Vector3(0f, -1280f, 0f);
+        uiData.EndPos = new Vector3(0f, -1280f, 0f);
+        uiData.ShowMotionCheck = true;
+        uiData.CloseMotionCheck = true;
+        uiData.IsHorizontal = false;
+
+        UIManager.Instance.OpenUI<LuckyBoxUI>(uiData);
     }
 }

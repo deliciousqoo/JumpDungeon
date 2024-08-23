@@ -73,6 +73,7 @@ public class ChapterUI : BaseUI
         if(userPlayData == null)
         {
             Logger.LogError("UserPlayData does not exist.");
+            return;
         }
 
         foreach (var item in Stages)
@@ -107,6 +108,7 @@ public class ChapterUI : BaseUI
         if(userStagesData == null)
         {
             Logger.LogError("UserStagesData does not exist.");
+            return;
         }
 
         var stagesClearInfo = userStagesData.UserStageClearDataDic;
@@ -134,6 +136,7 @@ public class ChapterUI : BaseUI
             if (userStagesData == null)
             {
                 Logger.LogError("UserStagesData does not exist.");
+                return;
             }
 
             var stagesClearInfo = userStagesData.UserStageClearDataDic;

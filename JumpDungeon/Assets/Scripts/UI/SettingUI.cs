@@ -76,6 +76,7 @@ public class SettingUI : BaseUI
         if(userSettingData == null)
         {
             Logger.LogError("UserSettingsData does not exist");
+            return;
         }
 
         var uiData = new LanguageUIData();
