@@ -7,7 +7,6 @@ public class NumPrint : MonoBehaviour
 {
     public List<Sprite> numList;
     public List<Image> printNums;
-    private int printingNum;
 
     public void printNum(int num)
     {
@@ -26,6 +25,4 @@ public class NumPrint : MonoBehaviour
     {
         for (int i = 0; i < printNums.Count; i++) printNums[i].sprite = numList[10];
     }
-
-    public void setPrintingNum(int num) { this.printingNum = num; }
 }

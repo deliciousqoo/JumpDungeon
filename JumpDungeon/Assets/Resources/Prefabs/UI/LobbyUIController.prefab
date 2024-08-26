@@ -567,7 +567,8 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 873685347, guid: 6ea51094431dd934b81fbcc8231c537e, type: 3}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 873685347, guid: 6ea51094431dd934b81fbcc8231c537e,
+      type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1169,6 +1170,7 @@ RectTransform:
   m_Children:
   - {fileID: 8831832548920856237}
   - {fileID: 8976778981855953553}
+  - {fileID: 5711550072422658268}
   - {fileID: 247803270398609289}
   m_Father: {fileID: 5524739875721426412}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1976,7 +1978,8 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: -411566155, guid: 6ea51094431dd934b81fbcc8231c537e,
       type: 3}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: -411566155, guid: 6ea51094431dd934b81fbcc8231c537e,
+      type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2276,6 +2279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b0fb065add96145a58d503d8da0fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MidUI: {fileID: 6156918224003579081}
+  ModeUI: {fileID: 7797855166844685674}
+  GoldUI: {fileID: 7478457206766968400}
+  HeartUI: {fileID: 5350008155365301589}
+  ScoreUI: {fileID: 983328247736319328}
 --- !u!1 &6565890738828566172
 GameObject:
   m_ObjectHideFlags: 0
@@ -2745,6 +2753,41 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7797855166844685674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5711550072422658268}
+  m_Layer: 5
+  m_Name: ModeUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5711550072422658268
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7797855166844685674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8328874982386992987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8251162396640860537
 GameObject:
   m_ObjectHideFlags: 0
@@ -3059,7 +3102,8 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 567566964, guid: 6ea51094431dd934b81fbcc8231c537e, type: 3}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 567566964, guid: 6ea51094431dd934b81fbcc8231c537e,
+      type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal

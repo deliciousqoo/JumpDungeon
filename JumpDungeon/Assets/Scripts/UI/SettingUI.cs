@@ -87,12 +87,19 @@ public class SettingUI : BaseUI
 
     public void OnClickExit()
     {
-
+        UIManager.Instance.Fade(false, true, () =>
+        {
+            SceneLoader.Instance.LoadScene(SceneType.Lobby);
+        });
     }
 
     public void OnClickRestart()
     {
-
+        UIManager.Instance.Fade(false, true, () =>
+        {
+            SceneLoader.Instance.ReloadScene();
+            UIManager.Instance.CloseCurrentFrontUI();
+        });
     }
 
     public void OnClickContinue()

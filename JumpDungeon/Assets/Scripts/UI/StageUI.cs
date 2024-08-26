@@ -54,9 +54,10 @@ public class StageUI : BaseUI
 
     public void OnClickStartBtn()
     {
-        UIManager.Instance.Fade(false, true, () =>
+        UIManager.Instance.Fade(false, false, () =>
         {
             SceneLoader.Instance.LoadScene(SceneType.MainGame);
+            UIManager.Instance.Fade(true, true);
         });
 
         CloseUI();

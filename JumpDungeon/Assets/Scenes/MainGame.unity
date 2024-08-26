@@ -172,6 +172,18 @@ MonoBehaviour:
   CameraPosition: {x: 0, y: 0.3, z: -10}
   CameraMoveSpeed: 4
   MapSize: {x: 0.83, y: 50}
+--- !u!114 &296732836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2845971075420483847, guid: 17808845c25bf934b96a7ed3d2cacd38,
+    type: 3}
+  m_PrefabInstance: {fileID: 3790121935451707196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a7e8f56bc3b4a4484dc35016b3b24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &978535809
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +572,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InGameUIController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187125974274951472, guid: 17808845c25bf934b96a7ed3d2cacd38,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187125974274951472, guid: 17808845c25bf934b96a7ed3d2cacd38,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187125974274951472, guid: 17808845c25bf934b96a7ed3d2cacd38,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 296732836}
+    - target: {fileID: 6187125974274951472, guid: 17808845c25bf934b96a7ed3d2cacd38,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187125974274951472, guid: 17808845c25bf934b96a7ed3d2cacd38,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickPauseBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187125974274951472, guid: 17808845c25bf934b96a7ed3d2cacd38,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InGameUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187125974274951472, guid: 17808845c25bf934b96a7ed3d2cacd38,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6723086306016632249, guid: 17808845c25bf934b96a7ed3d2cacd38,
         type: 3}

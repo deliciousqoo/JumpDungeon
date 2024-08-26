@@ -1,13 +1,49 @@
+using SuperMaxim.Messaging;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public class GoldUpdateMsg { }
+public class HeartUpdateMsg { }
+public class ScoreUpdateMsg { }
+
 public class LobbyUIController : MonoBehaviour
 {
+    public GameObject MidUI;
+    public GameObject ModeUI;
+
+    public GameObject GoldUI;
+    public GameObject HeartUI;
+    public GameObject ScoreUI;
+
     public int m_SelectedChapter { get; set; }
+
+    private void OnEnable()
+    {
+        Messenger.Default.Subscribe<GoldUpdateMsg>(OnUpdateGold);
+        Messenger.Default.Subscribe<HeartUpdateMsg>(OnUpdateHeart);
+        Messenger.Default.Subscribe<ScoreUpdateMsg>(OnUpdateScore);
+    }
+    private void OnDisable()
+    {
+        Messenger.Default.Unsubscribe<GoldUpdateMsg>(OnUpdateGold);
+        Messenger.Default.Unsubscribe<HeartUpdateMsg>(OnUpdateHeart);
+        Messenger.Default.Unsubscribe<ScoreUpdateMsg>(OnUpdateScore);
+    }
 
     public void Init()
     {
         SetCurrChapter();
+
+        var userGoodsData = UserDataManager.Instance.GetUserData<UserGoodsData>();
+        if(userGoodsData == null)
+        {
+            Logger.LogError("UserGoodsData does not exist.");
+            return;
+        }
+
+        GoldUI.GetComponent<NumPrint>().printNum(userGoodsData.Gold);
+        HeartUI.GetComponent<NumPrint>().printNum(userGoodsData.Heart);
+        ScoreUI.GetComponent<NumPrint>().printNum(userGoodsData.Score);
     }
 
     public void SetCurrChapter()
@@ -143,6 +179,13 @@ public class LobbyUIController : MonoBehaviour
     {
         if (!UIManager.Instance.CheckCanUIMove) return;
 
+        var userCharacterSkinData = UserDataManager.Instance.GetUserData<UserCharacterSkinData>();
+        if(userCharacterSkinData == null)
+        {
+            Logger.LogError("UserCharacterSkinData does not exist.");
+            return;
+        }
+
         Logger.Log($"{GetType()}::OnClickSkinBtn");
 
         var uiData = new CharacterSkinUIData();
@@ -169,5 +212,41 @@ public class LobbyUIController : MonoBehaviour
         uiData.IsHorizontal = false;
 
         UIManager.Instance.OpenUI<LuckyBoxUI>(uiData);
+    }
+
+    private void OnUpdateGold(GoldUpdateMsg goldUpdateMsg)
+    {
+        var userGoodsData = UserDataManager.Instance.GetUserData<UserGoodsData>();
+        if(userGoodsData == null)
+        {
+            Logger.LogError("UserGoods does not exist.");
+            return;
+        }
+
+        GoldUI.GetComponent<NumPrint>().printNum(userGoodsData.Gold);
+    }
+
+    private void OnUpdateHeart(HeartUpdateMsg heartUpdateMsg)
+    {
+        var userGoodsData = UserDataManager.Instance.GetUserData<UserGoodsData>();
+        if (userGoodsData == null)
+        {
+            Logger.LogError("UserGoods does not exist.");
+            return;
+        }
+
+        HeartUI.GetComponent<NumPrint>().printNum(userGoodsData.Heart);
+    }
+
+    private void OnUpdateScore(ScoreUpdateMsg scoreUpdateMsg)
+    {
+        var userGoodsData = UserDataManager.Instance.GetUserData<UserGoodsData>();
+        if (userGoodsData == null)
+        {
+            Logger.LogError("UserGoods does not exist.");
+            return;
+        }
+
+        ScoreUI.GetComponent<NumPrint>().printNum(userGoodsData.Score);
     }
 }

@@ -6,7 +6,14 @@ public class InGameUIController : MonoBehaviour
 {
     public void OnClickPauseBtn()
     {
-        
+        var uiData = new SettingUIData();
+        uiData.ShowMotionCheck = false;
+        uiData.CloseMotionCheck = false;
+        uiData.OnShow = () => { Time.timeScale = 0f; };
+        uiData.OnClose = () => { Time.timeScale = 1f; };
+        uiData.SettingType = SettingType.IN_GAME;
+
+        UIManager.Instance.OpenUI<SettingUI>(uiData);
     }
     public void OnClickMoveLeftBtn()
     {

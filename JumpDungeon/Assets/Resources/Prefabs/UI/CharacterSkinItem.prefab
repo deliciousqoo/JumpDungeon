@@ -119,7 +119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1528704105935025721}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6227119419320370555}
+        m_TargetAssemblyTypeName: CharacterSkinItem, Assembly-CSharp
+        m_MethodName: OnClickCharacterSkinBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7437007384458820300
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,3 +193,6 @@ MonoBehaviour:
   autoApplySize: 0
   CharacterIcon: {fileID: 1528704105935025721}
   UnknownSprite: {fileID: -593405182, guid: 98503df1031dd1346b88f05436131ae2, type: 3}
+  SelectPointSprites:
+  - {fileID: 1712808534, guid: 98503df1031dd1346b88f05436131ae2, type: 3}
+  - {fileID: 2137439586, guid: 98503df1031dd1346b88f05436131ae2, type: 3}

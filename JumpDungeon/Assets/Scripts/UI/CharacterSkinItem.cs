@@ -1,43 +1,34 @@
 using Gpm.Ui;
+using SuperMaxim.Messaging;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterSkinItemData : InfiniteScrollData
+public class CharacterSkinItemData
 {
+    public bool IsGetted;
     public int SkinId;
-    public string SkinName;
-    public bool isGetted;
 }
 
-public class CharacterSkinItem : InfiniteScrollItem
+public class CharacterSkinItem : MonoBehaviour
 {
     public Image CharacterIcon;
     public Sprite UnknownSprite;
+    public Sprite[] SelectPointSprites = new Sprite[2];
 
-    private CharacterSkinItemData m_CharacterItemData;
     private int m_SkinId;
     private bool m_IsGetted;
 
-    public override void UpdateData(InfiniteScrollData scrollData)
+    public void SetSkinItem(CharacterSkinItemData skinData)
     {
-        base.UpdateData(scrollData);
+        m_SkinId = skinData.SkinId;
+        m_IsGetted = skinData.IsGetted;
 
-        m_CharacterItemData = scrollData as CharacterSkinItemData;
-        if(m_CharacterItemData == null)
-        {
-            Logger.Log("CharacterItemData does not exist.");
-            return;
-        }
-
-        m_SkinId = m_CharacterItemData.SkinId;
-        m_IsGetted = m_CharacterItemData.isGetted;
-
-        if(m_IsGetted)
+        if (m_IsGetted)
         {
             var skin_num = m_SkinId % 1000;
-            var skinIconSprite = Resources.LoadAll<Sprite>("Art/Player/thumbnail")[skin_num - 0];
+            var skinIconSprite = Resources.LoadAll<Sprite>("Art/Player/thumbnail")[skin_num - 1];
             if (skinIconSprite != null)
             {
                 CharacterIcon.sprite = skinIconSprite;
@@ -47,5 +38,25 @@ public class CharacterSkinItem : InfiniteScrollItem
         {
             CharacterIcon.sprite = UnknownSprite;
         }
+    }
+
+    public void OnClickCharacterSkinBtn()
+    {
+        if (!UIManager.Instance.CheckCanUIMove) return;
+
+        Logger.Log($"{m_SkinId}");
+
+        var characterSkinUI = UIManager.Instance.GetActiveUI<CharacterSkinUI>();
+        if (characterSkinUI == null)
+        {
+            Logger.LogError("CharacterSkinUI does not exist.");
+            return;
+        }
+
+        var selectUpdateMsg = new SelectUpdateMsg();
+        selectUpdateMsg.SkinId = m_SkinId;
+        selectUpdateMsg.IsGetted = m_IsGetted;
+
+        Messenger.Default.Publish(selectUpdateMsg);
     }
 }

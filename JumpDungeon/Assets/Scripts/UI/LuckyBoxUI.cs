@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using SuperMaxim.Messaging;
 
 public enum LuckyBoxItemGrade
 {
@@ -186,11 +187,11 @@ public class LuckyBoxUI : BaseUI
 
             count++;
             gapTime = Mathf.Lerp(gapTime, gapTime + 0.1f, Time.deltaTime * 1.5f);
-            Debug.Log(gapTime);
+            //Debug.Log(gapTime);
         }
         float end_time = Time.time;
 
-        Logger.Log($"Time: {end_time - start_time}");
+        //Logger.Log($"Time: {end_time - start_time}");
 
         luckyBoxItemResult = RandomChoiceLuckyBoxItem();
         Logger.Log($"Grade:{luckyBoxItemResult.LuckyBoxItemGrade}/Type:{luckyBoxItemResult.LuckyBoxItemType}");
@@ -198,6 +199,10 @@ public class LuckyBoxUI : BaseUI
         var uiData = new LuckyBoxResultUIData();
         uiData.ShowMotionCheck = false;
         uiData.CloseMotionCheck = false;
+        uiData.OnShow = () =>
+        {
+            SetUserLuckyBoxResult(luckyBoxItemResult);
+        };
         uiData.OnClose = () =>
         {
             LuckyBox.sprite = m_BoxOpenSprites[0];
@@ -284,5 +289,51 @@ public class LuckyBoxUI : BaseUI
         }
 
         return luckyBoxData;
+    }
+
+    private void SetUserLuckyBoxResult(LuckyBoxItemData result)
+    {
+        if (result.LuckyBoxItemType == LuckyBoxItemType.GOLD)
+        {
+            var userGoodsData = UserDataManager.Instance.GetUserData<UserGoodsData>();
+            if(userGoodsData == null)
+            {
+                Logger.LogError("UserGoodsData does not exist");
+                return;
+            }
+            
+            userGoodsData.Gold += result.GoldAmount;
+            userGoodsData.SaveData();
+
+            var goldUpdateMsg = new GoldUpdateMsg();
+            Messenger.Default.Publish(goldUpdateMsg);
+        }
+        else if (result.LuckyBoxItemType == LuckyBoxItemType.HEART)
+        {
+            var userGoodsData = UserDataManager.Instance.GetUserData<UserGoodsData>();
+            if (userGoodsData == null)
+            {
+                Logger.LogError("UserGoodsData does not exist");
+                return;
+            }
+
+            userGoodsData.Heart += result.HeartAmount;
+            userGoodsData.SaveData();
+
+            var heartUpdateMsg = new HeartUpdateMsg();
+            Messenger.Default.Publish(heartUpdateMsg);
+        }
+        else if (result.LuckyBoxItemType == LuckyBoxItemType.SKIN)
+        {
+            var userCharacterSkinData = UserDataManager.Instance.GetUserData<UserCharacterSkinData>();
+            if (userCharacterSkinData == null)
+            {
+                Logger.LogError("UserCharacterSkinData does not exist");
+                return;
+            }
+
+            userCharacterSkinData.AddUserCharacterSkinProgressData(result.skinId);
+            userCharacterSkinData.SaveData();
+        }
     }
 }

@@ -109,6 +109,12 @@ public class UIManager : SingletonBehaviour<UIManager>
     {
         if (UIManager.Instance.CheckCanUIMove) m_FrontUI.CloseUI();
     }
+
+    public BaseUI GetActiveUI<T>()
+    {
+        var uiType = typeof(T);
+        return m_OpenUIPool.ContainsKey(uiType) ? m_OpenUIPool[uiType].GetComponent<BaseUI>() : null;
+    }
     #endregion
 
     #region FADE
