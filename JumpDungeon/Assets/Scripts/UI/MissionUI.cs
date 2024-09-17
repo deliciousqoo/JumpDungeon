@@ -8,6 +8,6 @@ public class MissionUIData : BaseUIData
 }
 public class MissionUI : BaseUI
 {
-    private MissionUIData m_MissionUIData;
+    private MissionUIData _missionUIData;
     
 }

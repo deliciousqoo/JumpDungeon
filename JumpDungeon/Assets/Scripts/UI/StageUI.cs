@@ -19,14 +19,14 @@ public class StageUI : BaseUI
     public TextMeshProUGUI StageInfoTxt;
     public TextMeshProUGUI ClearTime;
 
-    private StageUIData m_StageUIData;
+    private StageUIData _stageUIData;
 
     public override void SetInfo(BaseUIData uiData)
     {
         base.SetInfo(uiData);
 
-        m_StageUIData = uiData as StageUIData;
-        if(m_StageUIData == null)
+        _stageUIData = uiData as StageUIData;
+        if(_stageUIData == null)
         {
             Logger.LogError("StageUIData is invalid");
             return;
@@ -34,11 +34,11 @@ public class StageUI : BaseUI
 
         for (int i = 0; i < Stars.Length; i++)
         {
-            Stars[i].gameObject.SetActive(i < m_StageUIData.StartAmount);
+            Stars[i].gameObject.SetActive(i < _stageUIData.StartAmount);
         }
 
-        StageInfoTxt.text = $"{((ChapterType)m_StageUIData.ChapterNum).ToString()} - {m_StageUIData.StageNum}";
-        float clearTime = m_StageUIData.ClearTime;
+        StageInfoTxt.text = $"{((ChapterType)_stageUIData.ChapterNum).ToString()} - {_stageUIData.StageNum}";
+        float clearTime = _stageUIData.ClearTime;
         ClearTime.text = $"{(int)clearTime/3600:D2}:{(int)clearTime%3600/60:D2}:{clearTime%60:00.00}";
     }
 

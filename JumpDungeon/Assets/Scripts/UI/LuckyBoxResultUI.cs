@@ -13,15 +13,15 @@ public class LuckyBoxResultUI : BaseUI
 {
     public Image LuckyBoxItem;
 
-    private LuckyBoxResultUIData m_LuckyBoxItemData;
+    private LuckyBoxResultUIData _luckyBoxItemData;
 
     public override void SetInfo(BaseUIData uiData)
     {
         base.SetInfo(uiData);
 
-        m_LuckyBoxItemData = uiData as LuckyBoxResultUIData;
+        _luckyBoxItemData = uiData as LuckyBoxResultUIData;
 
-        LuckyBoxItem.sprite = m_LuckyBoxItemData.LuckyBoxSprite;
+        LuckyBoxItem.sprite = _luckyBoxItemData.LuckyBoxSprite;
         gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
         gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.4f).OnComplete(() =>
         {

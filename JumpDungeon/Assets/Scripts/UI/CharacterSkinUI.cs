@@ -36,9 +36,9 @@ public class CharacterSkinUI : BaseUI
     public Image SelectPoint;
     public Sprite[] SelectPointSprites = new Sprite[2];
 
-    private int m_SelectedSkinId;
-    private int m_CurrSelectSkinId;
-    private int m_HaveCount;
+    private int _selectedSkinId;
+    private int _currSelectSkinId;
+    private int _haveCount;
 
     private void OnEnable()
     {
@@ -58,7 +58,7 @@ public class CharacterSkinUI : BaseUI
         if(ContentsTrs.childCount == 0) InitCharacterSkinList();
         else SetCharacterSkinList();
 
-        HaveCount.printNum(m_HaveCount);
+        HaveCount.printNum(_haveCount);
         TotalCount.printNum(CharacterSkinList.Count);
         SkinName.text = "";
 
@@ -68,17 +68,17 @@ public class CharacterSkinUI : BaseUI
             Logger.LogError("UserCharacterSkinData does not exist.");
             return;
         }
-        m_SelectedSkinId = userCharacterSkinData.EquippedCharacterSkin;
-        m_CurrSelectSkinId = m_SelectedSkinId;
+        _selectedSkinId = userCharacterSkinData.EquippedCharacterSkin;
+        _currSelectSkinId = _selectedSkinId;
 
-        if (userCharacterSkinData.GetUserCharacterSkinProgressData(m_SelectedSkinId) != null)
+        if (userCharacterSkinData.GetUserCharacterSkinProgressData(_selectedSkinId) != null)
         {
-            SkinName.text = userCharacterSkinData.GetUserCharacterSkinProgressData(m_SelectedSkinId).SkinName;
+            SkinName.text = userCharacterSkinData.GetUserCharacterSkinProgressData(_selectedSkinId).SkinName;
         }
 
         SelectPoint.gameObject.SetActive(true);
         SelectPoint.sprite = SelectPointSprites[1];
-        SelectPoint.transform.SetParent(CharacterSkinList[m_SelectedSkinId % 1000 - 1].transform);
+        SelectPoint.transform.SetParent(CharacterSkinList[_selectedSkinId % 1000 - 1].transform);
         SelectPoint.transform.SetSiblingIndex(0);
         SelectPoint.transform.localPosition = new Vector3(0f, 0f, 0f);
 
@@ -91,7 +91,7 @@ public class CharacterSkinUI : BaseUI
     private void InitCharacterSkinList()
     {
         CharacterSkinList.Clear();
-        m_HaveCount = 0;
+        _haveCount = 0;
 
         var characterSkinDataList = DataTableManager.Instance.GetCharacterSkinList();
         if(characterSkinDataList == null)
@@ -115,7 +115,7 @@ public class CharacterSkinUI : BaseUI
             var characterSkinItemData = new CharacterSkinItemData();
             characterSkinItemData.SkinId = item.SkinId;
             characterSkinItemData.IsGetted = userCharacterSkinData.GetUserCharacterSkinProgressData(characterSkinItemData.SkinId) == null ? false : true;
-            if (characterSkinItemData.IsGetted) m_HaveCount++;
+            if (characterSkinItemData.IsGetted) _haveCount++;
 
             newGO.GetComponent<CharacterSkinItem>().SetSkinItem(characterSkinItemData);
 
@@ -151,7 +151,7 @@ public class CharacterSkinUI : BaseUI
 
     public void OnClickEquipSkinBtn()
     {
-        m_SelectedSkinId = m_CurrSelectSkinId;
+        _selectedSkinId = _currSelectSkinId;
         SelectPoint.sprite = SelectPointSprites[1];
 
         var userCharacterSkinData = UserDataManager.Instance.GetUserData<UserCharacterSkinData>();
@@ -161,7 +161,7 @@ public class CharacterSkinUI : BaseUI
             return;
         }
 
-        userCharacterSkinData.EquippedCharacterSkin = m_SelectedSkinId;
+        userCharacterSkinData.EquippedCharacterSkin = _selectedSkinId;
     }
 
     private void OnUpdateSelect(SelectUpdateMsg selectUpdateMsg)
@@ -176,27 +176,27 @@ public class CharacterSkinUI : BaseUI
         var tempSkinData = userCharacterSkinData.GetUserCharacterSkinProgressData(selectUpdateMsg.SkinId);
         SkinName.text = tempSkinData != null ? tempSkinData.SkinName : "???";
 
-        if(selectUpdateMsg.SkinId == m_CurrSelectSkinId)
+        if(selectUpdateMsg.SkinId == _currSelectSkinId)
         {
             SelectPoint.gameObject.SetActive(false);
             SkinName.gameObject.SetActive(false); 
-            m_CurrSelectSkinId = -1;
+            _currSelectSkinId = -1;
         }
         else
         {
             SelectPoint.gameObject.SetActive(true);
             SkinName.gameObject.SetActive(true);
-            m_CurrSelectSkinId = selectUpdateMsg.SkinId;
+            _currSelectSkinId = selectUpdateMsg.SkinId;
         }
 
-        SelectPoint.sprite = selectUpdateMsg.SkinId == m_SelectedSkinId ? SelectPointSprites[1] : SelectPointSprites[0];
+        SelectPoint.sprite = selectUpdateMsg.SkinId == _selectedSkinId ? SelectPointSprites[1] : SelectPointSprites[0];
         SelectPoint.transform.SetParent(CharacterSkinList[selectUpdateMsg.SkinId % 1000 - 1].transform);
         SelectPoint.transform.SetSiblingIndex(0);
         SelectPoint.transform.localPosition = new Vector3(0f, 0f, 0f);
 
         SkinEquipBtn.interactable = selectUpdateMsg.IsGetted;
         SkinEquipBtn.image.color = !selectUpdateMsg.IsGetted ? new Color(1f, 1f, 1f, 0.2f) : new Color(1f, 1f, 1f, 1f);
-        if(selectUpdateMsg.SkinId == m_SelectedSkinId)
+        if(selectUpdateMsg.SkinId == _selectedSkinId)
         {
             SkinEquipBtn.interactable = false;
             SkinEquipBtn.image.color = new Color(1f, 1f, 1f, 0.2f);

@@ -19,21 +19,21 @@ public class InGameUIController : MonoBehaviour
     {
         Logger.Log("Move Left");
 
-        InGameManager.Instance.Player.GetComponent<PlayerHorizontalMovement>().IsLeftMove = true;
+        //InGameManager.Instance.Player.GetComponent<CharacterHorizontalMovement>().IsLeftMove = true;
     }
     public void OffClickMoveLeftBtn()
     {
-        InGameManager.Instance.Player.GetComponent<PlayerHorizontalMovement>().IsLeftMove = false;
+        //InGameManager.Instance.Player.GetComponent<CharacterHorizontalMovement>().IsLeftMove = false;
     }
     public void OnClickMoveRightBtn()
     {
         Logger.Log("Move Right");
 
-        InGameManager.Instance.Player.GetComponent<PlayerHorizontalMovement>().IsRightMove = true;
+        //InGameManager.Instance.Player.GetComponent<CharacterHorizontalMovement>().IsRightMove = true;
     }
     public void OffClickMoveRightBtn()
     {
-        InGameManager.Instance.Player.GetComponent<PlayerHorizontalMovement>().IsRightMove = false;
+        //InGameManager.Instance.Player.GetComponent<CharacterHorizontalMovement>().IsRightMove = false;
     }
     public void OnClickJumpBtn()
     {

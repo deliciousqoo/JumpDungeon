@@ -1,8 +1,5 @@
 using DG.Tweening;
-using JetBrains.Annotations;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseUIData
@@ -17,20 +14,20 @@ public class BaseUIData
 }
 public class BaseUI : MonoBehaviour
 {
-    private Action m_OnShow;
-    private Action m_OnClose;
-    private Vector3 m_StartPos;
-    private Vector3 m_EndPos;
-    private bool m_ShowMotionCheck;
-    private bool m_CloseMotionCheck;
-    private bool m_IsHorizontal;
+    private Action _onShow;
+    private Action _onClose;
+    private Vector3 _startPos;
+    private Vector3 _endPos;
+    private bool _showMotionCheck;
+    private bool _closeMotionCheck;
+    private bool _isHorizontal;
 
     public virtual void Init(Transform parent)
     {
         Logger.Log($"{GetType()}::Init");
 
-        m_OnShow = null;
-        m_OnClose = null;
+        _onShow = null;
+        _onClose = null;
 
         transform.SetParent(parent);
 
@@ -45,28 +42,28 @@ public class BaseUI : MonoBehaviour
     {
         Logger.Log($"{GetType()}::SetInfo");
 
-        m_OnShow = uiData.OnShow;
-        m_OnClose = uiData.OnClose;
-        m_StartPos = uiData.StartPos;
-        m_EndPos = uiData.EndPos;
-        m_ShowMotionCheck = uiData.ShowMotionCheck;
-        m_CloseMotionCheck = uiData.CloseMotionCheck;
-        m_IsHorizontal = uiData.IsHorizontal;
+        _onShow = uiData.OnShow;
+        _onClose = uiData.OnClose;
+        _startPos = uiData.StartPos;
+        _endPos = uiData.EndPos;
+        _showMotionCheck = uiData.ShowMotionCheck;
+        _closeMotionCheck = uiData.CloseMotionCheck;
+        _isHorizontal = uiData.IsHorizontal;
     }
 
     public virtual void ShowUI()
     {
-        m_OnShow?.Invoke();
+        _onShow?.Invoke();
 
-        if(m_ShowMotionCheck)
+        if(_showMotionCheck)
         {
             UIManager.Instance.CheckCanUIMove = false;
-            gameObject.transform.localPosition = m_StartPos;
+            gameObject.transform.localPosition = _startPos;
 
             Sequence sequence = DOTween.Sequence();
             Tween tr1 = gameObject.transform.DOLocalMove(new Vector3(0f, 0f, 0f), 0.3f).SetEase(Ease.InCubic);
             Tween tr2 = null;
-            if (m_IsHorizontal) tr2 = gameObject.transform.DOPunchPosition(new Vector3(-20f, 0, 0), 0.5f, 10, 1, false);
+            if (_isHorizontal) tr2 = gameObject.transform.DOPunchPosition(new Vector3(-20f, 0, 0), 0.5f, 10, 1, false);
             else tr2 = gameObject.transform.DOPunchPosition(new Vector3(0f, 20f, 0), 0.5f, 10, 1, false);
             sequence.Append(tr1).Append(tr2).OnComplete(() =>
             {
@@ -74,20 +71,20 @@ public class BaseUI : MonoBehaviour
             });
         }
 
-        m_OnShow = null;
+        _onShow = null;
     }
 
     public virtual void CloseUI()
     {
-        m_OnClose?.Invoke();
-        m_OnClose = null;
+        _onClose?.Invoke();
+        _onClose = null;
 
-        if (m_CloseMotionCheck)
+        if (_closeMotionCheck)
         {
             UIManager.Instance.CheckCanUIMove = false;
 
             Sequence sequence = DOTween.Sequence();
-            Tween tr1 = gameObject.transform.DOLocalMove(m_EndPos, 0.3f).SetEase(Ease.InCubic);
+            Tween tr1 = gameObject.transform.DOLocalMove(_endPos, 0.3f).SetEase(Ease.InCubic);
             sequence.Append(tr1).OnComplete(() =>
             {
                 UIManager.Instance.CheckCanUIMove = true;

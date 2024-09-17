@@ -9,7 +9,7 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
     public bool ExistsSavedData { get; private set; }
     public List<IUserData> UserDataList { get; private set; } = new List<IUserData>();
 
-    public string m_fileName { get; private set; } = "SaveData.txt";
+    public string FileName { get; private set; } = "SaveData.txt";
 
     protected override void Init()
     {
@@ -34,7 +34,7 @@ public class UserDataManager : SingletonBehaviour<UserDataManager>
 
     public void LoadUserData()
     {
-        if (ES3.FileExists(m_fileName))
+        if (ES3.FileExists(FileName))
         {
             string userId = ES3.Load<string>("UserID");
             LoginManager.Instance.SetUserId(userId);

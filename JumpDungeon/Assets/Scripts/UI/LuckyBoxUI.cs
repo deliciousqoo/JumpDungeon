@@ -49,17 +49,16 @@ public class LuckyBoxUI : BaseUI
     public Sprite GoldImg;
     public Sprite HeartImg;
 
-    private LuckyBoxUIData m_LuckyBoxUIData;
-
     private const string BOX_OPEN_PATH = "Art/UI/Box/box_open";
     private const string BOX_SHAKE_PATH = "Art/UI/Box/box_shake";
-    private Sprite[] m_BoxOpenSprites;
-    private Sprite[] m_BoxShakeSprites;
+    
+    private Sprite[] _boxOpenSprites;
+    private Sprite[] _boxShakeSprites;
+    private List<int> _rareSkinList = new List<int>();
+    private List<int> _uniqueSkinList = new List<int>();
 
-    private bool m_IsCanChoice = true;
-
-    private List<int> m_RareSkinList = new List<int>();
-    private List<int> m_UniqueSkinList = new List<int>();
+    private LuckyBoxUIData _luckyBoxUIData;
+    private bool _CanChoice = true;
 
     public override void SetInfo(BaseUIData uiData)
     {
@@ -68,15 +67,15 @@ public class LuckyBoxUI : BaseUI
         SetLuckyBoxList();
         LuckyBoxItem.gameObject.SetActive(false);
 
-        m_BoxOpenSprites = Resources.LoadAll<Sprite>(BOX_OPEN_PATH);
-        m_BoxShakeSprites = Resources.LoadAll<Sprite>(BOX_SHAKE_PATH);
-        LuckyBox.sprite = m_BoxOpenSprites[0];
+        _boxOpenSprites = Resources.LoadAll<Sprite>(BOX_OPEN_PATH);
+        _boxShakeSprites = Resources.LoadAll<Sprite>(BOX_SHAKE_PATH);
+        LuckyBox.sprite = _boxOpenSprites[0];
     }
 
     private void SetLuckyBoxList()
     {
-        m_RareSkinList.Clear();
-        m_UniqueSkinList.Clear();
+        _rareSkinList.Clear();
+        _uniqueSkinList.Clear();
 
         var characterSkinDataList = DataTableManager.Instance.GetCharacterSkinList();
         if (characterSkinDataList == null)
@@ -101,11 +100,11 @@ public class LuckyBoxUI : BaseUI
 
             if(characterSkinGrade == CharacterSkinGrade.RARE && isLuckyBoxItem)
             {
-                m_RareSkinList.Add(item.SkinId);
+                _rareSkinList.Add(item.SkinId);
             }
             else if(characterSkinGrade == CharacterSkinGrade.UNIQUE && isLuckyBoxItem)
             {
-                m_UniqueSkinList.Add(item.SkinId);
+                _uniqueSkinList.Add(item.SkinId);
             }
         }
     }
@@ -117,8 +116,8 @@ public class LuckyBoxUI : BaseUI
 
     public void OnClickChoiceBtn()
     {
-        if (!m_IsCanChoice) return;
-        m_IsCanChoice = false;
+        if (!_CanChoice) return;
+        _CanChoice = false;
         UIManager.Instance.CheckCanUIMove = false;
 
         var userGoodData = UserDataManager.Instance.GetUserData<UserGoodsData>();
@@ -139,16 +138,16 @@ public class LuckyBoxUI : BaseUI
         LuckyBoxItem.gameObject.SetActive(false);
         for(int i=0;i<2;i++)
         {
-            for(int j=0;j<m_BoxShakeSprites.Length;j++)
+            for(int j=0;j<_boxShakeSprites.Length;j++)
             {
-                LuckyBox.sprite = m_BoxShakeSprites[j];
+                LuckyBox.sprite = _boxShakeSprites[j];
                 yield return new WaitForSeconds(0.08f);
             }
         }
 
-        for(int i=0;i<m_BoxOpenSprites.Length;i++)
+        for(int i=0;i<_boxOpenSprites.Length;i++)
         {
-            LuckyBox.sprite = m_BoxOpenSprites[i];
+            LuckyBox.sprite = _boxOpenSprites[i];
             yield return new WaitForSeconds(0.08f);
         }
 
@@ -205,7 +204,7 @@ public class LuckyBoxUI : BaseUI
         };
         uiData.OnClose = () =>
         {
-            LuckyBox.sprite = m_BoxOpenSprites[0];
+            LuckyBox.sprite = _boxOpenSprites[0];
             LuckyBoxItem.gameObject.SetActive(false);
         };
 
@@ -229,7 +228,7 @@ public class LuckyBoxUI : BaseUI
 
         UIManager.Instance.OpenUI<LuckyBoxResultUI>(uiData);
 
-        m_IsCanChoice = true;
+        _CanChoice = true;
     }
 
     private LuckyBoxItemData RandomChoiceLuckyBoxItem()
@@ -257,10 +256,10 @@ public class LuckyBoxUI : BaseUI
         {
             tempIndex = Random.Range(0, 3);
             luckyBoxData.LuckyBoxItemGrade = LuckyBoxItemGrade.RARE;
-            if (tempIndex == 0 && m_RareSkinList.Count != 0)
+            if (tempIndex == 0 && _rareSkinList.Count != 0)
             {
                 luckyBoxData.LuckyBoxItemType = LuckyBoxItemType.SKIN;
-                luckyBoxData.skinId = m_RareSkinList[Random.Range(0, m_RareSkinList.Count)];
+                luckyBoxData.skinId = _rareSkinList[Random.Range(0, _rareSkinList.Count)];
             }
             else if(tempIndex == 1)
             {
@@ -276,10 +275,10 @@ public class LuckyBoxUI : BaseUI
         else // Unique
         {
             luckyBoxData.LuckyBoxItemGrade = LuckyBoxItemGrade.UNIQUE;
-            if (m_UniqueSkinList.Count != 0)
+            if (_uniqueSkinList.Count != 0)
             {
                 luckyBoxData.LuckyBoxItemType = LuckyBoxItemType.SKIN;
-                luckyBoxData.skinId = m_UniqueSkinList[Random.Range(0, m_UniqueSkinList.Count)];
+                luckyBoxData.skinId = _uniqueSkinList[Random.Range(0, _uniqueSkinList.Count)];
             }
             else
             {

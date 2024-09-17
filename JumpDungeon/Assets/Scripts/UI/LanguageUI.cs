@@ -25,15 +25,15 @@ public class LanguageUI : BaseUI
 {
     public Button[] LanguageBtns = new Button[8];
 
-    private LanguageUIData m_LanguageUIData;
+    private LanguageUIData _languageUIData;
 
     public override void SetInfo(BaseUIData uiData)
     {
         base.SetInfo(uiData);
 
-        m_LanguageUIData = uiData as LanguageUIData;
+        _languageUIData = uiData as LanguageUIData;
 
-        LanguageBtns[(int)m_LanguageUIData.LanguageType].Select();
+        LanguageBtns[(int)_languageUIData.LanguageType].Select();
     }
 
     public void OnClickLanguageBtn()

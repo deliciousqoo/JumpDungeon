@@ -17,17 +17,17 @@ public class CharacterSkinItem : MonoBehaviour
     public Sprite UnknownSprite;
     public Sprite[] SelectPointSprites = new Sprite[2];
 
-    private int m_SkinId;
-    private bool m_IsGetted;
+    private int _skinId;
+    private bool _isGetted;
 
     public void SetSkinItem(CharacterSkinItemData skinData)
     {
-        m_SkinId = skinData.SkinId;
-        m_IsGetted = skinData.IsGetted;
+        _skinId = skinData.SkinId;
+        _isGetted = skinData.IsGetted;
 
-        if (m_IsGetted)
+        if (_isGetted)
         {
-            var skin_num = m_SkinId % 1000;
+            var skin_num = _skinId % 1000;
             var skinIconSprite = Resources.LoadAll<Sprite>("Art/Player/thumbnail")[skin_num - 1];
             if (skinIconSprite != null)
             {
@@ -44,7 +44,7 @@ public class CharacterSkinItem : MonoBehaviour
     {
         if (!UIManager.Instance.CheckCanUIMove) return;
 
-        Logger.Log($"{m_SkinId}");
+        Logger.Log($"{_skinId}");
 
         var characterSkinUI = UIManager.Instance.GetActiveUI<CharacterSkinUI>();
         if (characterSkinUI == null)
@@ -54,8 +54,8 @@ public class CharacterSkinItem : MonoBehaviour
         }
 
         var selectUpdateMsg = new SelectUpdateMsg();
-        selectUpdateMsg.SkinId = m_SkinId;
-        selectUpdateMsg.IsGetted = m_IsGetted;
+        selectUpdateMsg.SkinId = _skinId;
+        selectUpdateMsg.IsGetted = _isGetted;
 
         Messenger.Default.Publish(selectUpdateMsg);
     }

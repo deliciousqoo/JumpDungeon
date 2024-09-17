@@ -19,12 +19,11 @@ public class AudioManager : SingletonBehaviour<AudioManager>
     public Transform BGMTrs;
     public Transform SFXTrs;
 
-    private Dictionary<BGM, AudioSource> m_BGMPlayer = new Dictionary<BGM, AudioSource>();
-    private Dictionary<SFX, AudioSource> m_SFXPlayer = new Dictionary<SFX, AudioSource>();
+    private Dictionary<BGM, AudioSource> _bgmPlayer = new Dictionary<BGM, AudioSource>();
+    private Dictionary<SFX, AudioSource> _sfxPlayer = new Dictionary<SFX, AudioSource>();
 
-    private AudioSource m_CurrBGMSource;
-
-    private float m_TempBGMValue;
+    private AudioSource _currBGMSource;
+    private float _tempBGMValue;
     //private float m_TempSFXValue;
 
     protected override void Init()
@@ -56,7 +55,7 @@ public class AudioManager : SingletonBehaviour<AudioManager>
             newAudioSource.playOnAwake = false;
             newObj.transform.parent = BGMTrs;
 
-            m_BGMPlayer[(BGM)i] = newAudioSource;
+            _bgmPlayer[(BGM)i] = newAudioSource;
         }
     }
 
@@ -81,7 +80,7 @@ public class AudioManager : SingletonBehaviour<AudioManager>
             newAudioSource.playOnAwake = false;
             newObj.transform.parent = SFXTrs;
 
-            m_SFXPlayer[(SFX)i] = newAudioSource;
+            _sfxPlayer[(SFX)i] = newAudioSource;
         }
     }
 
@@ -99,47 +98,47 @@ public class AudioManager : SingletonBehaviour<AudioManager>
     {
         Logger.Log($"{GetType()}::PlayBGM");
 
-        if (m_CurrBGMSource != null)
+        if (_currBGMSource != null)
         {
-            m_CurrBGMSource.Stop();
-            m_CurrBGMSource = null;
+            _currBGMSource.Stop();
+            _currBGMSource = null;
         }
 
-        if(!m_BGMPlayer.ContainsKey(bgm))
+        if(!_bgmPlayer.ContainsKey(bgm))
         {
             Logger.LogError($"Invalid clip name. ({bgm})");
             return;
         }
 
-        m_CurrBGMSource = m_BGMPlayer[bgm];
-        m_CurrBGMSource.Play();
+        _currBGMSource = _bgmPlayer[bgm];
+        _currBGMSource.Play();
     }
 
     public void PlaySFX(SFX sfx)
     {
-        if(!m_SFXPlayer.ContainsKey(sfx))
+        if(!_sfxPlayer.ContainsKey(sfx))
         {
             Logger.LogError($"Invalid clip name. ({sfx})");
             return;
         }
 
-        m_SFXPlayer[sfx].Play();
+        _sfxPlayer[sfx].Play();
     }
 
     public void MuteBGM()
     {
-        m_TempBGMValue = m_CurrBGMSource.volume;
-        m_CurrBGMSource.volume = 0f;
+        _tempBGMValue = _currBGMSource.volume;
+        _currBGMSource.volume = 0f;
     }
 
     public void UnMute()
     {
-        m_CurrBGMSource.volume = m_TempBGMValue;
+        _currBGMSource.volume = _tempBGMValue;
     }
 
     public void SetBGMValue(float value)
     {
-        foreach (var item in m_BGMPlayer)
+        foreach (var item in _bgmPlayer)
         {
             item.Value.volume = value;
         }
@@ -147,7 +146,7 @@ public class AudioManager : SingletonBehaviour<AudioManager>
 
     public void SetSFXValue(float value)
     {
-        foreach (var item in m_SFXPlayer)
+        foreach (var item in _sfxPlayer)
         {
             item.Value.volume = value;
         }

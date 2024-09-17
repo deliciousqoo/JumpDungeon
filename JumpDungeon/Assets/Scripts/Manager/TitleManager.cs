@@ -7,11 +7,11 @@ public class TitleManager : SingletonBehaviour<TitleManager>
 {
     public TitleUIController TitleUIController { get; private set; }
 
-    private AsyncOperation m_AsyncOperation;
+    private AsyncOperation _asyncOperation;
 
     protected override void Init()
     {
-        m_IsDestroyOnLoad = true;
+        _isDestroyOnLoad = true;
 
         base.Init();
     }
@@ -55,27 +55,27 @@ public class TitleManager : SingletonBehaviour<TitleManager>
         TitleUIController.ClickToStartTxt.gameObject.SetActive(false);
         UIManager.Instance.CheckCanUIMove = true;
 
-        m_AsyncOperation = SceneLoader.Instance.LoadSceneAsync(SceneType.Lobby);
-        if (m_AsyncOperation == null)
+        _asyncOperation = SceneLoader.Instance.LoadSceneAsync(SceneType.Lobby);
+        if (_asyncOperation == null)
         {
             Logger.Log("Lobby async loading error.");
             yield break;
         }
 
-        m_AsyncOperation.allowSceneActivation = false;
+        _asyncOperation.allowSceneActivation = false;
 
         loadingSlider.value = 0.5f;
         loadingProgressTxt.text = $"{(int)(loadingSlider.value * 100)}%";
         yield return new WaitForSeconds(0.5f);
 
-        while(!m_AsyncOperation.isDone)
+        while(!_asyncOperation.isDone)
         {
-            loadingSlider.value = m_AsyncOperation.progress < 0.5f ? 0.5f : m_AsyncOperation.progress;
+            loadingSlider.value = _asyncOperation.progress < 0.5f ? 0.5f : _asyncOperation.progress;
             loadingProgressTxt.text = $"{(int)(loadingSlider.value * 100)}%";
             
-            if(m_AsyncOperation.progress >= 0.9f)
+            if(_asyncOperation.progress >= 0.9f)
             {
-                m_AsyncOperation.allowSceneActivation = true;
+                _asyncOperation.allowSceneActivation = true;
                 yield break;
             }
 

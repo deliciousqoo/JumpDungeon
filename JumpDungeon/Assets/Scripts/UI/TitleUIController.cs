@@ -11,15 +11,15 @@ public class TitleUIController : MonoBehaviour
     public TextMeshProUGUI ClickToStartTxt;
     public Button GuestLoginBtn;
 
-    private bool m_IsAlreadyLogin;
+    private bool _isAlreadyLogin;
 
     public void Init()
     {
-        m_IsAlreadyLogin = ES3.FileExists(UserDataManager.Instance.m_fileName);
-        Logger.Log($"Is login : {m_IsAlreadyLogin}");
+        _isAlreadyLogin = ES3.FileExists(UserDataManager.Instance.FileName);
+        Logger.Log($"Is login : {_isAlreadyLogin}");
 
-        ClickToStartTxt.gameObject.SetActive(m_IsAlreadyLogin);
-        GuestLoginBtn.gameObject.SetActive(!m_IsAlreadyLogin);
+        ClickToStartTxt.gameObject.SetActive(_isAlreadyLogin);
+        GuestLoginBtn.gameObject.SetActive(!_isAlreadyLogin);
         LoadingSlider.gameObject.SetActive(false);
         LoadingProgressTxt.gameObject.SetActive(false);
     }

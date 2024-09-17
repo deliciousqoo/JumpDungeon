@@ -24,7 +24,7 @@ public class SettingUI : BaseUI
     public Button RestartBtn;
     public Button ContinueBtn;
 
-    private SettingUIData m_SettingsData;
+    private SettingUIData _settingsData;
 
     public override void SetInfo(BaseUIData uiData)
     {
@@ -46,12 +46,12 @@ public class SettingUI : BaseUI
 
         base.SetInfo(uiData);
 
-        m_SettingsData = uiData as SettingUIData;
+        _settingsData = uiData as SettingUIData;
 
-        LanguageBtn.gameObject.SetActive(m_SettingsData.SettingType == SettingType.OUT_GAME);
-        ExitBtn.gameObject.SetActive(m_SettingsData.SettingType == SettingType.IN_GAME);
-        RestartBtn.gameObject.SetActive(m_SettingsData.SettingType == SettingType.IN_GAME);
-        ContinueBtn.gameObject.SetActive(m_SettingsData.SettingType == SettingType.IN_GAME);
+        LanguageBtn.gameObject.SetActive(_settingsData.SettingType == SettingType.OUT_GAME);
+        ExitBtn.gameObject.SetActive(_settingsData.SettingType == SettingType.IN_GAME);
+        RestartBtn.gameObject.SetActive(_settingsData.SettingType == SettingType.IN_GAME);
+        ContinueBtn.gameObject.SetActive(_settingsData.SettingType == SettingType.IN_GAME);
     }
 
     public void SetAudioSetting(float bgm, float sfx)

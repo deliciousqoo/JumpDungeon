@@ -31,7 +31,7 @@ public class ChapterUI : BaseUI
 
     public GameObject StageStar;
 
-    private ChapterUIData m_ChapterUIData;
+    private ChapterUIData _chapterUIData;
 
     public override void Init(Transform parent)
     {
@@ -42,16 +42,16 @@ public class ChapterUI : BaseUI
     {
         base.SetInfo(uiData);
 
-        m_ChapterUIData = uiData as ChapterUIData;
-        if (m_ChapterUIData == null)
+        _chapterUIData = uiData as ChapterUIData;
+        if (_chapterUIData == null)
         {
             Logger.LogError("ChapterUIData is invalid");
             return;
         }
 
-        ChapterNameTxt.text = m_ChapterUIData.ChapterNameTxt;
+        ChapterNameTxt.text = _chapterUIData.ChapterNameTxt;
         var chapterTitleSprites = Resources.LoadAll<Sprite>("Art/UI/ChapterUI");
-        if((int)m_ChapterUIData.ChapterType > UserDataManager.Instance.GetUserData<UserPlayData>().MaxClearedChapter + 1)
+        if((int)_chapterUIData.ChapterType > UserDataManager.Instance.GetUserData<UserPlayData>().MaxClearedChapter + 1)
         {
             ChapterTitle.sprite = chapterTitleSprites[(int)ChapterType.COUNT];
         }
@@ -59,7 +59,7 @@ public class ChapterUI : BaseUI
         {
             if (chapterTitleSprites != null)
             {
-                ChapterTitle.sprite = chapterTitleSprites[(int)m_ChapterUIData.ChapterType];
+                ChapterTitle.sprite = chapterTitleSprites[(int)_chapterUIData.ChapterType];
             }
         }
 
@@ -79,11 +79,11 @@ public class ChapterUI : BaseUI
         foreach (var item in Stages)
         {
             var stageNums = item.GetComponentsInChildren<Image>();
-            if ((int)m_ChapterUIData.ChapterType <= userPlayData.MaxClearedChapter 
-                || ((int)m_ChapterUIData.ChapterType == userPlayData.MaxClearedChapter + 1 
+            if ((int)_chapterUIData.ChapterType <= userPlayData.MaxClearedChapter 
+                || ((int)_chapterUIData.ChapterType == userPlayData.MaxClearedChapter + 1 
                     && int.Parse(item.name) <= userPlayData.MaxClearedStage + 1 ))
             {
-                item.GetComponent<Image>().sprite = stageImges[(int)m_ChapterUIData.ChapterType + 8];
+                item.GetComponent<Image>().sprite = stageImges[(int)_chapterUIData.ChapterType + 8];
                 item.GetComponent<Button>().interactable = true;
                 for (int i = 1; i < stageNums.Length; i++)
                 {
@@ -115,7 +115,7 @@ public class ChapterUI : BaseUI
         foreach (var item in stagesClearInfo)
         {
             var stageInfo = item.Key.Split('_');
-            if (int.Parse(stageInfo[2]) == (int)m_ChapterUIData.ChapterType)
+            if (int.Parse(stageInfo[2]) == (int)_chapterUIData.ChapterType)
             {
                 for (int i = 0; i < item.Value.StarAmount; i++)
                 {
@@ -140,11 +140,11 @@ public class ChapterUI : BaseUI
             }
 
             var stagesClearInfo = userStagesData.UserStageClearDataDic;
-            string keyValue = LoginManager.Instance.UserId + "_" + "0" + "_" + (int)m_ChapterUIData.ChapterType + "_" + clickObject.name;
+            string keyValue = LoginManager.Instance.UserId + "_" + "0" + "_" + (int)_chapterUIData.ChapterType + "_" + clickObject.name;
 
             var uiData = new StageUIData();
             uiData.StartAmount = stagesClearInfo[keyValue].StarAmount;
-            uiData.ChapterNum = (int)m_ChapterUIData.ChapterType;
+            uiData.ChapterNum = (int)_chapterUIData.ChapterType;
             uiData.StageNum = int.Parse(clickObject.name);
 
             UIManager.Instance.OpenUI<StageUI>(uiData);

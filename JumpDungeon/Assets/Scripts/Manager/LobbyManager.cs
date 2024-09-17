@@ -8,13 +8,13 @@ public class LobbyManager : SingletonBehaviour<LobbyManager>
     public LobbyUIController LobbyUIController { get; private set; }
     
     public Transform ChapterUITrs;
-    private BaseUI m_CurrChapterUI;
 
-    private Dictionary<int, GameObject> m_ChapterUIPool = new Dictionary<int, GameObject>();
+    private BaseUI _currChapterUI;
+    private Dictionary<int, GameObject> _chapterUIPool = new Dictionary<int, GameObject>();
 
     protected override void Init()
     {
-        m_IsDestroyOnLoad = true;
+        _isDestroyOnLoad = true;
 
         base.Init();
     }
@@ -40,9 +40,9 @@ public class LobbyManager : SingletonBehaviour<LobbyManager>
 
         BaseUI ui = null;
 
-        if (m_ChapterUIPool.ContainsKey(chapterNum))
+        if (_chapterUIPool.ContainsKey(chapterNum))
         {
-            ui = m_ChapterUIPool[chapterNum].GetComponent<BaseUI>();
+            ui = _chapterUIPool[chapterNum].GetComponent<BaseUI>();
         }
         else
         {
@@ -68,8 +68,8 @@ public class LobbyManager : SingletonBehaviour<LobbyManager>
         ui.SetInfo(uiData);
         ui.ShowUI();
 
-        m_CurrChapterUI = ui;
-        m_ChapterUIPool[(int)chapterUIData.ChapterType] = ui.gameObject;
+        _currChapterUI = ui;
+        _chapterUIPool[(int)chapterUIData.ChapterType] = ui.gameObject;
     }
 
     public void CloseChapterUI(int chapterNum, int dir)
@@ -77,21 +77,21 @@ public class LobbyManager : SingletonBehaviour<LobbyManager>
         UIManager.Instance.CheckCanUIMove = false;
 
         Sequence sequence = DOTween.Sequence();
-        Tween tr1 = m_ChapterUIPool[chapterNum].transform.DOLocalMove(new Vector3(720f * dir, 0f, 0f), 0.3f).SetEase(Ease.InCubic);
+        Tween tr1 = _chapterUIPool[chapterNum].transform.DOLocalMove(new Vector3(720f * dir, 0f, 0f), 0.3f).SetEase(Ease.InCubic);
         sequence.Append(tr1).OnComplete(() =>
         {
             UIManager.Instance.CheckCanUIMove = true;
-            m_ChapterUIPool[chapterNum].SetActive(false);
+            _chapterUIPool[chapterNum].SetActive(false);
         });
     }
 
     public void CloseCurrChapterUI()
     {
-        m_CurrChapterUI.gameObject.SetActive(false);
+        _currChapterUI.gameObject.SetActive(false);
     }
 
     public GameObject GetActiveChapterUI(int chapterNum)
     {
-        return m_ChapterUIPool[chapterNum];
+        return _chapterUIPool[chapterNum];
     }
 }

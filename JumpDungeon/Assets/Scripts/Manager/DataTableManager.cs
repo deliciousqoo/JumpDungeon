@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class DataTableManager : SingletonBehaviour<DataTableManager>
 {
-    
     private const string DATA_PATH = "DataTable";
     
     protected override void Init()
