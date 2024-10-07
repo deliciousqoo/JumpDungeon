@@ -4,8 +4,6 @@ public class CharacterAttackedState : State
 {
     public override void Enter(Character entity)
     {
-        //Logger.Log("Enter Attacked State");
-
         entity.UpdateBoolAnimationParameter(entity.CharacterAnimation.AttackedParameterHash, true);
     }
 

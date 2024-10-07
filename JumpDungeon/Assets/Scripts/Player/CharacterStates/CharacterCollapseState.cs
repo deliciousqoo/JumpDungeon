@@ -7,6 +7,7 @@ public class CharacterCollapseState : State
         //Logger.Log("Enter Collapse State");
 
         entity.UpdateBoolAnimationParameter(entity.CharacterAnimation.CollapseParameterHash, true);
+        entity.CharacterController.JumpCount = 0;
     }
 
     public override void Execute(Character entity)

@@ -72,4 +72,5 @@ public class Character : BaseGameEntity
     {
         Animator.Play(animationHash);
     }
+
 }
