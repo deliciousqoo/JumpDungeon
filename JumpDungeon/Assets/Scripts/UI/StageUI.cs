@@ -54,6 +54,17 @@ public class StageUI : BaseUI
 
     public void OnClickStartBtn()
     {
+        var userPlayData = UserDataManager.Instance.GetUserData<UserPlayData>();
+        if (userPlayData == null)
+        {
+            Logger.LogError("UserPlayData does not exist.");
+            return;
+        }
+
+        userPlayData.SelectedChapter = _stageUIData.ChapterNum;
+        userPlayData.SelectedStage = _stageUIData.StageNum;
+        userPlayData.SaveData();
+
         UIManager.Instance.Fade(false, false, () =>
         {
             SceneLoader.Instance.LoadScene(SceneType.MainGame);

@@ -12,6 +12,9 @@ public class InGameManager : SingletonBehaviour<InGameManager>
     private BaseGameEntity _entity;
     private const string _entityName = "Player";
 
+    private int _curChapterNum;
+    private int _curStageNum;
+
     protected override void Init()
     {
         _isDestroyOnLoad = true;
@@ -19,11 +22,29 @@ public class InGameManager : SingletonBehaviour<InGameManager>
         base.Init();
 
         InitializeInGame();
+        InitializeCharacter();
     }
 
     private void InitializeInGame()
     {
+        var userPlayData = UserDataManager.Instance.GetUserData<UserPlayData>();
+        if (userPlayData == null)
+        {
+            Logger.LogError("UserPlayData does not exist.");
+            return;
+        }
+
+        _curChapterNum = userPlayData.SelectedChapter;
+        _curStageNum = userPlayData.SelectedStage;
+
+        GameObject stage_clone = Instantiate(Resources.Load($"Prefabs/Stages/{_curChapterNum}_{_curStageNum}", typeof(GameObject))) as GameObject;
+    }
+
+    private void InitializeCharacter()
+    {
         GameObject clone = Instantiate(CharacterPrefab);
+        clone.transform.position = GameObject.Find("CharacterSpawnPoint").transform.position;
+
         Character entity = clone.GetComponent<Character>();
         _entity = entity;
 

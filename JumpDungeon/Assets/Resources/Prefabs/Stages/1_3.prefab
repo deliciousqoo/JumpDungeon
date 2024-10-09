@@ -3455,7 +3455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4717797573222275959}
   m_Layer: 0
-  m_Name: Frozen_3
+  m_Name: 1_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

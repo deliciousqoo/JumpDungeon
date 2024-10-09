@@ -7,6 +7,7 @@ public class UserPlayData : IUserData
     public int MaxClearedChapter { get; set; }
     public int MaxClearedStage { get; set; }
     public int SelectedChapter { get; set; } = 1;
+    public int SelectedStage { get; set; } = 1;
 
     public void SetDefaultData()
     {
@@ -17,6 +18,7 @@ public class UserPlayData : IUserData
         MaxClearedChapter = 0;
         MaxClearedStage = 2;
         SelectedChapter = 0;
+        SelectedStage = 1;
     }
     public bool LoadData()
     {
